@@ -1,0 +1,13 @@
+set editing-mode vi
+set keyseq-timeout 200
+$if mode=vi
+    set show-mode-in-prompt on
+    set keymap vi-insert
+    "\C-a": beginning-of-line
+    "\C-e": end-of-line
+    "lk": vi-movement-mode
+    "\C-p": previous-history
+    "\C-n": next-history
+    "\C-L": clear-screen
+    set keymap vi-command
+$endif
