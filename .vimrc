@@ -47,7 +47,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 if has('mac')
     Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer' }
-"elseif $HOSTNAME =~ "login-[0-9][0-9]*"
+elseif $HOSTNAME =~ "login-[0-9][0-9]*"
 else
     Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer --system-libclang' }
 endif
