@@ -1,0 +1,33 @@
+# ALIAS
+alias ls='ls -pG --group-directories-first --color'
+alias lsh='ls -d --group-directories-first --color=auto .*'
+alias v='vim'
+alias sv='sudo vim'
+alias sb='source ~/.bashrc'
+alias vb='v ~/.bashrc'
+alias vrc='v ~/.vimrc'
+alias gitdf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias g='git'
+alias gb='git status'
+alias gb='git branch -avv'
+alias gc='git checkout'
+alias gp='git push'
+alias gl='git log --oneline --graph --all'
+alias r='ranger'
+alias grep='grep --color=auto'
+
+alias j='jupyter notebook'
+
+if [ $HOSTNAME == "WCDesktopCarles" ]
+then
+    alias feh='feh --scale-down --auto-zoom'
+    alias p='pacman'
+    alias sp='sudo pacman'
+fi
+
+if [ $HOSTNAME == "WCDesktopCarles" ]
+then
+    alias feh='feh --scale-down --auto-zoom'
+    alias p='pacman'
+    alias sp='sudo pacman'
+fi
