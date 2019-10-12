@@ -6,7 +6,11 @@ syntax enable
 
 "Settings
 let &t_SI.="\e[6 q"             "Change cursor shape in insert mode
-let &t_SR.="\e[4 q"             "Change cursor shape in replace mode
+"For CX1
+if $HOSTNAME !~ "login-[0-9][0-9]*"
+    let &t_SR.="\e[4 q"         "Change cursor shape in replace mode
+    set signcolumn=yes          "Vim gutter always active
+endif
 let &t_EI.="\e[2 q"             "Change cursor shape in normal mode
 set nohlsearch                  "no highlights during search
 set number relativenumber       "set relative number on
@@ -18,12 +22,11 @@ set expandtab                   "Converts tabs into spaces
 set path+=**                    "You can search for any file in any subdirectory (as long as you enter the exact name)
 set wildmenu                    "It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
 set wildmode=longest:full,full  "Will complete to the longest common command
-autocmd InsertEnter * set timeoutlen=100    "Time waited for mappings
+autocmd InsertEnter * set timeoutlen=200    "Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600    "Time waited for mappings
 set shiftwidth=4                "Sets the number of spaces when indenting with '>>'
 set autoindent                  "Sets new line with same indentation as current line
 set smartindent                 "Auto-indents for {
-set signcolumn=yes
 let mapleader=" "               "Sets leader key
 
 
@@ -42,7 +45,12 @@ Plug 'justinmk/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer >> logfile' }
+if has('mac')
+    Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer' }
+"elseif $HOSTNAME =~ "login-[0-9][0-9]*"
+else
+    Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer --system-libclang' }
+endif
 Plug 'SirVer/ultisnips'
 call plug#end()
 
