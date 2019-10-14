@@ -10,10 +10,20 @@
 #   \__|  \__|  \__|  \__|  \_______| \_______/
 
 
-# Not CX1
+# CX1
 if [ $HOSTNAME =~ "login-[0-9][0-9]*" ]
 then
     alias v='~/usr/local/bin/vim'
+    alias a='availability'
+    alias q='qstat -a'
+    alias cy='grep "MAX G" -A3'
+    alias coor='grep "ALPHA" -A1'
+    alias en='grep "TOTAL EN"'
+    alias conv='grep "OPT END"'
+    alias etot='grep ETOT'
+    alias spin='grep SUMMED'
+    alias vsub='vi ~/bin/sub'
+    alias lsout='ls *.out'
 else
     alias j='jupyter notebook'
     alias cx1='ssh -t cx1 "~/usr/local/bin/bash -l"'
