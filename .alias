@@ -47,8 +47,8 @@ then
     alias runprop='runprop14'
 fi
 
-alias ls='ls -pG --group-directories-first --color'
-alias lsh='ls -d --group-directories-first --color=auto .*'
+alias ls='\ls -pG' 
+alias lsh='ls -d .*'
 alias sv='sudo v'
 alias sb='source ~/.bashrc'
 alias vb='v ~/.bashrc'
