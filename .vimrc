@@ -52,6 +52,7 @@ else
     Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer --system-libclang' }
 endif
 Plug 'SirVer/ultisnips'
+Plug 'lervag/vimtex'
 call plug#end()
 
 "Sneak
@@ -82,13 +83,18 @@ let g:ycm_key_list_previous_completion=['<C-p>','<S-Tab>']
 let g:ycm_max_num_identifier_candidates = 3
 let g:ycm_max_num_candidates = 5
 
-"" Ultisnips
+" Ultisnips
 "Stupid workaround
 let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
 let g:UltiSnipsExpandTrigger="**"
 let g:UltiSnipsJumpForwardTrigger="<C-n>"
 let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 let g:UltiSnipsEditSplit="vertical"
+
+" VimTex
+if has('mac')
+    let g:vimtex_compiler_progname = '~//usr/local/bin/vim'
+endif
 
 "Mappings
 inoremap lk <Esc>

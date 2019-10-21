@@ -42,6 +42,7 @@ fi
 # MacAir
 if [ $HOSTNAME == "ph-tsm17-13" ]
 then
+    alias v='/usr/local/bin/vim'
     alias run='runcry14'
     alias runprop='runprop14'
 fi
