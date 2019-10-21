@@ -8,7 +8,7 @@ map r reload
 map R rotate
 map K zoom in
 map J zoom out
-map i recolor
+ap i recolor
 map H navigate previous
 map L navigate next
-set font 16
+set font "monospace normal 16"

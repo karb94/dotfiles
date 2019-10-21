@@ -11,7 +11,7 @@
 
 
 # CX1
-if [[ $HOSTNAME =~ "login-[0-9][0-9]*" ]]
+if [[ $HOSTNAME =~ login-[0-9]+ ]]
 then
     alias v='~/usr/local/bin/vim'
     alias a='availability'
@@ -52,6 +52,7 @@ alias lsh='ls -d .*'
 alias sv='sudo v'
 alias sb='source ~/.bashrc'
 alias vb='v ~/.bashrc'
+alias val='v ~/.alias'
 alias vrc='v ~/.vimrc'
 alias gitdf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias g='git'

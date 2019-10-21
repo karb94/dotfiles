@@ -52,7 +52,7 @@ else
     Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer --system-libclang' }
 endif
 Plug 'SirVer/ultisnips'
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 call plug#end()
 
 "Sneak
@@ -95,6 +95,22 @@ let g:UltiSnipsEditSplit="vertical"
 if has('mac')
     let g:vimtex_compiler_progname = '~//usr/local/bin/vim'
 endif
+let g:vimtex_view_method = 'zathura'
+"let g:vimtex_compiler_latexmk = {
+"    \ 'backend' : 'jobs',
+"    \ 'background' : 0,
+"    \ 'build_dir' : 'build/',
+"    \ 'callback' : 0,
+"    \ 'continuous' : 0,
+"    \ 'executable' : 'latexmk',
+"    \ 'hooks' : [],
+"    \ 'options' : [
+"    \   '-verbose',
+"    \   '-file-line-error',
+"    \   '-synctex=1',
+"    \   '-interaction=nonstopmode',
+"    \ ],
+"    \}
 
 "Mappings
 inoremap lk <Esc>
