@@ -47,6 +47,7 @@ then
     alias runprop='runprop14'
 fi
 
+alias h='cd $HOME' 
 alias ls='\ls -pG' 
 alias lsh='ls -d .*'
 alias sv='sudo v'

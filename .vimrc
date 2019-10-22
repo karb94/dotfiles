@@ -78,8 +78,8 @@ nnoremap <leader>l :BLines<CR>
 nnoremap <leader>g :Rg<CR>
 
 "" YouCompleteMe
-let g:ycm_key_list_select_completion=['<C-n>','<Tab>']
-let g:ycm_key_list_previous_completion=['<C-p>','<S-Tab>']
+let g:ycm_key_list_select_completion=['<C-j>','<Tab>']
+let g:ycm_key_list_previous_completion=['<C-k>','<S-Tab>']
 let g:ycm_max_num_identifier_candidates = 3
 let g:ycm_max_num_candidates = 5
 
