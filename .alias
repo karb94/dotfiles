@@ -81,6 +81,7 @@ pulldf () {
     gitdf pull
 }
 
+shopt -s extglob
 extract() {
     local c e i
 
