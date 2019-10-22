@@ -15,7 +15,7 @@ if [[ $HOSTNAME =~ login-[0-9]+ ]]
 then
     alias v='~/usr/local/bin/vim'
     alias a='availability'
-    alias eph='$EPHEMERAL'
+    alias eph="$EPHEMERAL"
     alias q='qstat -a'
     alias cy='grep "MAX G" -A3'
     alias coor='grep "ALPHA" -A1'
@@ -74,6 +74,11 @@ pushdf () {
     gitdf add -u
     gitdf commit -m 'Updated dotfiles'
     gitdf push
+}
+
+pulldf () {
+    gitdf reset --hard
+    gitdf pull
 }
 
 extract() {
