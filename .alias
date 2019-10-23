@@ -57,7 +57,7 @@ alias sb='source ~/.bashrc'
 alias vb='v ~/.bashrc'
 alias val='v ~/.alias'
 alias vrc='v ~/.vimrc'
-alias gitdf='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias gitdf="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias g='git'
 alias gs='git status'
 alias ga='git add -u'
@@ -70,9 +70,18 @@ alias r='ranger'
 alias grep='grep --color=auto'
 
 # Functions
+push () {
+    git commit -am 'fast push'
+    git push
+}
+
+pull () {
+    git reset --hard
+    git pull
+}
+
 pushdf () {
-    gitdf add -u
-    gitdf commit -m 'Updated dotfiles'
+    gitdf commit -am 'Updated dotfiles'
     gitdf push
 }
 
