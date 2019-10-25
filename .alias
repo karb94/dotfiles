@@ -73,7 +73,12 @@ alias grep='grep --color=auto'
 
 # Functions
 push () {
-    git commit -am 'fast push'
+    if [ $# -eq 1 ]
+    then
+        git commit -am $1
+    else
+        git commit -am 'Fast push'
+    fi
     git push
 }
 
@@ -83,7 +88,14 @@ pull () {
 }
 
 pushdf () {
-    gitdf commit -am 'Updated dotfiles'
+    gitdf add -u
+    if [ $# -eq 1 ]
+    then
+        echo $1
+        gitdf commit -m "$1"
+    else
+        gitdf commit -m 'Updated dotfiles'
+    fi
     gitdf push
 }
 
