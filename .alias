@@ -66,6 +66,8 @@ alias gc='git commit -m'
 alias gch='git checkout'
 alias gp='git push'
 alias gl='git log --oneline --graph --all'
+alias gt='git ls-tree --full-tree --name-only -r HEAD'
+alias gtdf='gitdf ls-tree --full-tree --name-only -r HEAD'
 alias r='ranger'
 alias grep='grep --color=auto'
 
