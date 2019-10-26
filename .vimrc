@@ -3,6 +3,11 @@ filetype plugin on
 syntax on
 syntax enable
 
+" Reset cursor on start:
+augroup ResetCursorShape
+au!
+autocmd VimEnter * :normal :startinsert :stopinsert
+augroup END
 
 "Settings
 let &t_SI.="\e[6 q"             "Change cursor shape in insert mode
@@ -141,16 +146,16 @@ highlight Error ctermbg=Black ctermfg=Red
 set laststatus=2
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline ctermbg=Yellow ctermfg=0
+    hi statusline ctermbg=226 ctermfg=0
   elseif a:mode == 'r'
-    hi statusline ctermbg=Red  ctermfg=0
+    hi statusline ctermbg=196  ctermfg=0
   endif
 endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline  ctermbg=21 ctermfg=Black
+au InsertLeave * hi statusline  ctermbg=81 ctermfg=0
 
 " default the statusline to green when entering Vim
-hi statusline ctermbg=21 ctermfg=Black
+hi statusline ctermbg=81 ctermfg=0
 set statusline=%f%r%m%=%P

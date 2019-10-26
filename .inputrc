@@ -11,7 +11,7 @@ $if mode=vi
     "\C-n": next-history
     "\C-L": clear-screen
     set keymap vi-command
-    set vi-cmd-mode-string \1\033[38;5;21m\2(cmd)\1\033[0m\e[2 q\2
+    set vi-cmd-mode-string \1\033[38;5;81m\2(cmd)\1\033[0m\e[2 q\2
 $endif
 
 
