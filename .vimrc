@@ -46,6 +46,7 @@ call has('python3')
 "Plugins
 call plug#begin()
 Plug 'tpope/vim-surround'
+Plug 'terryma/vim-smooth-scroll'
 Plug 'justinmk/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -59,6 +60,11 @@ endif
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 call plug#end()
+
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 10, 1)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 1)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 5, 1)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 5, 1)<CR>
 
 "Sneak
 map <leader>f <Plug>Sneak_s
