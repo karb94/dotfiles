@@ -44,7 +44,7 @@ then
       dir=$(fd --type d --no-ignore --exclude ".git" --max-depth 3 ${1:-.} | fzf --no-exact --no-multi) &&
       cd "$dir"
     }
-    vd() {
+    df() {
       local filename
       filename=$(fd --type f --hidden --maxdepth 1 "^\." $HOME \
           | rg -o --color never "\..*" | fzf --no-multi) &&
@@ -62,7 +62,7 @@ else
       dir=$(find * -maxdepth 3 -type d -print 2> /dev/null | fzf --no-exact --no-multi) &&
       cd "$dir"
     }
-    vd() {
+    df() {
       local filename
       filename=$(find $HOME -name '.*' -maxdepth 1 -print 2> /dev/null \
           | grep -o --color=never "\..*" | fzf --multi) &&

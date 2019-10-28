@@ -145,6 +145,7 @@ highlight MatchParen ctermbg=Black ctermfg=202
 highlight Comment ctermbg=Black ctermfg=202
 highlight SignColumn ctermbg=Black
 highlight Error ctermbg=Black ctermfg=Red
+hi VertSplit ctermbg=none ctermfg=green cterm=bold
 
 "Status bar
 set laststatus=2    " Always show status bar
@@ -152,4 +153,5 @@ au InsertEnter * hi statusline ctermfg=226 ctermbg=none cterm=bold
 au InsertLeave * hi statusline ctermfg=196 ctermbg=none cterm=bold
 " default the statusline to green when entering Vim
 hi statusline ctermfg=196 ctermbg=none cterm=bold
+hi statuslineNC ctermfg=196 ctermbg=none cterm=bold
 set statusline=%f%r%m%=%P
