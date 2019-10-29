@@ -43,6 +43,7 @@ then
       local dir
       dir=$(fd --type d --no-ignore --exclude ".git" --max-depth 3 ${1:-.} | fzf --no-exact --no-multi) &&
       cd "$dir"
+      ls
     }
     df() {
       local filename
@@ -61,6 +62,7 @@ else
       local dir
       dir=$(find * -maxdepth 3 -type d -print 2> /dev/null | fzf --no-exact --no-multi) &&
       cd "$dir"
+      ls
     }
     df() {
       local filename
