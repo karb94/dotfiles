@@ -75,5 +75,5 @@ fi
 complete -F _fzf_path_completion -o default -o bashdefault v
 
 # Setting key bindings for the functions
-bind -x '"\C-g":"fzf_cd"'
-bind -x '"\C-o":"fzf_vim"'
+bind '"\C-g":"fzf_cd\r"'
+bind '"\C-o":"fzf_vim\r"'

@@ -63,6 +63,8 @@ call plug#end()
 
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
+noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
+noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
 
 "Sneak
 map <leader>f <Plug>Sneak_s
@@ -125,8 +127,8 @@ nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <leader>p :put<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J
-nnoremap J 3<C-e>
-nnoremap K 3<C-y>
+"nnoremap J 3<C-e>
+"nnoremap K 3<C-y>
 nnoremap U :redo<CR>
 
 nmap <leader>m :!clear; make -C build/<CR>
@@ -146,12 +148,32 @@ highlight Comment ctermbg=Black ctermfg=202
 highlight SignColumn ctermbg=Black
 highlight Error ctermbg=Black ctermfg=Red
 hi VertSplit ctermbg=none ctermfg=green cterm=bold
+hi LineNr ctermfg=226 ctermbg=none 
+hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
 
 "Status bar
 set laststatus=2    " Always show status bar
+augroup statusBar
+autocmd!
+autocmd VimEnter * :normal :startinsert :stopinsert
 au InsertEnter * hi statusline ctermfg=226 ctermbg=none cterm=bold
 au InsertLeave * hi statusline ctermfg=196 ctermbg=none cterm=bold
+augroup END
 " default the statusline to green when entering Vim
 hi statusline ctermfg=196 ctermbg=none cterm=bold
-hi statuslineNC ctermfg=196 ctermbg=none cterm=bold
+hi statuslineNC ctermfg=52 ctermbg=none cterm=none
 set statusline=%f%r%m%=%P
+
+hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
+nnoremap <C-K> :call HighlightNearCursor()<CR>
+function HighlightNearCursor()
+    let ln = line('.')
+    for i in [1,2,3]
+        let m = matchaddpos("CursorLineFlash", [ln])
+        redraw
+        sleep 50m
+        call matchdelete(m)
+        redraw
+        sleep 50m
+    endfor
+endfunction
