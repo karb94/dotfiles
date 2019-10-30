@@ -75,7 +75,7 @@ alias grep='grep --color=auto'
 push () {
     if [ $# -eq 1 ]
     then
-        git commit -am $1
+        git commit -am "$1"
     else
         git commit -am 'Fast push'
     fi
