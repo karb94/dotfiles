@@ -32,6 +32,7 @@ autocmd InsertLeave * set timeoutlen=600    "Time waited for mappings
 set shiftwidth=4                "Sets the number of spaces when indenting with '>>'
 set autoindent                  "Sets new line with same indentation as current line
 set smartindent                 "Auto-indents for {
+set clipboard=unnamedplus
 let mapleader=" "               "Sets leader key
 
 
@@ -147,7 +148,7 @@ highlight MatchParen ctermbg=Black ctermfg=202
 highlight Comment ctermbg=Black ctermfg=202
 highlight SignColumn ctermbg=Black
 highlight Error ctermbg=Black ctermfg=Red
-hi VertSplit ctermbg=none ctermfg=green cterm=bold
+hi VertSplit ctermbg=none ctermfg=green cterm=none
 hi LineNr ctermfg=226 ctermbg=none 
 hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
 
