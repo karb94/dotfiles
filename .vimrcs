@@ -1,7 +1,8 @@
 " Reset cursor on start:
-augroup ResetCursorShape
+augroup initialization
 au!
-autocmd VimEnter * :normal :startinsert :stopinsert
+autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
+autocmd VimEnter * :%s/.\{-}\$/\$/
 augroup END
 
 "Settings
@@ -12,6 +13,7 @@ if $HOSTNAME !~ "login-[0-9][0-9]*"
     set signcolumn=yes          "Vim gutter always active
 endif
 let &t_EI.="\e[2 q"             "Change cursor shape in normal mode
+set shortmess=F                 "Suppresses the file info message
 set nohlsearch                  "no highlights during search
 set number relativenumber       "set relative number on
 set incsearch                   "starts searching while you type
@@ -27,13 +29,16 @@ autocmd InsertLeave * set timeoutlen=600    "Time waited for mappings
 set shiftwidth=4                "Sets the number of spaces when indenting with '>>'
 set autoindent                  "Sets new line with same indentation as current line
 set smartindent                 "Auto-indents for {
-set clipboard=unnamedplus
+if has('mac')
+    set clipboard=unnamed       "Copies to the general MacOS clipboard
+else
+    set clipboard=unnamedplus   "Copies to the Secondary Linux clipboard
+endif
 let mapleader=" "               "Sets leader key
 
 call has('python3')
 "Plugins
 call plug#begin()
-Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'justinmk/vim-sneak'
 call plug#end()
@@ -93,18 +98,19 @@ highlight Error ctermbg=Black ctermfg=Red
 hi VertSplit ctermbg=none ctermfg=green cterm=bold
 hi LineNr ctermfg=226 ctermbg=none 
 hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
+hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
+hi Prompt ctermfg=196 ctermbg=0 cterm=bold
+hi statusline ctermfg=196 ctermbg=none cterm=bold
+hi statuslineNC ctermfg=52 ctermbg=none cterm=none
+syntax match Prompt "\$"
 
 "Status bar
 set laststatus=2    " Always show status bar
 augroup statusBar
 autocmd!
-autocmd VimEnter * :normal :startinsert :stopinsert
 au InsertEnter * hi statusline ctermfg=226 ctermbg=none cterm=bold
 au InsertLeave * hi statusline ctermfg=196 ctermbg=none cterm=bold
 augroup END
-" default the statusline to green when entering Vim
-hi statusline ctermfg=196 ctermbg=none cterm=bold
-hi statuslineNC ctermfg=52 ctermbg=none cterm=none
 set statusline=%f%r%m%=%P
 
 hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none

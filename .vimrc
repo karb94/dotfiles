@@ -3,11 +3,6 @@ filetype plugin on
 syntax on
 syntax enable
 
-" Reset cursor on start:
-augroup ResetCursorShape
-au!
-autocmd VimEnter * :normal :startinsert :stopinsert
-augroup END
 
 "Settings
 let &t_SI.="\e[6 q"             "Change cursor shape in insert mode
@@ -17,6 +12,7 @@ if $HOSTNAME !~ "login-[0-9][0-9]*"
     set signcolumn=yes          "Vim gutter always active
 endif
 let &t_EI.="\e[2 q"             "Change cursor shape in normal mode
+set shortmess=F                 "Suppresses the file info message
 set nohlsearch                  "no highlights during search
 set number relativenumber       "set relative number on
 set incsearch                   "starts searching while you type
@@ -32,7 +28,12 @@ autocmd InsertLeave * set timeoutlen=600    "Time waited for mappings
 set shiftwidth=4                "Sets the number of spaces when indenting with '>>'
 set autoindent                  "Sets new line with same indentation as current line
 set smartindent                 "Auto-indents for {
-set clipboard=unnamedplus
+if has('mac')
+    set clipboard=unnamed
+else
+    set clipboard=unnamedplus
+endif
+>>>>>>> Updated dotfiles
 let mapleader=" "               "Sets leader key
 
 
@@ -68,19 +69,14 @@ noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
 noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
 
 "Sneak
-map <leader>f <Plug>Sneak_s
-map <leader>F <Plug>Sneak_S
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
+unmap s
+unmap S
 let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
-
+let g:sneak#label = 1
 nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
 nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
 xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
 xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
-let g:sneak#label = 1
 
 "Fuzzy Finder (FZF)
 nnoremap <leader>b :Buffers<CR>
@@ -156,7 +152,6 @@ hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
 set laststatus=2    " Always show status bar
 augroup statusBar
 autocmd!
-autocmd VimEnter * :normal :startinsert :stopinsert
 au InsertEnter * hi statusline ctermfg=226 ctermbg=none cterm=bold
 au InsertLeave * hi statusline ctermfg=196 ctermbg=none cterm=bold
 augroup END
@@ -178,3 +173,9 @@ function HighlightNearCursor()
         sleep 50m
     endfor
 endfunction
+
+" Reset cursor on start:
+augroup initialization
+au!
+autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
+augroup END
