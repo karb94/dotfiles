@@ -33,7 +33,6 @@ if has('mac')
 else
     set clipboard=unnamedplus
 endif
->>>>>>> Updated dotfiles
 let mapleader=" "               "Sets leader key
 
 
@@ -69,10 +68,14 @@ noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
 noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
 
 "Sneak
-unmap s
-unmap S
+let g:sneak#use_ic_scs = 1
+let g:sneak#map_netrw = 0
 let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
 let g:sneak#label = 1
+nmap s <Plug>Sneak_s
+nmap S <Plug>Sneak_S
+unmap s
+unmap S
 nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
 nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
 xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
@@ -117,15 +120,13 @@ nnoremap <C-w> <C-w>w
 nnoremap <leader>q :q!<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>x :x<CR>
-nnoremap <leader>o mbo<Esc>`b
-nnoremap <leader>O mbO<Esc>`b
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <leader>p :put<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J
-"nnoremap J 3<C-e>
-"nnoremap K 3<C-y>
+nnoremap H ^
+nnoremap L $
 nnoremap U :redo<CR>
 
 nmap <leader>m :!clear; make -C build/<CR>
