@@ -53,10 +53,6 @@ let g:sneak#use_ic_scs = 1
 let g:sneak#map_netrw = 0
 let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
 let g:sneak#label = 1
-nmap s <Plug>Sneak_s
-nmap S <Plug>Sneak_S
-unmap s
-unmap S
 nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
 nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
 xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>

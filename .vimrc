@@ -48,7 +48,7 @@ call has('python3')
 call plug#begin()
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-smooth-scroll'
-Plug 'justinmk/vim-sneak'
+Plug 'karb94/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -72,10 +72,7 @@ let g:sneak#use_ic_scs = 1
 let g:sneak#map_netrw = 0
 let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
 let g:sneak#label = 1
-nmap s <Plug>Sneak_s
-nmap S <Plug>Sneak_S
-unmap s
-unmap S
+highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
 nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
 nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
 xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
