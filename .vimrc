@@ -51,13 +51,14 @@ Plug 'terryma/vim-smooth-scroll'
 Plug 'karb94/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-if has('mac')
-    Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer' }
-elseif $HOSTNAME =~ "login-[0-9][0-9]*"
-else
-    Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer --system-libclang' }
-endif
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"if has('mac')
+"    Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer' }
+"elseif $HOSTNAME =~ "login-[0-9][0-9]*"
+"else
+"    Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer --system-libclang' }
+"endif
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 call plug#end()
