@@ -12,6 +12,7 @@ if $HOSTNAME !~ "login-[0-9][0-9]*"
     set signcolumn=yes          "Vim gutter always active
 endif
 let &t_EI.="\e[2 q"             "Change cursor shape in normal mode
+set backspace=indent,eol,start  "Backspace behaves like everywhere else
 set shortmess=F                 "Suppresses the file info message
 set nohlsearch                  "no highlights during search
 set number relativenumber       "set relative number on
@@ -38,15 +39,17 @@ let mapleader=" "               "Sets leader key
 
 "Install the plugin manager vim-plug if it is not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call has('python3')
 "Plugins
 call plug#begin()
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'wellle/targets.vim'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'karb94/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -120,14 +123,15 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>x :x<CR>
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <leader>p :put<CR>
+nnoremap <leader>p :put<CR>=`]
+nnoremap p p=`]
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J
 nnoremap H ^
 nnoremap L $
 nnoremap U :redo<CR>
 
-nmap <leader>m :!clear; make -C build/<CR>
+nmap <leader>m :w<CR>:!clear; make -C build/<CR>
 
 "Color
 colorscheme peachpuff
