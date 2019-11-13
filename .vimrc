@@ -33,6 +33,7 @@ if has('mac')
     set clipboard=unnamed
 else
     set clipboard=unnamedplus
+    autocmd VimLeave * call system("xsel -ib", getreg('+'))
 endif
 let mapleader=" "               "Sets leader key
 
