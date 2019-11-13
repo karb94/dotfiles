@@ -1,6 +1,7 @@
 set bind-tty-special-chars off
 set editing-mode vi
 set keyseq-timeout 200
+set completion-ignore-case on
 $if mode=vi
     set show-mode-in-prompt on
     set vi-ins-mode-string \1\033[38;5;226m\2(ins)\1\033[0m\e[6 q\2

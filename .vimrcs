@@ -2,7 +2,8 @@
 augroup initialization
 au!
 autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
-autocmd VimEnter * :%s/.\{-}\$/\$/
+autocmd VimEnter * :%s/\v\e.{-}m//g
+" autocmd VimEnter * :%s/.\{-}\$/\$/
 augroup END
 
 "Settings
@@ -101,10 +102,10 @@ hi VertSplit ctermbg=none ctermfg=green cterm=bold
 hi LineNr ctermfg=226 ctermbg=none 
 hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
 hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
-hi Prompt ctermfg=196 ctermbg=0 cterm=bold
+hi Prompt ctermfg=2 ctermbg=0 cterm=bold
 hi statusline ctermfg=196 ctermbg=none cterm=bold
 hi statuslineNC ctermfg=52 ctermbg=none cterm=none
-syntax match Prompt "\$"
+syntax match Prompt "^.*\$"
 
 "Status bar
 set laststatus=2    " Always show status bar
