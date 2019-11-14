@@ -33,17 +33,24 @@ then
       fd --type d --hidden --no-ignore --exclude ".git" --max-depth 3 . "$1"
     }
 
-    fzf_vim() {
+    vf() {
       local filenames
       filenames=("$(fd --type f --no-ignore --exclude ".git" --max-depth 1 ${1:-.} | fzf --multi)") &&
       v $filenames
     }
 
-    fzf_cd() {
+    cdf() {
       local dir
-      dir=$(fd --type d --no-ignore --exclude ".git" --max-depth 3 ${1:-.} | fzf --no-exact --no-multi) &&
-      cd "$dir"
-      ls
+      local path
+      # if [ -z "$1" ]
+      # then
+      #     path=""
+      # else
+      #     path=${1%/}/
+      # fi
+      dir=$(fd --type d --no-ignore --exclude ".git" --max-depth 3 . $1 \
+          | ( [ -z "$1" ] && cat || sed "s/${1%/}\///" ) | fzf --no-exact --no-multi) &&
+      cd "$dir" && ls
     }
     df() {
       local filename
@@ -52,13 +59,13 @@ then
       v "$HOME/$filename"
     }
 else
-    fzf_vim() {
+    vf() {
       local filenames
       filenames=("$(find ${1:-.} -type f -maxdepth 1 -print 2> /dev/null | fzf --multi)") &&
       v $filenames
     }
 
-    fzf_cd() {
+    cdf() {
       local dir
       dir=$(find * -maxdepth 3 -type d -print 2> /dev/null | fzf --no-exact --no-multi) &&
       cd "$dir"
@@ -77,5 +84,5 @@ fi
 complete -F _fzf_path_completion -o default -o bashdefault v
 
 # Setting key bindings for the functions
-bind '"\C-g":"fzf_cd\r"'
-bind '"\C-o":"fzf_vim\r"'
+bind '"\C-g":"cdf\r"'
+bind '"\C-o":"vf\r"'
