@@ -14,7 +14,8 @@ source "$HOME/.fzf/shell/key-bindings.bash"
 
 # Overwriting default commands and options
 # ---------------------
-if [[ ! $HOSTNAME =~ login-[0-9]+ ]]
+# if [[ ! $HOSTNAME =~ login-[0-9]+ ]]
+if command -v fd >/dev/null 2>&1
 then
     export FZF_CTRL_T_COMMAND='fd --type f --hidden --no-ignore --exclude .git --max-depth 3'
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --max-depth 3'
@@ -23,7 +24,8 @@ export FZF_DEFAULT_OPTS="--exact --layout=reverse --height 40% --select-1 --inli
 
 # Overwriting default functions
 # ---------------------
-if [[ ! $HOSTNAME =~ login-[0-9]+ ]]
+# if [[ ! $HOSTNAME =~ login-[0-9]+ ]]
+if command -v fd >/dev/null 2>&1
 then
     _fzf_compgen_path() {
       fd --type f --hidden --no-ignore --exclude ".git" --max-depth 3 . "$1"
@@ -35,27 +37,21 @@ then
 
     vf() {
       local filenames
-      filenames=("$(fd --type f --no-ignore --exclude ".git" --max-depth 1 ${1:-.} | fzf --multi)") &&
-      v $filenames
+      filenames=("$(fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . $1 |
+          ( [ -z "$1" ] && cat || sed "s/${1%/}\///" ) |
+          fzf --multi)") && v ${1%/}/$filenames
     }
 
-    cdf() {
+    c() {
       local dir
-      local path
-      # if [ -z "$1" ]
-      # then
-      #     path=""
-      # else
-      #     path=${1%/}/
-      # fi
-      dir=$(fd --type d --no-ignore --exclude ".git" --max-depth 3 . $1 \
-          | ( [ -z "$1" ] && cat || sed "s/${1%/}\///" ) | fzf --no-exact --no-multi) &&
-      cd "$dir" && ls
+      dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . $1 |
+          ( [ -z "$1" ] && cat || sed "s/${1%/}\///" ) |
+          fzf --no-exact --no-multi) && cd "$dir" && ls
     }
     df() {
       local filename
-      filename=$(fd --type f --hidden --maxdepth 1 "^\." $HOME \
-          | rg -o --color never "\..*" | fzf --no-multi) &&
+      filename=$(fd --type f --hidden --maxdepth 3 -p "^$HOME/(\.[^/]*$|\.config)" $HOME |
+          rg -o --color never "(\..*|\.config/.*)" | fzf --no-multi) &&
       v "$HOME/$filename"
     }
 else
@@ -65,7 +61,7 @@ else
       v $filenames
     }
 
-    cdf() {
+    c() {
       local dir
       dir=$(find * -maxdepth 3 -type d -print 2> /dev/null | fzf --no-exact --no-multi) &&
       cd "$dir"
@@ -84,5 +80,5 @@ fi
 complete -F _fzf_path_completion -o default -o bashdefault v
 
 # Setting key bindings for the functions
-bind '"\C-g":"cdf\r"'
+bind '"\C-g":"c\r"'
 bind '"\C-o":"vf\r"'
