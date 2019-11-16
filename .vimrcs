@@ -32,6 +32,7 @@ set autoindent                  "Sets new line with same indentation as current 
 set smartindent                 "Auto-indents for {
 if has('mac')
     set clipboard=unnamed       "Copies to the general MacOS clipboard
+    autocmd VimLeave * call system("xsel -ib", getreg('*'))
 else
     set clipboard=unnamedplus   "Copies to the Secondary Linux clipboard
     autocmd VimLeave * call system("xsel -ib", getreg('+'))

@@ -12,6 +12,7 @@ $if mode=vi
     "\C-p": previous-history
     "\C-n": next-history
     "\C-L": clear-screen
+    "\C-b": 'cd ..\015'
     set keymap vi-command
     "H": beginning-of-line
     "L": end-of-line

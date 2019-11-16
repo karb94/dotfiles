@@ -31,6 +31,7 @@ set autoindent                  "Sets new line with same indentation as current 
 set smartindent                 "Auto-indents for {
 if has('mac')
     set clipboard=unnamed
+    autocmd VimLeave * call system("xsel -ib", getreg('*'))
 else
     set clipboard=unnamedplus
     autocmd VimLeave * call system("xsel -ib", getreg('+'))
@@ -124,7 +125,7 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>x :x<CR>
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <leader>p :put<CR>=`]
+nnoremap <leader>p :put<CR>`]=`[
 nnoremap p p=`]
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J

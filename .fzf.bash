@@ -37,41 +37,46 @@ then
 
     vf() {
       local filenames
-      filenames=("$(fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . $1 |
-          ( [ -z "$1" ] && cat || sed "s/${1%/}\///" ) |
+      filenames=("$(fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . "$1" 2> /dev/null |
+          ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
           fzf --multi)") && v ${1%/}/$filenames
     }
 
     c() {
       local dir
-      dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . $1 |
-          ( [ -z "$1" ] && cat || sed "s/${1%/}\///" ) |
+      dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . "$1" 2> /dev/null |
+          ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
           fzf --no-exact --no-multi) && cd "$dir" && ls
     }
     df() {
       local filename
       filename=$(fd --type f --hidden --maxdepth 3 -p "^$HOME/(\.[^/]*$|\.config)" $HOME |
-          rg -o --color never "(\..*|\.config/.*)" | fzf --no-multi) &&
+          rg -o --color never "(\..*|\.config/.*)" |
+          fzf --no-multi) &&
       v "$HOME/$filename"
     }
 else
     vf() {
       local filenames
-      filenames=("$(find ${1:-.} -type f -maxdepth 1 -print 2> /dev/null | fzf --multi)") &&
+      local path="${1%/}"
+      filenames=("$(find ${path:-.} -type f -maxdepth 3 -print 2> /dev/null |
+          ( [ -z "$path" ] && cat || sed "s,${path}/,," ) |
+          fzf --multi)") &&
       v $filenames
     }
 
     c() {
       local dir
-      dir=$(find * -maxdepth 3 -type d -print 2> /dev/null | fzf --no-exact --no-multi) &&
-      cd "$dir"
-      ls
+      local path="${1%/}"
+      dir=$(find ${path:-.} -maxdepth 3 -type d -print 2> /dev/null |
+          ( [ -z "$path" ] && cat || sed "s,${path}/,," ) |
+          fzf --no-exact --no-multi) && cd "$dir" && ls
     }
     df() {
       local filename
-      filename=$(find $HOME -name '.*' -maxdepth 1 -print 2> /dev/null \
-          | grep -o --color=never "\..*" | fzf --multi) &&
-      v "$HOME/$filename"
+      filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config\/.*$)" -maxdepth 3 -print 2> /dev/null |
+          grep -E -o --color=never "(\..*|\.config/.*)" |
+          fzf --multi) && v "$HOME/$filename"
     }
 fi
 
