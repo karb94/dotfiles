@@ -125,14 +125,14 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>x :x<CR>
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <leader>p :put<CR>`]=`[
-nnoremap p p=`]
+nnoremap <leader>p :put<CR>=`]
+nnoremap p pm`=`]``
+nnoremap P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J
 nnoremap H ^
 nnoremap L $
 nnoremap U :redo<CR>
-
 nmap <leader>m :w<CR>:!clear; make -C build/<CR>
 
 "Color
