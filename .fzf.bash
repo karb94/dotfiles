@@ -28,56 +28,59 @@ export FZF_DEFAULT_OPTS="--exact --layout=reverse --height 40% --select-1 --inli
 if command -v fd >/dev/null 2>&1
 then
     _fzf_compgen_path() {
-      fd --type f --hidden --no-ignore --exclude ".git" --max-depth 3 . "$1"
+        fd --type f --hidden --no-ignore --exclude ".git" --max-depth 3 . "$1"
     }
 
     _fzf_compgen_dir() {
-      fd --type d --hidden --no-ignore --exclude ".git" --max-depth 3 . "$1"
+        fd --type d --hidden --no-ignore --exclude ".git" --max-depth 3 . "$1"
     }
 
     vf() {
-      local filenames
-      filenames=("$(fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . "$1" 2> /dev/null |
-          ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
-          fzf --multi)") && v ${1%/}/$filenames
-    }
+        local filenames
+        filenames=("$(fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
+            ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
+            fzf --multi)") && [ -z "$1" ] &&
+            v "${filenames}" || v "${1%/}/${filenames}"
+        }
 
-    c() {
-      local dir
-      dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . "$1" 2> /dev/null |
-          ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
-          fzf --no-exact --no-multi) && cd "$dir" && ls
-    }
+    d() {
+        local dir
+        dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
+            ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
+            fzf --no-exact --no-multi) && { [ -z "$1" ] &&
+            cd "${dir}" || cd "${1%/}/${dir}" && ls; }
+        }
     df() {
-      local filename
-      filename=$(fd --type f --hidden --maxdepth 3 -p "^$HOME/(\.[^/]*$|\.config)" $HOME |
-          rg -o --color never "(\..*|\.config/.*)" |
-          fzf --no-multi) &&
-      v "$HOME/$filename"
+        local filename
+        filename=$(fd --type f --hidden --maxdepth 3 -p "^$HOME/(\.[^/]*$|\.config)" $HOME |
+            rg -o --color never "(\..*|\.config/.*)" |
+            fzf --no-multi) &&
+            v "$HOME/$filename"
     }
 else
     vf() {
-      local filenames
-      local path="${1%/}"
-      filenames=("$(find ${path:-.} -type f -maxdepth 3 -print 2> /dev/null |
-          ( [ -z "$path" ] && cat || sed "s,${path}/,," ) |
-          fzf --multi)") &&
-      v $filenames
-    }
+        local filenames
+        local path="${1%/}"
+        filenames=("$(find ${path:-.} -type f -maxdepth 3 -print 2> /dev/null |
+            ( [ -z "$path" ] && cat || sed "s,${path}/,," ) | fzf --multi)") &&
+            [ -z "$1" ] && v "${filenames}" || v "${1%/}/${filenames}"
+        }
 
-    c() {
-      local dir
-      local path="${1%/}"
-      dir=$(find ${path:-.} -maxdepth 3 -type d -print 2> /dev/null |
-          ( [ -z "$path" ] && cat || sed "s,${path}/,," ) |
-          fzf --no-exact --no-multi) && cd "$dir" && ls
-    }
+    d() {
+        local dir
+        local path="${1%/}"
+        dir=$(find ${path:-.} -maxdepth 3 -type d -print 2> /dev/null |
+            ( [ -z "$path" ] && cat || sed "s,${path}/,," ) |
+            fzf --no-exact --no-multi) && { [ -z "$1" ] &&
+            cd "${dir}" || cd "${1%/}/${dir}" && ls; }
+        }
     df() {
-      local filename
-      filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config\/.*$)" -maxdepth 3 -print 2> /dev/null |
-          grep -E -o --color=never "(\..*|\.config/.*)" |
-          fzf --multi) && v "$HOME/$filename"
-    }
+        local filename
+        filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config\/.*$)" \
+            -maxdepth 3 -print 2> /dev/null |
+            grep -E -o --color=never "(\..*|\.config/.*)" |
+            fzf --multi) && v "$HOME/$filename"
+        }
 fi
 
 # Adding more commands for completion
@@ -85,5 +88,12 @@ fi
 complete -F _fzf_path_completion -o default -o bashdefault v
 
 # Setting key bindings for the functions
-bind '"\C-g":"c\r"'
-bind '"\C-o":"vf\r"'
+stty discard undef
+stty dsusp undef
+bind -m vi-insert -r "\ec"
+bind -m vi-command -r "\ec"
+bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'
+bind -m vi-command '"\C-g":"ccd\C-m"'
+bind -m vi-insert '"\C-o":"\C-[ccvf\C-m"'
+bind -m vi-command '"\C-o":"ccvf\C-m"'
+bind '"\C-o":"\eccvf\r"'
