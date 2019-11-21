@@ -89,7 +89,6 @@ complete -F _fzf_path_completion -o default -o bashdefault v
 
 # Setting key bindings for the functions
 stty discard undef
-stty dsusp undef
 bind -m vi-insert -r "\ec"
 bind -m vi-command -r "\ec"
 bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'

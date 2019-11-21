@@ -155,4 +155,4 @@ n()
             rm -f $NNN_TMPFILE > /dev/null
     fi
 }
-bind '"\C-n":"n\r"'
+bind '"\C-f":"n\r"'

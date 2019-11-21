@@ -14,6 +14,8 @@ $if mode=vi
     "\C-L": clear-screen
     "\C-b": 'cd ..\015'
     set keymap vi-command
+    "\C-p": previous-history
+    "\C-n": next-history
     "H": beginning-of-line
     "L": end-of-line
     set vi-cmd-mode-string \1\033[38;5;196m\2(cmd)\1\033[0m\e[2 q\2

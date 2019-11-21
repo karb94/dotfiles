@@ -109,6 +109,21 @@ let g:UltiSnipsEditSplit="vertical"
 if has('mac')
     let g:vimtex_compiler_progname = '~//usr/local/bin/vim'
 endif
+let g:vimtex_compiler_latexmk = {
+            \ 'backend' : 'jobs',
+            \ 'background' : 1,
+            \ 'build_dir' : 'build',
+            \ 'callback' : 1,
+            \ 'continuous' : 1,
+            \ 'executable' : 'latexmk',
+            \ 'hooks' : [],
+            \ 'options' : [
+            \   '-verbose',
+            \   '-file-line-error',
+            \   '-synctex=1',
+            \   '-interaction=nonstopmode',
+            \ ],
+            \}
 let g:vimtex_view_method = 'zathura'
 
 "Mappings
@@ -125,7 +140,7 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>x :x<CR>
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <leader>p :put<CR>=`]
+nnoremap <leader>p :put<CR>=`[
 nnoremap p pm`=`]``
 nnoremap P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
