@@ -4,31 +4,31 @@ syntax on
 syntax enable
 
 
-"Settings
-let &t_SI.="\e[6 q"             "Change cursor shape in insert mode
-"For CX1
+" Settings
+let &t_SI.="\e[6 q"                      " Change cursor shape in insert mode
+" For CX1
 if $HOSTNAME !~ "login-[0-9][0-9]*"
-    let &t_SR.="\e[4 q"         "Change cursor shape in replace mode
-    set signcolumn=yes          "Vim gutter always active
+    let &t_SR.="\e[4 q"                  " Change cursor shape in replace mode
+    set signcolumn=yes                   " Vim gutter always active
 endif
-let &t_EI.="\e[2 q"             "Change cursor shape in normal mode
-set backspace=indent,eol,start  "Backspace behaves like everywhere else
-set shortmess=F                 "Suppresses the file info message
-set nohlsearch                  "no highlights during search
-set number relativenumber       "set relative number on
-set incsearch                   "starts searching while you type
-set ignorecase                  "Ingores case in searches
-set smartcase                   "In combination with ignorecase, only ignores case when no uppercase is used
-set tabstop=4                   "The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
-set expandtab                   "Converts tabs into spaces
-set path+=**                    "You can search for any file in any subdirectory (as long as you enter the exact name)
-set wildmenu                    "It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
-set wildmode=longest:full,full  "Will complete to the longest common command
-autocmd InsertEnter * set timeoutlen=200    "Time waited for mappings
-autocmd InsertLeave * set timeoutlen=600    "Time waited for mappings
-set shiftwidth=4                "Sets the number of spaces when indenting with '>>'
-set autoindent                  "Sets new line with same indentation as current line
-set smartindent                 "Auto-indents for {
+let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
+set backspace=indent,eol,start           " Backspace behaves like everywhere else
+set shortmess=F                          " Suppresses the file info message
+set nohlsearch                           " no highlights during search
+set number relativenumber                " set relative number on
+set incsearch                            " starts searching while you type
+set ignorecase                           " Ingores case in searches
+set smartcase                            " In combination with ignorecase, only ignores case when no uppercase is used
+set tabstop=4                            " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
+set expandtab                            " Converts tabs into spaces
+set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
+set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
+set wildmode=longest:full,full           " Will complete to the longest common command
+autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
+autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
+set shiftwidth=4                         " Sets the number of spaces when indenting with '>>'
+set autoindent                           " Sets new line with same indentation as current line
+set smartindent                          " Auto-indents for {
 if has('mac')
     set clipboard=unnamed
     autocmd VimLeave * call system("xsel -ib", getreg('*'))
@@ -51,6 +51,7 @@ call has('python3')
 call plug#begin()
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'junegunn/vim-easy-align'
 Plug 'wellle/targets.vim'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'karb94/vim-sneak'
@@ -72,6 +73,12 @@ noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
 noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
 noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
+
+" Easy Align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 "Sneak
 let g:sneak#use_ic_scs = 1
