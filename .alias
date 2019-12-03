@@ -9,6 +9,9 @@
 #   $$ |  $$ |  $$ |  $$ | \$$$$$$$ | $$$$$$$  |
 #   \__|  \__|  \__|  \__|  \_______| \_______/
 
+# PROMPT WITH FULL PATH
+# PROMPT_COMMAND="printf '\n'"
+# export PS1='\e[0;36m\u:\e[0;32m\w/\e[m\n$ '
 
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
@@ -57,6 +60,10 @@ alias sb='source ~/.bashrc'
 alias vb='v ~/.bashrc'
 alias val='v ~/.alias'
 alias vrc='v ~/.vimrc'
+alias r='ranger'
+alias grep='grep --color=auto'
+
+# For git
 alias gitdf="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias g='git'
 alias gr='git reset --hard'
@@ -69,8 +76,6 @@ alias gp='git push'
 alias gl='git log --oneline --graph --all'
 alias gt='git ls-tree --full-tree --name-only -r HEAD'
 alias gtdf='gitdf ls-tree --full-tree --name-only -r HEAD'
-alias r='ranger'
-alias grep='grep --color=auto'
 
 # Functions
 push () {
