@@ -9,9 +9,6 @@
 #   $$ |  $$ |  $$ |  $$ | \$$$$$$$ | $$$$$$$  |
 #   \__|  \__|  \__|  \__|  \_______| \_______/
 
-# PROMPT WITH FULL PATH
-# PROMPT_COMMAND="printf '\n'"
-# export PS1='\e[0;36m\u:\e[0;32m\w/\e[m\n$ '
 
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
@@ -29,7 +26,7 @@ then
     alias vsub='vi ~/bin/sub'
     alias lsout='ls *.out'
 else
-    alias j='jupyter notebook'
+    alias j='nohup jupyter notebook > /dev/null &'
     alias cx1='ssh -t cx1 "~/usr/local/bin/bash -l"'
     alias nhpc='ssh carles@nhpc16.ch.ic.ac.uk'
     alias v='vim'
