@@ -93,8 +93,8 @@ xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
 
 "Fuzzy Finder (FZF)
 nnoremap <leader>b :Buffers<CR>
-nnoremap <C-r> :History:<CR>
-nnoremap <C-t> :Files<CR>
+nnoremap <leader>r :History:<CR>
+nnoremap <leader>f :Files<CR>
 nnoremap <leader>l :BLines<CR>
 nnoremap <leader>g :Rg<CR>
 
