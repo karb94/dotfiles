@@ -60,7 +60,7 @@ alias vrc='v ~/.vimrc'
 alias r='ranger'
 alias grep='grep --color=auto'
 alias ds='conda activate data_science'
-alias cact='conda activate data_science'
+alias cact='conda activate'
 alias cdeact='conda deactivate'
 
 # For git
