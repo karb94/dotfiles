@@ -1,0 +1,82 @@
+filetype on
+syntax on
+syntax enable
+
+" Settings
+let &t_SI.="\e[6 q"                      " Change cursor shape in insert mode
+let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
+set backspace=indent,eol,start           " Backspace behaves like everywhere else
+set shortmess=F                          " Suppresses the file info message
+set nohlsearch                           " no highlights during search
+set number relativenumber                " set relative number on
+set incsearch                            " starts searching while you type
+set ignorecase                           " Ingores case in searches
+set smartcase                            " In combination with ignorecase, only ignores case when no uppercase is used
+set tabstop=4                            " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
+set expandtab                            " Converts tabs into spaces
+set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
+set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
+set wildmode=longest:full,full           " Will complete to the longest common command
+autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
+autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
+set shiftwidth=4                         " Sets the number of spaces when indenting with '>>'
+set autoindent                           " Sets new line with same indentation as current line
+set smartindent                          " Auto-indents for {
+set clipboard=unnamedplus
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
+let mapleader=" "               "Sets leader key
+
+"Mappings
+inoremap lk <Esc>
+inoremap <C-j> <C-n>
+inoremap <C-k> <C-p>
+vnoremap lk <Esc>
+nnoremap <leader>c mbI#<Esc>`b
+nnoremap <leader>u mb^x`b
+nnoremap <leader>v :vsplit<CR><C-w>w
+nnoremap <C-w> <C-w>w
+nnoremap <leader>q :q!<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>x :x<CR>
+nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <leader>p :put<CR>=`[
+nnoremap Y y$
+nnoremap p pm`=`]``
+nnoremap P Pm`=`]``
+nnoremap <leader>rc :source $MYVIMRC<CR>
+nnoremap <leader>j J
+nnoremap H ^
+nnoremap L $
+nnoremap U :redo<CR>
+nmap <leader>m :w<CR>:!clear; make -C build/<CR>
+
+"Color
+colorscheme peachpuff
+highlight SpellBad cterm=bold ctermfg=9 ctermbg=0
+highlight LineNr ctermfg=Yellow
+highlight CursorLineNr ctermfg=Yellow
+highlight Normal ctermfg=White
+highlight Visual ctermbg=Black ctermfg=202
+highlight incsearch ctermbg=Black ctermfg=202
+highlight Pmenu ctermbg=233 ctermfg=White
+highlight PmenuSel ctermbg=18 ctermfg=White
+highlight MatchParen ctermbg=Black ctermfg=202
+highlight Comment ctermbg=Black ctermfg=202
+highlight SignColumn ctermbg=Black
+highlight Error ctermbg=Black ctermfg=Red
+hi VertSplit ctermbg=none ctermfg=green cterm=none
+hi LineNr ctermfg=226 ctermbg=none 
+hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
+
+"Status bar
+set laststatus=2    " Always show status bar
+augroup statusBar
+autocmd!
+au InsertEnter * hi statusline ctermfg=226 ctermbg=none cterm=bold
+au InsertLeave * hi statusline ctermfg=196 ctermbg=none cterm=bold
+augroup END
+" default the statusline to green when entering Vim
+hi statusline ctermfg=196 ctermbg=none cterm=bold
+hi statuslineNC ctermfg=52 ctermbg=none cterm=none
+set statusline=%f%r%m%=%P

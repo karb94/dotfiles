@@ -1,9 +1,8 @@
 " Reset cursor on start:
 augroup initialization
 au!
-autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
-autocmd VimEnter * :%s/\v\e.{-}m//g
-" autocmd VimEnter * :%s/.\{-}\$/\$/
+autocmd VimEnter * :normal! :startinsert :stopinsert G   "Reset cursor shape
+autocmd VimEnter * :%s/\v\e.{-}m//ge
 augroup END
 
 "Settings
@@ -77,6 +76,7 @@ nnoremap <leader>o mbo<Esc>`b
 nnoremap <leader>O mbO<Esc>`b
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap Y y$
 nnoremap <leader>p :put<CR>
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J

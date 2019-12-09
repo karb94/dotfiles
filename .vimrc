@@ -148,6 +148,7 @@ nnoremap <leader>x :x<CR>
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <leader>p :put<CR>=`[
+nnoremap Y y$
 nnoremap p pm`=`]``
 nnoremap P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
