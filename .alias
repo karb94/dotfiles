@@ -29,19 +29,22 @@ else
     alias j='nohup jupyter notebook > /dev/null &'
     alias cx1='ssh -t cx1 "~/usr/local/bin/bash -l"'
     alias nhpc='ssh carles@nhpc16.ch.ic.ac.uk'
-    alias v='vim'
 fi
 
 # White City Desktop
-if [ $HOSTNAME == "WCDesktopCarles" ]
+if [ $(uname) == "Linux" ]
 then
-    alias feh='feh --scale-down --auto-zoom'
-    alias p='pacman'
-    alias sp='sudo pacman'
+    if [ $(sed -n '/^NAME=/s/.*"\(.*\)"\1/p') == "Arch Linux" ]
+    then
+        alias feh='feh --scale-down --auto-zoom'
+        alias p='pacman'
+        alias sp='sudo pacman'
+        alias v='/usr/bin/vim'
+    fi
 fi
 
 # MacAir
-if [ $HOSTNAME == "ph-tsm17-13" ]
+if [ $(uname) == "Darwin" ]
 then
     alias v='/usr/local/bin/vim'
     alias run='runcry14'
