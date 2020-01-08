@@ -11,6 +11,9 @@ if $HOSTNAME !~ "login-[0-9][0-9]*"
     let &t_SR.="\e[4 q"                  " Change cursor shape in replace mode
     set signcolumn=yes                   " Vim gutter always active
 endif
+set directory^=$HOME/.vim/swapfiles//    " Central location for swap files
+set undodir=~/.vim/undodir               " Central location for undo files
+set undofile                             " Persistent undo even after closing file
 let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
 set backspace=indent,eol,start           " Backspace behaves like everywhere else
 set shortmess=F                          " Suppresses the file info message
@@ -49,7 +52,8 @@ endif
 call has('python3')
 "Plugins
 call plug#begin()
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
+Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
 Plug 'wellle/targets.vim'
@@ -178,15 +182,14 @@ hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
 
 "Status bar
 set laststatus=2    " Always show status bar
-augroup statusBar
-autocmd!
-au InsertEnter * hi statusline ctermfg=226 ctermbg=none cterm=bold
-au InsertLeave * hi statusline ctermfg=196 ctermbg=none cterm=bold
-augroup END
-" default the statusline to green when entering Vim
-hi statusline ctermfg=196 ctermbg=none cterm=bold
-hi statuslineNC ctermfg=52 ctermbg=none cterm=none
 set statusline=%f%r%m%=%P
+
+" Gruvbox
+set termguicolors
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_light = 'soft'
+set background=dark
 
 hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
 nnoremap <C-K> :call HighlightNearCursor()<CR>

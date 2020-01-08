@@ -43,6 +43,7 @@ call has('python3')
 call plug#begin()
 Plug 'terryma/vim-smooth-scroll'
 Plug 'justinmk/vim-sneak'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
@@ -111,12 +112,14 @@ syntax match Prompt "^.*\$"
 
 "Status bar
 set laststatus=2    " Always show status bar
-augroup statusBar
-autocmd!
-au InsertEnter * hi statusline ctermfg=226 ctermbg=none cterm=bold
-au InsertLeave * hi statusline ctermfg=196 ctermbg=none cterm=bold
-augroup END
 set statusline=%f%r%m%=%P
+
+" Gruvbox
+set termguicolors
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_light = 'soft'
+set background=dark
 
 hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
 nnoremap <C-K> :call HighlightNearCursor()<CR>
