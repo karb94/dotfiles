@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+kitty @ set-colors --all --configured ~/.config/kitty/dark
+sed -i 's/set background=light/set background=dark/' ~/.vim/vimrc
+sed -i 's/set background=light/set background=dark/' ~/.vim/vimrcs
