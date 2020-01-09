@@ -48,7 +48,7 @@ then
         dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
             ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
             fzf --no-exact --no-multi) && { [ -z "$1" ] &&
-            cd "${dir}" || cd "${1%/}/${dir}" && ls; }
+            cd "${dir}" || cd "${1%/}/${dir}" && ls -pG --color=auto; }
         }
     df() {
         local filename
@@ -72,7 +72,7 @@ else
         dir=$(find ${path:-.} -maxdepth 3 -type d -print 2> /dev/null |
             ( [ -z "$path" ] && cat || sed "s,${path}/,," ) |
             fzf --no-exact --no-multi) && { [ -z "$1" ] &&
-            cd "${dir}" || cd "${1%/}/${dir}" && ls; }
+            cd "${dir}" || cd "${1%/}/${dir}" && ls -pG --color=auto; }
         }
     df() {
         local filename
