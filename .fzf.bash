@@ -37,10 +37,11 @@ then
 
     vf() {
         local filenames
-        filenames=("$(fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
-            ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
-            fzf --multi)") && [ -z "$1" ] &&
-            v "${filenames}" || v "${1%/}/${filenames}"
+        filenames=( "$(fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
+            ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) | fzf --multi | tr '\n' ' ')" )
+            # fzf --multi)") && [ -z "$1" ] &&
+            # ( v "${filenames}" ) || v "${1%/}/${filenames}"
+        [ -n "$1" ] && v "${1%/}/${filenames}" || [ -n "${filenames[0]}" ] && v ${filenames}
         }
 
     d() {
@@ -61,9 +62,9 @@ else
     vf() {
         local filenames
         local path="${1%/}"
-        filenames=("$(find ${path:-.} -type f -maxdepth 3 -print 2> /dev/null |
-            ( [ -z "$path" ] && cat || sed "s,${path}/,," ) | fzf --multi)") &&
-            [ -z "$1" ] && v "${filenames}" || v "${1%/}/${filenames}"
+        filenames=( "$(find ${path:-.} -type f -maxdepth 3 -print 2> /dev/null |
+            ( [ -z "$path" ] && cat || sed "s,${path}/,," ) | fzf --multi | tr '\n' ' ')" )
+        [ -n "$1" ] && v "${1%/}/${filenames}" || [ -n "${filenames[0]}" ] && v "${filenames}"
         }
 
     d() {
