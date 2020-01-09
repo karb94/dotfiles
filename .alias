@@ -53,7 +53,7 @@ fi
 
 # Aliases
 alias h='cd $HOME' 
-alias ls='\ls -pG' 
+alias ls='\ls -pG --color=auto' 
 alias lsh='ls -d .*'
 alias sv='sudo v'
 alias sb='source ~/.bashrc'
