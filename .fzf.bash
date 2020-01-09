@@ -52,7 +52,7 @@ then
         }
     df() {
         local filename
-        filename=$(fd --type f --hidden --maxdepth 3 -p "^$HOME/(\.[^/]*$|\.config)" $HOME |
+        filename=$(fd --type f --hidden --maxdepth 3 -p "^$HOME/(\.[^/]*$|\.config|\.vim)" $HOME |
             rg -o --color never "(\..*|\.config/.*)" |
             fzf --no-multi) &&
             v "$HOME/$filename"
@@ -76,7 +76,7 @@ else
         }
     df() {
         local filename
-        filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config\/.*$)" \
+        filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config\/.*$|\.vim\/.*$)" \
             -maxdepth 3 -print 2> /dev/null |
             grep -E -o --color=never "(\..*|\.config/.*)" |
             fzf --multi) && v "$HOME/$filename"

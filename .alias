@@ -13,7 +13,7 @@
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
 then
-    alias v='~/usr/local/bin/vim'
+    alias v='~/usr/local/bin/vim -Nu $HOME/.vim/vrc'
     alias a='availability'
     alias eph="cd $EPHEMERAL"
     alias q='qstat -a'
