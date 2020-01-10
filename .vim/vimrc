@@ -24,6 +24,7 @@ set smartcase                            " In combination with ignorecase, only 
 set tabstop=4                            " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
 set expandtab                            " Converts tabs into spaces
 set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
+set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undodir
 set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
 set wildmode=longest:full,full           " Will complete to the longest common command
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
