@@ -13,7 +13,7 @@
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
 then
-    alias v='~/usr/local/bin/vim -Nu $HOME/.vim/vrc'
+    alias v='~/usr/local/bin/vim -Nu $HOME/.vim/mvrc'
     alias a='availability'
     alias eph="cd $EPHEMERAL"
     alias q='qstat -a'
@@ -26,7 +26,7 @@ then
     alias vsub='vi ~/bin/sub'
     alias lsout='ls *.out'
 else
-    alias j='nohup jupyter notebook > /dev/null &'
+    alias j='nohup jupyter lab > /dev/null &'
     alias cx1='ssh -t cx1 "~/usr/local/bin/bash -l"'
     alias nhpc='ssh carles@nhpc16.ch.ic.ac.uk'
 fi
