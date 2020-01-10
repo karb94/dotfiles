@@ -1,0 +1,26 @@
+set -o vi
+
+[ -f ~/.alias ] && source ~/.alias
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+[[ ":$PATH:" != *":~/.local/scripts/:"* ]] &&
+PATH="${PATH}:~/.local/scripts/"
+
+# LS COLOR DIRECTORIES
+# export LSCOLORS='Dxfxcxdxbxegedabagacad'
+
+# Prompt command configuration
+shopt -s histappend
+bashrc_sourced=$(stat -c %Y ~/.bashrc)
+alias_sourced=$(stat -c %Y ~/.alias)
+PROMPT_COMMAND='
+history -a
+test $(stat -c %Y ~/.bashrc) -ne $bashrc_sourced && source ~/.bashrc
+test $(stat -c %Y ~/.alias) -ne $alias_sourced && source ~/.alias
+printf "\n"
+'
+# For MacOS
+# bashrc_sourced=$(stat -f %m ~/.bashrc)
+# alias_sourced=$(stat -f %m ~/.alias)
+# test $(stat -f %m ~/.bashrc) -ne $bashrc_sourced && source ~/.bashrc
+# test $(stat -f %m ~/.alias) -ne $bashrc_sourced && source ~/.alias

@@ -3,7 +3,6 @@ filetype plugin on
 syntax on
 syntax enable
 
-
 " Settings
 let &t_SI.="\e[6 q"                      " Change cursor shape in insert mode
 " For CX1
