@@ -29,8 +29,8 @@ autocmd InsertLeave * set timeoutlen=600    "Time waited for mappings
 set shiftwidth=4                "Sets the number of spaces when indenting with '>>'
 set autoindent                  "Sets new line with same indentation as current line
 set smartindent                 "Auto-indents for {
-    let g:os = substitute(system('uname'), '\n', '', '')
-        if g:os == "Darwin"
+let g:os = substitute(system('uname'), '\n', '', '')
+if g:os == "Darwin"
     set clipboard=unnamed       "Copies to the general MacOS clipboard
     autocmd VimLeave * call system("xsel -ib", getreg('*'))
 elseif g:os == "Linux"

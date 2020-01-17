@@ -6,6 +6,10 @@ set -o vi
 [[ ":$PATH:" != *":~/.local/scripts/:"* ]] &&
 PATH="${PATH}:~/.local/scripts/"
 
+# Commands preceeded by a space are not added to history
+# This is helpful to prevent useless fzf functions from being added to history
+HISTCONTROL=ignorespace
+
 # LS COLOR DIRECTORIES
 # export LSCOLORS='Dxfxcxdxbxegedabagacad'
 
@@ -24,3 +28,15 @@ printf "\n"
 # alias_sourced=$(stat -f %m ~/.alias)
 # test $(stat -f %m ~/.bashrc) -ne $bashrc_sourced && source ~/.bashrc
 # test $(stat -f %m ~/.alias) -ne $bashrc_sourced && source ~/.alias
+
+# Setting key bindings for the functions
+stty discard undef
+bind -m vi-insert -r "\ec"
+bind -m vi-command -r "\ec"
+bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'
+bind -m vi-command '"\C-g":"ccd\C-m"'
+bind -m vi-insert '"\C-o":"\C-[ccvf\C-m"'
+bind -m vi-command '"\C-o":"ccvf\C-m"'
+bind -m vi-insert '"\C-f":"\C-[ccf\C-m"'
+bind -m vi-command '"\C-f":"ccf\C-m"'
+bind -m vi-command '"\C-f":"ccf\C-m"'

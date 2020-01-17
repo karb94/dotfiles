@@ -8,7 +8,7 @@ $if mode=vi
     set keymap vi-insert
     "\C-a": beginning-of-line
     "\C-e": end-of-line
-    "lk": vi-movement-mode
+    # "lk": vi-movement-mode
     "\C-p": previous-history
     "\C-n": next-history
     "\C-L": clear-screen

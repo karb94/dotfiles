@@ -37,32 +37,64 @@ then
 
     vf() {
         local filenames
-        filenames=( "$(fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
-            ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) | fzf --multi | tr '\n' ' ')" )
-            # fzf --multi)") && [ -z "$1" ] &&
-            # ( v "${filenames}" ) || v "${1%/}/${filenames}"
-        [ -n "$1" ] && v "${1%/}/${filenames}" || [ -n "${filenames[0]}" ] && v ${filenames}
+        mapfile -t filenames < <( fd --hidden --type f --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
+            ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) | fzf --multi )
+                    #tr '\n' ' ')" )
+        if [ -n "${filenames[0]}" ]
+        then
+            if [ -n "$1" ] 
+            then
+                if [ "${#filenames[@]}" -gt 1 ]
+                then
+                    v -O2 "${filenames[@]/#/${1%/}/}" 
+                    history -s v -O2 "${filenames[@]/#/${1%/}/}" 
+                else
+                    v "${1%/}/${filenames}" 
+                    history -s v "${1%/}/${filenames}" 
+                fi
+            else
+                if [ "${#filenames[@]}" -gt 1 ]
+                then
+                    v -O2 "${filenames[@]}"
+                    history -s v -O2 "${filenames[@]}"
+                else
+                    v ${filenames}
+                    history -s v ${filenames}
+                fi
+            fi
+        fi
         }
 
     d() {
         local dir
         dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
             ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
-            fzf --no-exact --no-multi) && { [ -z "$1" ] &&
-            cd "${dir}" || cd "${1%/}/${dir}" && ls -pG --color=auto; }
+            fzf --no-exact --no-multi)
+        if [ -z "$1" ]
+        then
+            cd "${dir}" && ls -pG --color=auto
+            history -s cd "${dir}"
+        else
+            cd "${1%/}/${dir}" && ls -pG --color=auto
+            history -s cd "${1%/}/${dir}"
+        fi
         }
     df() {
         local filename
-        filename=$(fd --type f --hidden --maxdepth 3 -p "^$HOME/(\.[^/]*$|\.config|\.vim)" $HOME |
-            rg -o --color never "(\..*|\.config/.*)" |
-            fzf --no-multi) &&
-            v "$HOME/$filename"
+        mapfile -t filenames < <( fd --hidden --type f --exclude ".git" \
+            --max-depth 3 -p "^$HOME/(\.[^/]*$|\.config|\.vim)" $HOME |
+            rg -o --color never "(\..*|\.config/.*)" | fzf --multi )
+        if [ -n "${filenames[0]}" ] 
+        then
+            v -O2 "${filenames[@]/#/~/}"
+            history -s v -O2 "${filenames[@]/#/'~'/}"
+        fi
     }
 else
     vf() {
         local filenames
         local path="${1%/}"
-        filenames=( "$(find ${path:-.} -type f -maxdepth 3 -print 2> /dev/null |
+        filenames=( "$(find ${path:-.} -type f -maxdepth 4 -print 2> /dev/null |
             ( [ -z "$path" ] && cat || sed "s,${path}/,," ) | fzf --multi | tr '\n' ' ')" )
         [ -n "$1" ] && v "${1%/}/${filenames}" || [ -n "${filenames[0]}" ] && v "${filenames}"
         }
@@ -70,7 +102,7 @@ else
     d() {
         local dir
         local path="${1%/}"
-        dir=$(find ${path:-.} -maxdepth 3 -type d -print 2> /dev/null |
+        dir=$(find ${path:-.} -maxdepth 4 -type d -print 2> /dev/null |
             ( [ -z "$path" ] && cat || sed "s,${path}/,," ) |
             fzf --no-exact --no-multi) && { [ -z "$1" ] &&
             cd "${dir}" || cd "${1%/}/${dir}" && ls -pG --color=auto; }
@@ -87,14 +119,3 @@ fi
 # Adding more commands for completion
 # ---------------------
 complete -F _fzf_path_completion -o default -o bashdefault v
-
-# Setting key bindings for the functions
-stty discard undef
-bind -m vi-insert -r "\ec"
-bind -m vi-command -r "\ec"
-bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'
-bind -m vi-command '"\C-g":"ccd\C-m"'
-bind -m vi-insert '"\C-o":"\C-[ccvf\C-m"'
-bind -m vi-command '"\C-o":"ccvf\C-m"'
-bind -m vi-insert '"\C-f":"\C-[ccf\C-m"'
-bind -m vi-command '"\C-f":"ccf\C-m"'
