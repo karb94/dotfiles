@@ -70,13 +70,17 @@ then
         dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
             ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
             fzf --no-exact --no-multi)
-        if [ -z "$1" ]
+        if [ -n $dir ]
         then
-            cd "${dir}" && ls -pG --color=auto
-            history -s cd "${dir}"
-        else
-            cd "${1%/}/${dir}" && ls -pG --color=auto
-            history -s cd "${1%/}/${dir}"
+            clear
+            if [ -z "$1" ]
+            then
+                cd "${dir}" && ls --group-directories-first -prt --color=auto
+                history -s cd "${dir}"
+            else
+                cd "${1%/}/${dir}" && ls --group-directories-first -prt --color=auto
+                history -s cd "${1%/}/${dir}"
+            fi
         fi
         }
     df() {
@@ -86,8 +90,14 @@ then
             rg -o --color never "(\..*|\.config/.*)" | fzf --multi )
         if [ -n "${filenames[0]}" ] 
         then
-            v -O2 "${filenames[@]/#/~/}"
-            history -s v -O2 "${filenames[@]/#/'~'/}"
+            if [ "${#filenames[@]}" -gt 1 ]
+            then
+                v -O2 "${filenames[@]/#/~/}"
+                history -s v -O2 "${filenames[@]/#/'~'/}"
+            else
+                v "${filenames[@]/#/~/}"
+                history -s v "${filenames[@]/#/'~'/}"
+            fi
         fi
     }
 else
