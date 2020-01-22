@@ -17,6 +17,7 @@ let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
 set backspace=indent,eol,start           " Backspace behaves like everywhere else
 set shortmess=F                          " Suppresses the file info message
 set nohlsearch                           " no highlights during search
+set foldmethod=syntax                    "Fold based on syntax highlighting
 set number relativenumber                " set relative number on
 set incsearch                            " starts searching while you type
 set ignorecase                           " Ingores case in searches
@@ -27,6 +28,7 @@ set path+=**                             " You can search for any file in any su
 set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undodir
 set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
 set wildmode=longest:full,full           " Will complete to the longest common command
+set ttimeoutlen=0                        " Time waited for key codes
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
 set shiftwidth=4                         " Sets the number of spaces when indenting with '>>'
@@ -56,6 +58,7 @@ call plug#begin()
 Plug 'machakann/vim-sandwich'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
+Plug 'tommcdo/vim-lion'
 Plug 'junegunn/vim-easy-align'
 Plug 'wellle/targets.vim'
 Plug 'terryma/vim-smooth-scroll'
@@ -102,12 +105,6 @@ nnoremap <leader>r :History:<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>l :BLines<CR>
 nnoremap <leader>g :Rg<CR>
-
-"" YouCompleteMe
-let g:ycm_key_list_select_completion=['<C-j>','<Tab>']
-let g:ycm_key_list_previous_completion=['<C-k>','<S-Tab>']
-let g:ycm_max_num_identifier_candidates = 3
-let g:ycm_max_num_candidates = 5
 
 " Ultisnips
 "Stupid workaround

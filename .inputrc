@@ -1,6 +1,7 @@
 set bind-tty-special-chars off
 set editing-mode vi
 set keyseq-timeout 200
+set keyseq-timeout 1
 set completion-ignore-case on
 $if mode=vi
     set show-mode-in-prompt on
