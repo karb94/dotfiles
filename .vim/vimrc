@@ -18,6 +18,8 @@ set backspace=indent,eol,start           " Backspace behaves like everywhere els
 set shortmess=F                          " Suppresses the file info message
 set nohlsearch                           " no highlights during search
 set foldmethod=syntax                    "Fold based on syntax highlighting
+set nofoldenable
+set foldlevelstart=99
 set number relativenumber                " set relative number on
 set incsearch                            " starts searching while you type
 set ignorecase                           " Ingores case in searches
