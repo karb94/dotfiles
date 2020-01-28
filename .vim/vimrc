@@ -17,9 +17,6 @@ let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
 set backspace=indent,eol,start           " Backspace behaves like everywhere else
 set shortmess=F                          " Suppresses the file info message
 set nohlsearch                           " no highlights during search
-set foldmethod=syntax                    "Fold based on syntax highlighting
-set nofoldenable
-set foldlevelstart=99
 set number relativenumber                " set relative number on
 set incsearch                            " starts searching while you type
 set ignorecase                           " Ingores case in searches
@@ -169,17 +166,6 @@ endfunction
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
 
 "Mappings
 inoremap lk <Esc>

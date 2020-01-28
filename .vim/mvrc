@@ -1,10 +1,14 @@
-filetype on
+filetype off
+filetype plugin on
 syntax on
 syntax enable
 
 " Settings
 let &t_SI.="\e[6 q"                      " Change cursor shape in insert mode
 let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
+set directory^=$HOME/.vim/swapfiles//    " Central location for swap files
+set undodir=~/.vim/undodir               " Central location for undo files
+set undofile                             " Persistent undo even after closing file
 set backspace=indent,eol,start           " Backspace behaves like everywhere else
 set shortmess=F                          " Suppresses the file info message
 set nohlsearch                           " no highlights during search
@@ -15,16 +19,77 @@ set smartcase                            " In combination with ignorecase, only 
 set tabstop=4                            " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
 set expandtab                            " Converts tabs into spaces
 set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
+set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undodir
 set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
 set wildmode=longest:full,full           " Will complete to the longest common command
+set ttimeoutlen=0                        " Time waited for key codes
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
 set shiftwidth=4                         " Sets the number of spaces when indenting with '>>'
 set autoindent                           " Sets new line with same indentation as current line
 set smartindent                          " Auto-indents for {
-set clipboard=unnamedplus
-autocmd VimLeave * call system("xsel -ib", getreg('+'))
+let g:os = substitute(system('uname'), '\n', '', '')
+if g:os == "Darwin"
+    set clipboard=unnamed
+    autocmd VimLeave * call system("xsel -ib", getreg('*'))
+elseif g:os == "Linux"
+    set clipboard=unnamedplus
+    autocmd VimLeave * call system("xsel -ib", getreg('+'))
+endif
 let mapleader=" "               "Sets leader key
+
+
+"Install the plugin manager vim-plug if it is not installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call has('python3')
+"Plugins
+call plug#begin()
+Plug 'machakann/vim-sandwich'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-commentary'
+Plug 'tommcdo/vim-lion'
+Plug 'junegunn/vim-easy-align'
+Plug 'wellle/targets.vim'
+Plug 'terryma/vim-smooth-scroll'
+Plug 'karb94/vim-sneak'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+call plug#end()
+
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
+noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
+noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
+
+" Easy Align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+"Sneak
+let g:sneak#use_ic_scs = 1
+let g:sneak#map_netrw = 0
+let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
+let g:sneak#label = 1
+highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
+nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
+nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
+xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
+xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
+
+"Fuzzy Finder (FZF)
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>r :History:<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>l :BLines<CR>
+nnoremap <leader>g :Rg<CR>
 
 "Mappings
 inoremap lk <Esc>
@@ -38,6 +103,8 @@ nnoremap <C-w> <C-w>w
 nnoremap <leader>q :q!<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>x :x<CR>
+nnoremap <leader>z :%foldclose<CR>
+nnoremap <leader>Z :%foldopen<CR>
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <leader>p :put<CR>=`[
@@ -71,12 +138,31 @@ hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
 
 "Status bar
 set laststatus=2    " Always show status bar
-augroup statusBar
-autocmd!
-au InsertEnter * hi statusline ctermfg=226 ctermbg=none cterm=bold
-au InsertLeave * hi statusline ctermfg=196 ctermbg=none cterm=bold
-augroup END
-" default the statusline to green when entering Vim
-hi statusline ctermfg=196 ctermbg=none cterm=bold
-hi statuslineNC ctermfg=52 ctermbg=none cterm=none
 set statusline=%f%r%m%=%P
+
+" Gruvbox
+set termguicolors
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_light = 'soft'
+set background=dark
+
+hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
+nnoremap <C-K> :call HighlightNearCursor()<CR>
+function HighlightNearCursor()
+    let ln = line('.')
+    for i in [1,2,3]
+        let m = matchaddpos("CursorLineFlash", [ln])
+        redraw
+        sleep 50m
+        call matchdelete(m)
+        redraw
+        sleep 50m
+    endfor
+endfunction
+
+" Reset cursor on start:
+augroup initialization
+au!
+autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
+augroup END
