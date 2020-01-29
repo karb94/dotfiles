@@ -22,6 +22,7 @@ set incsearch                            " starts searching while you type
 set ignorecase                           " Ingores case in searches
 set smartcase                            " In combination with ignorecase, only ignores case when no uppercase is used
 set tabstop=4                            " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
+let &scrolloff=float2nr(0.20*winheight(0)) "Sets scrolloff to 20% of window height
 set expandtab                            " Converts tabs into spaces
 set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
 set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undodir
@@ -168,7 +169,7 @@ endfunction
 nmap <silent> gd <Plug>(coc-definition)
 
 "Mappings
-inoremap lk <Esc>
+" inoremap lk <Esc>
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 vnoremap lk <Esc>
