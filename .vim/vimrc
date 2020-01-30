@@ -52,7 +52,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call has('python3')
+" call has('python3')
 "Plugins
 call plug#begin()
 Plug 'machakann/vim-sandwich'
@@ -61,26 +61,23 @@ Plug 'tpope/vim-commentary'
 Plug 'tommcdo/vim-lion'
 Plug 'junegunn/vim-easy-align'
 Plug 'wellle/targets.vim'
-Plug 'terryma/vim-smooth-scroll'
+Plug 'karb94/vim-smoothie'
 Plug 'karb94/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"if has('mac')
-"    Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer' }
-"elseif $HOSTNAME =~ "login-[0-9][0-9]*"
-"else
-"    Plug 'ycm-core/YouCompleteMe', { 'do': '/usr/bin/python ./install.py --clang-completer --system-libclang' }
-"endif
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 call plug#end()
 
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
-noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
-noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
+" nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+" nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
+
+" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
+" noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
+" noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
 
 " Easy Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
