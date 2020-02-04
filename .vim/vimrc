@@ -30,6 +30,7 @@ set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undod
 set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
 set wildmode=longest:full,full           " Will complete to the longest common command
 set ttimeoutlen=0                        " Time waited for key codes
+let g:tex_conceal=""
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
 set shiftwidth=4                         " Sets the number of spaces when indenting with '>>'
