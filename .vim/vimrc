@@ -3,7 +3,7 @@ filetype plugin on
 syntax on
 syntax enable
 
-" Settings
+" SETTINGS
 let &t_SI.="\e[6 q"                      " Change cursor shape in insert mode
 " For CX1
 if $HOSTNAME !~ "login-[0-9][0-9]*"
@@ -15,16 +15,16 @@ set undodir=~/.vim/undodir               " Central location for undo files
 set undofile                             " Persistent undo even after closing file
 let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
 set backspace=indent,eol,start           " Backspace behaves like everywhere else
-set shortmess=F                          " Suppresses the file info message
+set shortmess=Fat                          " Suppresses the file info message
 set nohlsearch                           " no highlights during search
 set number relativenumber                " set relative number on
+set foldmethod=manual                      " Less laggy than syntax mode
 set incsearch                            " starts searching while you type
 set ignorecase                           " Ingores case in searches
-set foldmethod=manual
-set smartcase                            " In combination with ignorecase, only ignores case when no uppercase is used
-set tabstop=4                            " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
-let &scrolloff=float2nr(0.20*winheight(0)) "Sets scrolloff to 20% of window height
-set expandtab                            " Converts tabs into spaces
+set smartcase                              " In combination with ignorecase, only ignores case when no uppercase is used
+set tabstop=4                              " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
+let &scrolloff=float2nr(0.20*winheight(0)) " Sets scrolloff to 20% of window height
+set expandtab                              " Converts tabs into spaces
 set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
 set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undodir
 set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
@@ -60,7 +60,7 @@ call plug#begin()
 Plug 'machakann/vim-sandwich'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
-Plug 'tommcdo/vim-lion'
+Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align'
 Plug 'wellle/targets.vim'
 Plug 'karb94/vim-smoothie'
@@ -72,14 +72,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 call plug#end()
-
-" nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
-" nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
-
-" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
-" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
-" noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
-" noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
 
 " Easy Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -151,28 +143,27 @@ inoremap <silent><expr> <TAB>
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
-
 " Better display for messages
 set cmdheight=1
-
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
-
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
-
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 
+" Dispatch
+nnoremap <leader>m :silent Make -C build<CR>
+
+
 "Mappings
 " inoremap lk <Esc>
+" vnoremap lk <Esc>
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
-vnoremap lk <Esc>
 nnoremap <leader>c mbI#<Esc>`b
 nnoremap <leader>u mb^x`b
 nnoremap <leader>v :vsplit<CR><C-w>w
@@ -193,7 +184,7 @@ nnoremap <leader>j J
 nnoremap H ^
 nnoremap L $
 nnoremap U :redo<CR>
-nmap <leader>m :w<CR>:!clear; make -C build/<CR>
+" nmap <leader>m :w<CR>:!clear; make -C build/<CR>
 
 "Color
 colorscheme peachpuff
@@ -208,7 +199,7 @@ highlight PmenuSel ctermbg=18 ctermfg=White
 highlight MatchParen ctermbg=Black ctermfg=202
 highlight Comment ctermbg=Black ctermfg=202
 highlight SignColumn ctermbg=Black
-highlight Error ctermbg=Black ctermfg=Red
+highlight Error ctermbg=none ctermfg=Red
 hi VertSplit ctermbg=none ctermfg=green cterm=none
 hi LineNr ctermfg=226 ctermbg=none 
 hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
@@ -217,11 +208,13 @@ hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
 set laststatus=2    " Always show status bar
 set statusline=%f%r%m%=%P
 
+let g:gruvbox_sign_column = 'bg0'
 " Gruvbox
 set termguicolors
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'soft'
+let g:gruvbox_sign_column = 'bg0'
 set background=dark
 
 hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
