@@ -156,7 +156,7 @@ set shortmess+=c
 nmap <silent> gd <Plug>(coc-definition)
 
 " Dispatch
-nnoremap <leader>m :silent Make -C build<CR>
+nnoremap <leader>m :w<CR>:silent Make -C build<CR>
 
 
 "Mappings
