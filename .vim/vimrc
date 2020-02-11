@@ -15,10 +15,11 @@ set undodir=~/.vim/undodir               " Central location for undo files
 set undofile                             " Persistent undo even after closing file
 let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
 set backspace=indent,eol,start           " Backspace behaves like everywhere else
-set shortmess=Fat                          " Suppresses the file info message
+set shortmess=Fat                        " Suppresses the file info message
 set nohlsearch                           " no highlights during search
 set number relativenumber                " set relative number on
-set foldmethod=manual                      " Less laggy than syntax mode
+set foldmethod=manual                    " Less laggy than syntax mode
+set gdefault                             " Sets g flag on all substitutions by default
 set incsearch                            " starts searching while you type
 set ignorecase                           " Ingores case in searches
 set smartcase                              " In combination with ignorecase, only ignores case when no uppercase is used
