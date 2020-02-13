@@ -63,7 +63,7 @@ Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align'
-Plug 'goerz/jupytext.vim', { 'for': 'ipynb' }
+Plug 'karb94/jupytext.vim'
 Plug 'wellle/targets.vim'
 Plug 'karb94/vim-smoothie'
 Plug 'karb94/vim-sneak'
@@ -74,6 +74,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 call plug#end()
+
+" jupytext.vim
+let g:jupytext_fmt = 'py:light'
+autocmd BufRead,BufNewFile *.ipynb set foldmethod="marker"
 
 " Easy Align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
