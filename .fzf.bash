@@ -70,7 +70,7 @@ then
         dir=$(fd --hidden --type d --no-ignore --exclude ".git" --max-depth 3 . "${1:-.}" 2> /dev/null |
             ( [ -z "$1" ] && cat || sed "s,${1%/}/,," ) |
             fzf --no-exact --no-multi)
-        if [ -n $dir ]
+        if [ -n "$dir" ]
         then
             clear
             if [ -z "$1" ]
