@@ -18,7 +18,7 @@ source "$HOME/.fzf/shell/key-bindings.bash"
 if command -v fd >/dev/null 2>&1
 then
     export FZF_CTRL_T_COMMAND='fd --type f --hidden --no-ignore --exclude .git --max-depth 3'
-    export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git --max-depth 3'
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude .git --max-depth 3'
 fi
 export FZF_DEFAULT_OPTS="--exact --layout=reverse --height 40% --select-1 --inline-info"
 
