@@ -69,11 +69,14 @@ Plug 'karb94/vim-smoothie'
 Plug 'karb94/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'vim-python/python-syntax', { 'for': 'py' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 call plug#end()
+
+let g:python_highlight_all = 1
 
 " jupytext.vim
 let g:jupytext_fmt = 'py:light'
@@ -222,7 +225,7 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'soft'
 let g:gruvbox_sign_column = 'bg0'
-set background=dark
+set background=light
 
 hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
 nnoremap <C-K> :call HighlightNearCursor()<CR>
