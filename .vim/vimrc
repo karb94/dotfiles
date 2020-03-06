@@ -1,62 +1,5 @@
 filetype off
-filetype plugin on
-syntax on
-syntax enable
 
-" SETTINGS
-let &t_SI.="\e[6 q"                      " Change cursor shape in insert mode
-" For CX1
-if $HOSTNAME !~ "login-[0-9][0-9]*"
-    let &t_SR.="\e[4 q"                  " Change cursor shape in replace mode
-    set signcolumn=yes                   " Vim gutter always active
-endif
-set directory^=$HOME/.vim/swapfiles//    " Central location for swap files
-set undodir=~/.vim/undodir               " Central location for undo files
-set undofile                             " Persistent undo even after closing file
-let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
-set backspace=indent,eol,start           " Backspace behaves like everywhere else
-set shortmess=Fat                        " Suppresses the file info message
-set nohlsearch                           " no highlights during search
-set number relativenumber                " set relative number on
-set foldmethod=manual                    " Less laggy than syntax mode
-set gdefault                             " Sets g flag on all substitutions by default
-set incsearch                            " starts searching while you type
-set ignorecase                           " Ingores case in searches
-set smartcase                              " In combination with ignorecase, only ignores case when no uppercase is used
-set tabstop=4                              " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
-let &scrolloff=float2nr(0.20*winheight(0)) " Sets scrolloff to 20% of window height
-set expandtab                              " Converts tabs into spaces
-set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
-set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undodir
-set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
-set wildmode=longest:full,full           " Will complete to the longest common command
-set ttimeoutlen=0                        " Time waited for key codes
-let g:tex_conceal=""
-autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
-autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
-set shiftwidth=4                         " Sets the number of spaces when indenting with '>>'
-set autoindent                           " Sets new line with same indentation as current line
-set smartindent                          " Auto-indents for {
-let g:os = substitute(system('uname'), '\n', '', '')
-if g:os == "Darwin"
-    set clipboard=unnamed
-    autocmd VimLeave * call system("xsel -ib", getreg('*'))
-elseif g:os == "Linux"
-    set clipboard=unnamedplus
-    autocmd VimLeave * call system("xsel -ib", getreg('+'))
-endif
-let mapleader=" "               "Sets leader key
-
-
-"Install the plugin manager vim-plug if it is not installed
-" if empty(glob('~/.vim/autoload/plug.vim'))
-"     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-"                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-" endif
-
-" call has('python3')
-"Plugins
 call plug#begin()
 Plug 'machakann/vim-sandwich'
 Plug 'morhetz/gruvbox'
@@ -70,12 +13,14 @@ Plug 'karb94/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-python/python-syntax', { 'for': 'py' }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 call plug#end()
 
+let g:python_highlight_space_errors = 0
 let g:python_highlight_all = 1
 
 " jupytext.vim
@@ -98,14 +43,6 @@ nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
 nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
 xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
 xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
-
-"Fuzzy Finder (FZF)
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>r :History:<CR>
-nnoremap <leader>f :GFiles<CR>
-nnoremap <leader>F :Files<CR>
-nnoremap <leader>l :BLines<CR>
-nnoremap <leader>g :Rg<CR>
 
 " Ultisnips
 "Stupid workaround
@@ -142,6 +79,60 @@ let g:vimtex_quickfix_latexlog = {
             \}
 let g:vimtex_view_method = 'zathura'
 
+filetype plugin on
+syntax on
+syntax enable
+
+" SETTINGS
+let &t_SI.="\e[6 q"                      " Change cursor shape in insert mode
+" For CX1
+if $HOSTNAME !~ "login-[0-9][0-9]*"
+    let &t_SR.="\e[4 q"                  " Change cursor shape in replace mode
+    set signcolumn=yes                   " Vim gutter always active
+endif
+set directory^=$HOME/.vim/swapfiles//    " Central location for swap files
+set undodir=~/.vim/undodir               " Central location for undo files
+set undofile                             " Persistent undo even after closing file
+let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
+set backspace=indent,eol,start           " Backspace behaves like everywhere else
+set shortmess=Fat                        " Suppresses the file info message
+set nohlsearch                           " no highlights during search
+set number relativenumber                " set relative number on
+set foldmethod=manual                    " Less laggy than syntax mode
+set gdefault                             " Sets g flag on all substitutions by default
+set incsearch                            " starts searching while you type
+set ignorecase                           " Ingores case in searches
+set smartcase                              " In combination with ignorecase, only ignores case when no uppercase is used
+let &scrolloff=float2nr(0.20*winheight(0)) " Sets scrolloff to 20% of window height
+set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
+set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undodir
+set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
+set wildmode=longest:full,full           " Will complete to the longest common command
+set ttimeoutlen=0                        " Time waited for key codes
+let g:tex_conceal=""
+autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
+autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
+set tabstop=4                              " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
+set expandtab                              " Converts tabs into spaces
+set shiftwidth=4                         " Sets the number of spaces when indenting with '>>'
+set autoindent                           " Sets new line with same indentation as current line
+set smartindent                          " Auto-indents for {
+" Fix stupid python double indenting
+let g:pyindent_open_paren = 'shiftwidth()'
+let g:pyindent_continue = 'shiftwidth()'
+
+" Clipboard settings
+let g:os = substitute(system('uname'), '\n', '', '')
+if g:os == "Darwin"
+    set clipboard=unnamed
+    autocmd VimLeave * call system("xsel -ib", getreg('*'))
+elseif g:os == "Linux"
+    set clipboard=unnamedplus
+    autocmd VimLeave * call system("xsel -ib", getreg('+'))
+endif
+let mapleader=" "               "Sets leader key
+
+
 " Conquer of Completion
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -176,6 +167,7 @@ inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 nnoremap <leader>c mbI#<Esc>`b
 nnoremap <leader>u mb^x`b
+nnoremap <leader>b :b#<CR>
 nnoremap <leader>v :vsplit<CR><C-w>w
 nnoremap <C-w> <C-w>w
 nnoremap <leader>q :q!<CR>
@@ -225,7 +217,7 @@ colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'soft'
 let g:gruvbox_sign_column = 'bg0'
-set background=light
+set background=dark
 
 hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
 nnoremap <C-K> :call HighlightNearCursor()<CR>
@@ -246,3 +238,11 @@ augroup initialization
 au!
 autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
 augroup END
+
+"Fuzzy Finder (FZF)
+nnoremap <leader>B :Buffers<CR>
+nnoremap <leader>r :History:<CR>
+nnoremap <leader>f :GFiles<CR>
+nnoremap <leader>F :Files<CR>
+nnoremap <leader>l :BLines<CR>
+nnoremap <leader>g :Rg<CR>

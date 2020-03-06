@@ -120,7 +120,7 @@ set termguicolors
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'soft'
-set background=light
+set background=dark
 
 hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
 nnoremap <C-K> :call HighlightNearCursor()<CR>
