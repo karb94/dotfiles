@@ -43,8 +43,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return split h exec kitty --single-instance
 bindsym $mod+Shift+Return split v; exec kitty --single-instance
-# bindsym $mod+Return exec urxvt -fg green -bg black
-# bindsym $mod+Shift+Return split v; exec urxvt -fg green -bg black
+
+# start internet browser
+bindsym $mod+i split h exec chromium
 
 # kill focused window
 bindsym $mod+BackSpace kill
@@ -55,6 +56,7 @@ bindsym $mod+Shift+Tab workspace prev
 
 # start dmenu (a program launcher)
 bindsym $mod+s exec rofi -show run
+
 #bindsym $mod+d exec dmenu_run
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
@@ -193,6 +195,6 @@ bar {
 }
 
 # exec compton --no-fading-openclose
-exec compton
-exec --no-startup-id i3-msg 'workspace 1; exec chromium'
-exec --no-startup-id i3-msg 'workspace 2; exec kitty --single-instance'
+# exec compton
+exec --no-startup-id i3-msg 'workspace "1"; exec chromium'
+exec --no-startup-id i3-msg 'workspace "2"; exec kitty --single-instance'

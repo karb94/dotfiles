@@ -63,8 +63,8 @@ alias vrc='v ~/.vim/vimrc'
 alias r='ranger'
 alias grep='grep --color=auto'
 alias ds='conda activate data_science'
-alias cact='conda activate'
-alias cdeact='conda deactivate'
+alias ac='conda activate'
+alias da='conda deactivate'
 
 # For git
 alias gitdf="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"

@@ -6,6 +6,9 @@ set -o vi
 [[ ":$PATH:" != *":~/.local/scripts/:"* ]] &&
 PATH="${PATH}:~/.local/scripts/"
 
+[[ ":$PATH:" != *":~/.local/bin/:"* ]] &&
+PATH="${PATH}:~/.local/bin/"
+
 # Commands preceeded by a space are not added to history
 # This is helpful to prevent useless fzf functions from being added to history
 HISTCONTROL=ignorespace
