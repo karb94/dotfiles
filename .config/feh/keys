@@ -1,0 +1,26 @@
+next_img	l
+prev_img	h
+zoom_in		j
+zoom_out	k
+
+scroll_left 	C-h
+scroll_right	C-l
+scroll_up    	C-k
+scroll_down	    C-j
+
+toggle_aliasing		A
+toggle_filenames	d
+toggle_pointer		o
+toggle_fullscreen	f
+
+
+reload_image	r
+size_to_image	w
+next_dir	bracketright
+prev_dir	bracketleft
+orient_3	parenright
+orient_1	parenleft
+flip		underscore
+remove		Delete
+
+close	q Q
