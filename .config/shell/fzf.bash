@@ -83,7 +83,7 @@ then
             fi
         fi
         }
-    df() {
+    cf() {
         local filename
         mapfile -t filenames < <( fd --hidden --type f --exclude ".git" \
             --max-depth 3 -p "^$HOME/(\.[^/]*$|\.config|\.vim)" $HOME |
@@ -117,7 +117,7 @@ else
             fzf --no-exact --no-multi) && { [ -z "$1" ] &&
             cd "${dir}" || cd "${1%/}/${dir}" && ls -pG --color=auto; }
         }
-    df() {
+    cf() {
         local filename
         filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config\/.*$|\.vim\/.*$)" \
             -maxdepth 3 -print 2> /dev/null |

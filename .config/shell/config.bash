@@ -10,34 +10,31 @@ PATH="${PATH}:~/.local/bin/"
 # This is helpful to prevent useless fzf functions from being added to history
 HISTCONTROL=ignorespace
 
-# LS COLOR DIRECTORIES
-# export LSCOLORS='Dxfxcxdxbxegedabagacad'
-
 # Prompt command configuration
 shopt -s histappend
 if [ "$(uname)" = "Linux" ]
 then
     # For Linux
-    bashconf_sourced=$(stat -c %Y ~/.config/shell/bashconf)
-    alias_sourced=$(stat -c %Y ~/.config/shell/alias)
+    config_sourced=$(stat -c %Y ~/.config/shell/config.bash)
+    alias_sourced=$(stat -c %Y ~/.config/shell/alias.bash)
     PROMPT_COMMAND='
     history -a
-    [ $(stat -c %Y ~/.config/shell/bashconf) -ne $bashconf_sourced ] &&
-        source ~/.config/shell/bashconf
-    [ $(stat -c %Y ~/.config/shell/alias) -ne $alias_sourced ] &&
-        source ~/.config/shell/alias
+    [ $(stat -c %Y ~/.config/shell/config.bash) -ne $config_sourced ] &&
+        source ~/.config/shell/config.bash
+    [ $(stat -c %Y ~/.config/shell/alias.bash) -ne $alias_sourced ] &&
+        source ~/.config/shell/alias.bash
     printf "\n"
     '
 else
     # For MacOS
-    bashconf_sourced=$(stat -f %m ~/.config/shell/bashconf)
-    alias_sourced=$(stat -f %m ~/.config/shell/alias)
+    config_sourced=$(stat -f %m ~/.config/shell/config.bash)
+    alias_sourced=$(stat -f %m ~/.config/shell/alias.bash)
     PROMPT_COMMAND='
     history -a
-    [ $(stat -f %m ~/.config/shell/bashconf) -ne $bashconf_sourced ] &&
-        source ~/.config/shell/bashconf
-    [ $(stat -f %m ~/.config/shell/alias) -ne $bashconf_sourced ] &&
-        source ~/.config/shell/alias
+    [ $(stat -f %m ~/.config/shell/config.bash) -ne $config_sourced ] &&
+        source ~/.config/shell/config.bash
+    [ $(stat -f %m ~/.config/shell/alias.bash) -ne $config_sourced ] &&
+        source ~/.config/shell/alias.bash
     printf "\n"
     '
 fi
