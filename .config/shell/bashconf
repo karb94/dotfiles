@@ -1,0 +1,59 @@
+set -o vi
+
+[[ ":$PATH:" != *":~/.local/scripts/:"* ]] &&
+PATH="${PATH}:~/.local/scripts/"
+
+[[ ":$PATH:" != *":~/.local/bin/:"* ]] &&
+PATH="${PATH}:~/.local/bin/"
+
+# Commands preceeded by a space are not added to history
+# This is helpful to prevent useless fzf functions from being added to history
+HISTCONTROL=ignorespace
+
+# LS COLOR DIRECTORIES
+# export LSCOLORS='Dxfxcxdxbxegedabagacad'
+
+# Prompt command configuration
+shopt -s histappend
+if [ "$(uname)" = "Linux" ]
+then
+    # For Linux
+    bashconf_sourced=$(stat -c %Y ~/.config/shell/bashconf)
+    alias_sourced=$(stat -c %Y ~/.config/shell/alias)
+    PROMPT_COMMAND='
+    history -a
+    [ $(stat -c %Y ~/.config/shell/bashconf) -ne $bashconf_sourced ] &&
+        source ~/.config/shell/bashconf
+    [ $(stat -c %Y ~/.config/shell/alias) -ne $alias_sourced ] &&
+        source ~/.config/shell/alias
+    printf "\n"
+    '
+else
+    # For MacOS
+    bashconf_sourced=$(stat -f %m ~/.config/shell/bashconf)
+    alias_sourced=$(stat -f %m ~/.config/shell/alias)
+    PROMPT_COMMAND='
+    history -a
+    [ $(stat -f %m ~/.config/shell/bashconf) -ne $bashconf_sourced ] &&
+        source ~/.config/shell/bashconf
+    [ $(stat -f %m ~/.config/shell/alias) -ne $bashconf_sourced ] &&
+        source ~/.config/shell/alias
+    printf "\n"
+    '
+fi
+
+[ -f ~/.config/shell/alias ] && source ~/.config/shell/alias
+[ -f ~/.config/shell/fzf.bash ] && source ~/.config/shell/fzf.bash
+
+# Setting key bindings for the functions
+stty discard undef
+bind -m vi-insert -r "\ec"
+bind -m vi-command -r "\ec"
+bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'
+bind -m vi-command '"\C-g":"ccd\C-m"'
+bind -m vi-insert '"\C-o":"\C-[ccvf\C-m"'
+bind -m vi-command '"\C-o":"ccvf\C-m"'
+bind -m vi-insert '"\C-f":"\C-[ccf\C-m"'
+bind -m vi-command '"\C-f":"ccf\C-m"'
+bind -m vi-insert '"\C-b":"\C-[cccd ..\C-m"'
+bind -m vi-command '"\C-b":"cccd ..\C-m"'
