@@ -167,7 +167,7 @@ inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 nnoremap <leader>c mbI#<Esc>`b
 nnoremap <leader>u mb^x`b
-nnoremap <leader>b :b#<CR>
+nnoremap <leader>B :b#<CR>
 nnoremap <leader>v :vsplit<CR><C-w>w
 nnoremap <C-w> <C-w>w
 nnoremap <leader>q :q!<CR>
@@ -240,7 +240,7 @@ autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
 augroup END
 
 "Fuzzy Finder (FZF)
-nnoremap <leader>B :Buffers<CR>
+nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>r :History:<CR>
 nnoremap <leader>f :GFiles<CR>
 nnoremap <leader>F :Files<CR>

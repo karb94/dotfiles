@@ -10,6 +10,8 @@
 #   \__|  \__|  \__|  \__|  \_______| \_______/
 
 
+alias_sourced=$(stat -c %Y ~/.config/shell/alias.bash)
+
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
 then
@@ -52,14 +54,16 @@ then
 fi
 
 # Aliases
+alias mkdir='mkdir -v' 
+alias mv='mv -iv' 
 alias h='cd $HOME' 
 alias ls='\ls -pG --color=auto --group-directories-first' 
 alias lsh='ls -d .*'
 alias sv='sudo v'
 alias sb='source ~/.bashrc'
-alias vb='v ~/.bashrc'
-alias val='v ~/.alias'
-alias vrc='v ~/.vim/vimrc'
+alias vb='vim ~/.config/shell/config.bash'
+alias val='vim ~/.config/shell/alias.bash'
+alias vrc='vim ~/.vim/vimrc'
 alias r='ranger'
 alias grep='grep --color=auto'
 alias ds='conda activate data_science'

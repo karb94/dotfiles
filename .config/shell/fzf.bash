@@ -46,20 +46,20 @@ then
             then
                 if [ "${#filenames[@]}" -gt 1 ]
                 then
-                    v -O2 "${filenames[@]/#/${1%/}/}" 
-                    history -s v -O2 "${filenames[@]/#/${1%/}/}" 
+                    vim -O2 "${filenames[@]/#/${1%/}/}" 
+                    history -s vim -O2 "${filenames[@]/#/${1%/}/}" 
                 else
-                    v "${1%/}/${filenames}" 
-                    history -s v "${1%/}/${filenames}" 
+                    vim "${1%/}/${filenames}" 
+                    history -s vim "${1%/}/${filenames}" 
                 fi
             else
                 if [ "${#filenames[@]}" -gt 1 ]
                 then
-                    v -O2 "${filenames[@]}"
-                    history -s v -O2 "${filenames[@]}"
+                    vim -O2 "${filenames[@]}"
+                    history -s vim -O2 "${filenames[@]}"
                 else
-                    v ${filenames}
-                    history -s v ${filenames}
+                    vim ${filenames}
+                    history -s vim ${filenames}
                 fi
             fi
         fi
@@ -92,11 +92,11 @@ then
         then
             if [ "${#filenames[@]}" -gt 1 ]
             then
-                v -O2 "${filenames[@]/#/~/}"
-                history -s v -O2 "${filenames[@]/#/'~'/}"
+                vim -O2 "${filenames[@]/#/~/}"
+                history -s vim -O2 "${filenames[@]/#/'~'/}"
             else
-                v "${filenames[@]/#/~/}"
-                history -s v "${filenames[@]/#/'~'/}"
+                vim "${filenames[@]/#/~/}"
+                history -s vim "${filenames[@]/#/'~'/}"
             fi
         fi
     }
@@ -106,7 +106,7 @@ else
         local path="${1%/}"
         filenames=( "$(find ${path:-.} -type f -maxdepth 4 -print 2> /dev/null |
             ( [ -z "$path" ] && cat || sed "s,${path}/,," ) | fzf --multi | tr '\n' ' ')" )
-        [ -n "$1" ] && v "${1%/}/${filenames}" || [ -n "${filenames[0]}" ] && v "${filenames}"
+        [ -n "$1" ] && vim "${1%/}/${filenames}" || [ -n "${filenames[0]}" ] && vim "${filenames}"
         }
 
     d() {
@@ -122,7 +122,7 @@ else
         filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config\/.*$|\.vim\/.*$)" \
             -maxdepth 3 -print 2> /dev/null |
             grep -E -o --color=never "(\..*|\.config/.*)" |
-            fzf --multi) && v "$HOME/$filename"
+            fzf --multi) && vim "$HOME/$filename"
         }
 fi
 
