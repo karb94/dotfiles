@@ -2,6 +2,7 @@ set bind-tty-special-chars off
 set editing-mode vi
 set keyseq-timeout 200
 set keyseq-timeout 1
+set show-all-if-ambiguous on
 set completion-ignore-case on
 # set show-all-if-ambiguous on
 $if mode=vi
