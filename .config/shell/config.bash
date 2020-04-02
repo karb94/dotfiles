@@ -6,8 +6,15 @@ PATH="${PATH}:~/.local/scripts/"
 [[ ":$PATH:" != *":~/.local/bin/:"* ]] &&
 PATH="${PATH}:~/.local/bin/"
 
-[ -f ~/.config/shell/alias.bash ] && source ~/.config/shell/alias.bash
-[ -f ~/.config/shell/fzf.bash ] && source ~/.config/shell/fzf.bash
+
+command -v fzf >/dev/null 2>&1 && test -f ~/.config/shell/fzf.bash && source $_
+# If git command doesn't exist don't source
+if command -v git >/dev/null 2>&1
+then
+     test -f ~/.config/git/git-completion.bash && source $_
+     test -f ~/.config/git/git-prompt.sh && source $_
+fi
+test -f ~/.config/shell/alias.bash && source $_
 
 # Commands preceeded by a space are not added to history
 # This is helpful to prevent useless fzf functions from being added to history
@@ -45,11 +52,5 @@ printf "\n"
 stty discard undef
 bind -m vi-insert -r "\ec"
 bind -m vi-command -r "\ec"
-bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'
-bind -m vi-command '"\C-g":"ccd\C-m"'
-bind -m vi-insert '"\C-o":"\C-[ccvf\C-m"'
-bind -m vi-command '"\C-o":"ccvf\C-m"'
-bind -m vi-insert '"\C-f":"\C-[ccf\C-m"'
-bind -m vi-command '"\C-f":"ccf\C-m"'
 bind -m vi-insert '"\C-b":"\C-[cccd ..\C-m"'
 bind -m vi-command '"\C-b":"cccd ..\C-m"'

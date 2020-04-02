@@ -72,26 +72,29 @@ alias ac='conda activate'
 alias da='conda deactivate'
 
 # For git
-alias gitdf="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-__git_complete gitdf _git
-alias g='git'
-__git_complete g _git
-alias gr='git reset --hard'
-__git_complete gr _git_reset
-alias gs='git status'
-__git_complete gs _git_status
-alias ga='git add'
-__git_complete ga _git_add
-alias gb='git branch -avv'
-alias gc='git commit'
-__git_complete gc _git_commit
-alias gch='git checkout'
-__git_complete gch _git_checkout
-alias gp='git pull'
-__git_complete gp _git_pull
-alias gl='git log --oneline --graph --all'
-alias gs='git ls-tree --full-tree --name-only -r HEAD'
-alias gitdfls='gitdf ls-tree --full-tree --name-only -r HEAD'
+if command -v git >/dev/null 2>&1
+then
+    alias gitdf="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+    __git_complete gitdf _git
+    alias g='git'
+    __git_complete g _git
+    alias gr='git reset --hard'
+    __git_complete gr _git_reset
+    alias gs='git status'
+    __git_complete gs _git_status
+    alias ga='git add'
+    __git_complete ga _git_add
+    alias gb='git branch -avv'
+    alias gc='git commit'
+    __git_complete gc _git_commit
+    alias gch='git checkout'
+    __git_complete gch _git_checkout
+    alias gp='git pull'
+    __git_complete gp _git_pull
+    alias gl='git log --oneline --graph --all'
+    alias gs='git ls-tree --full-tree --name-only -r HEAD'
+    alias gitdfls='gitdf ls-tree --full-tree --name-only -r HEAD'
+fi
 
 # Functions
 push () {

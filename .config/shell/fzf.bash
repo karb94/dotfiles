@@ -129,3 +129,7 @@ fi
 # Adding more commands for completion
 # ---------------------
 complete -F _fzf_path_completion -o default -o bashdefault v
+
+# Setting key bindings for the functions
+bind -x '"\C-g":"d"'
+bind -x '"\C-o":"vf"'
