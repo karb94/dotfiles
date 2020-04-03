@@ -49,7 +49,7 @@ printf "\n"
 # fi
 
 # Setting key bindings for the functions
-stty discard undef
+stty -a | grep discard >/dev/nullstty && discard undef
 bind -m vi-insert -r "\ec"
 bind -m vi-command -r "\ec"
 bind -m vi-insert '"\C-b":"\C-[cccd ..\C-m"'
