@@ -70,6 +70,7 @@ alias grep='grep --color=auto'
 alias ds='conda activate data_science'
 alias ac='conda activate'
 alias da='conda deactivate'
+alias vpn='nmcli connection up --ask ic'
 
 # For git
 if command -v git >/dev/null 2>&1
