@@ -20,7 +20,9 @@ then
     export FZF_CTRL_T_COMMAND='fd --type f --hidden --no-ignore --exclude .git'
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore --exclude .git'
 fi
-export FZF_DEFAULT_OPTS="--exact --layout=reverse --height 40% --select-1 --inline-info"
+export FZF_DEFAULT_OPTS='
+--exact --layout=reverse --height 40% --select-1 --inline-info
+--color=bg+:239'
 
 # Overwriting default functions
 # ---------------------
@@ -86,8 +88,8 @@ then
     cf() {
         local filename
         mapfile -t filenames < <( fd --hidden --type f --exclude ".git" \
-            --max-depth 3 -p "^$HOME/(\.[^/]*$|\.config|\.vim)" $HOME |
-            rg -o --color never "(\..*|\.config/.*)" | fzf --multi )
+            --max-depth 3 -p "^$HOME/(\.[^/]*$|\.config|\.vim/[^/]*$|\.local/scripts)" $HOME |
+            sed "s|$HOME/||" | fzf --multi )
         if [ -n "${filenames[0]}" ] 
         then
             if [ "${#filenames[@]}" -gt 1 ]
@@ -119,9 +121,9 @@ else
         }
     cf() {
         local filename
-        filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config\/.*$|\.vim\/.*$)" \
+        filename=$(find -E $HOME -type f -regex "^$HOME/(\.[^/]*$|\.config|\.vim/[^/]*$|\.local/scripts)" \
             -maxdepth 3 -print 2> /dev/null |
-            grep -E -o --color=never "(\..*|\.config/.*)" |
+            sed "s|$HOME/||" |
             fzf --multi) && vim "$HOME/$filename"
         }
 fi

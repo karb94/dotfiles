@@ -1,21 +1,15 @@
-" Reset cursor on start:
-augroup initialization
-au!
-autocmd VimEnter * :normal! :startinsert :stopinsert G   "Reset cursor shape
-autocmd VimEnter * :%s/\v\e.{-}m//ge
-augroup END
-
 "Settings
 let &t_SI.="\e[6 q"             "Change cursor shape in insert mode
+let &t_EI.="\e[2 q"             "Change cursor shape in normal mode
 "For CX1
 if $HOSTNAME !~ "login-[0-9][0-9]*"
     let &t_SR.="\e[4 q"         "Change cursor shape in replace mode
-    set signcolumn=yes          "Vim gutter always active
 endif
-let &t_EI.="\e[2 q"             "Change cursor shape in normal mode
+set signcolumn=no               "Vim gutter always active
 set shortmess=F                 "Suppresses the file info message
 set nohlsearch                  "no highlights during search
-set number relativenumber       "set relative number on
+" set number relativenumber       "set relative number on
+set nonumber                    "set line number off
 set incsearch                   "starts searching while you type
 set ignorecase                  "Ingores case in searches
 set smartcase                   "In combination with ignorecase, only ignores case when no uppercase is used
@@ -39,12 +33,13 @@ elseif g:os == "Linux"
 endif
 let mapleader=" "               "Sets leader key
 
-call has('python3')
+" call has('python3')
 "Plugins
 call plug#begin()
 Plug 'terryma/vim-smooth-scroll'
-Plug 'justinmk/vim-sneak'
+Plug 'karb94/vim-sneak'
 Plug 'morhetz/gruvbox'
+Plug 'chrisbra/Colorizer'
 call plug#end()
 
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
@@ -89,27 +84,8 @@ nnoremap U :redo<CR>
 nmap <leader>m :!clear; make -C build/<CR>
 
 "Color
-colorscheme peachpuff
-highlight SpellBad cterm=bold ctermfg=9 ctermbg=0
-highlight LineNr ctermfg=Yellow
-highlight CursorLineNr ctermfg=Yellow
-highlight Normal ctermfg=White
-highlight Visual ctermbg=Black ctermfg=202
-highlight incsearch ctermbg=Black ctermfg=202
-highlight Pmenu ctermbg=233 ctermfg=White
-highlight PmenuSel ctermbg=18 ctermfg=White
-highlight MatchParen ctermbg=Black ctermfg=202
-highlight Comment ctermbg=Black ctermfg=202
-highlight SignColumn ctermbg=Black
-highlight Error ctermbg=Black ctermfg=Red
-hi VertSplit ctermbg=none ctermfg=green cterm=bold
-hi LineNr ctermfg=226 ctermbg=none 
-hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
-hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
-hi Prompt ctermfg=2 ctermbg=0 cterm=bold
-hi statusline ctermfg=196 ctermbg=none cterm=bold
-hi statuslineNC ctermfg=52 ctermbg=none cterm=none
-syntax match Prompt "^.*\$"
+" highlight Prompt ctermfg=2 ctermbg=0 cterm=bold
+" syntax match Prompt "^.*\$"
 
 "Status bar
 set laststatus=2    " Always show status bar
@@ -120,18 +96,14 @@ set termguicolors
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'soft'
-set background=dark
+set background=light
 
-hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
-nnoremap <C-K> :call HighlightNearCursor()<CR>
-function HighlightNearCursor()
-    let ln = line('.')
-    for i in [1,2,3]
-        let m = matchaddpos("CursorLineFlash", [ln])
-        redraw
-        sleep 50m
-        call matchdelete(m)
-        redraw
-        sleep 50m
-    endfor
-endfunction
+" Reset cursor on start:
+augroup initialization
+    au!
+    " Colorizer only works on new files not buffers so
+    " Needs to be activated explicitly
+    autocmd VimEnter * :ColorHighlight
+    " autocmd VimEnter * :normal! :startinsert :stopinsert G   "Reset cursor shape
+    " autocmd VimEnter * :%s/\v\e.{-}m//ge
+augroup END

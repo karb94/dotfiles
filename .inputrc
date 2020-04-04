@@ -7,7 +7,7 @@ set completion-ignore-case on
 # set show-all-if-ambiguous on
 $if mode=vi
     set show-mode-in-prompt on
-    set vi-ins-mode-string \1\033[0;93m\2(ins)\1\033[0m\e[6 q\2
+    set vi-ins-mode-string \1\033[38;5;11m\2(ins)\1\033[0m\e[6 q\2
     set keymap vi-insert
     "\C-a": beginning-of-line
     "\C-e": end-of-line
@@ -20,7 +20,7 @@ $if mode=vi
     "\C-n": next-history
     "H": beginning-of-line
     "L": end-of-line
-    set vi-cmd-mode-string \1\033[0;91m\2(cmd)\1\033[0m\e[2 q\2
+    set vi-cmd-mode-string \1\033[38;5;9m\2(cmd)\1\033[0m\e[2 q\2
 $endif
 
 

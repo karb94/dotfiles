@@ -7,7 +7,7 @@ url_color             #d65c0d
 
 # black
 color0   #282828
-color8   #1d2021
+color8   #928374
 
 # red
 color1   #cc241d
@@ -39,4 +39,7 @@ color15  #ebdbb2
 
 # orange
 color166 #d65d0e
-color208 #fe8819
+color208 #fe8019
+
+# For FZF background
+color239 #504945

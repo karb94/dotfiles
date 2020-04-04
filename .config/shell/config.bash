@@ -7,7 +7,7 @@ PATH="${PATH}:~/.local/scripts/"
 PATH="${PATH}:~/.local/bin/"
 
 
-command -v fzf >/dev/null 2>&1 && test -f ~/.config/shell/fzf.bash && source $_
+test -f ~/.config/shell/fzf.bash && source $_
 # If git command doesn't exist don't source
 if command -v git >/dev/null 2>&1
 then

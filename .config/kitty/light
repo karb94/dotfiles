@@ -39,4 +39,7 @@ color15  #3c3836
 
 # orange
 color166 #d65d0e
-color208 #af3a83
+color208 #af3a03
+
+# For FZF background
+color239 #bdae93
