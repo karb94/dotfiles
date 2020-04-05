@@ -10,8 +10,6 @@
 #   \__|  \__|  \__|  \__|  \_______| \_______/
 
 
-alias_sourced=$(stat -c %Y ~/.config/shell/alias.bash)
-
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
 then
