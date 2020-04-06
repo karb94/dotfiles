@@ -14,5 +14,5 @@ map L navigate next
 set font "monospace normal 16"
 set window-title-home-tilde true
 set statusbar-home-tilde true
-set highlight-active-color "#ff0000"
-set highlight-transparency 1
+# set highlight-active-color "#ff0000"
+# set highlight-transparency 1
