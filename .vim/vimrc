@@ -1,4 +1,5 @@
 filetype off
+let g:loaded_rrhelper = 1
 
 call plug#begin()
 Plug 'machakann/vim-sandwich'
@@ -18,7 +19,7 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
-Plug 'chrisbra/Colorizer'
+" Plug 'chrisbra/Colorizer'
 call plug#end()
 
 let g:python_highlight_space_errors = 0
@@ -39,12 +40,37 @@ let g:sneak#use_ic_scs = 1
 let g:sneak#map_netrw = 0
 let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
 let g:sneak#label = 1
+" Disable keymappings
+" 2-character Sneak (default)
 nmap ? <Plug>Sneak_s
 nmap ? <Plug>Sneak_S
+" visual-mode
 xmap ? <Plug>Sneak_s
 xmap ? <Plug>Sneak_S
+" operator-pending-mode
 omap ? <Plug>Sneak_s
 omap ? <Plug>Sneak_S
+" 1-character enhanced 'f'
+nmap ? <Plug>Sneak_f
+nmap ? <Plug>Sneak_F
+" visual-mode
+xmap ? <Plug>Sneak_f
+xmap ? <Plug>Sneak_F
+" operator-pending-mode
+omap ? <Plug>Sneak_f
+omap ? <Plug>Sneak_F
+" 1-character enhanced 't'
+nmap ? <Plug>Sneak_t
+nmap ? <Plug>Sneak_T
+" visual-mode
+xmap ? <Plug>Sneak_t
+xmap ? <Plug>Sneak_T
+" operator-pending-mode
+omap ? <Plug>Sneak_t
+omap ? <Plug>Sneak_T
+" label-mode
+nmap ? <Plug>SneakLabel_s
+nmap ? <Plug>SneakLabel_S
 highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
 nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
 nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
