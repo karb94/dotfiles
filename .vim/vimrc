@@ -9,7 +9,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'karb94/jupytext.vim'
 Plug 'wellle/targets.vim'
 Plug 'karb94/vim-smoothie'
-Plug 'karb94/vim-sneak'
+Plug 'justinmk/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-python/python-syntax', { 'for': 'py' }
@@ -18,6 +18,7 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
+Plug 'chrisbra/Colorizer'
 call plug#end()
 
 let g:python_highlight_space_errors = 0
@@ -38,6 +39,12 @@ let g:sneak#use_ic_scs = 1
 let g:sneak#map_netrw = 0
 let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
 let g:sneak#label = 1
+nmap ? <Plug>Sneak_s
+nmap ? <Plug>Sneak_S
+xmap ? <Plug>Sneak_s
+xmap ? <Plug>Sneak_S
+omap ? <Plug>Sneak_s
+omap ? <Plug>Sneak_S
 highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
 nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
 nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>

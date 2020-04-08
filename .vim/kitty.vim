@@ -28,7 +28,7 @@ noremap <leader>q :q!<CR>
 " call has('python3')
 "Plugins
 call plug#begin()
-Plug 'terryma/vim-smooth-scroll'
+Plug 'karb94/vim-smoothie'
 Plug 'karb94/vim-sneak'
 Plug 'morhetz/gruvbox'
 Plug 'chrisbra/Colorizer'

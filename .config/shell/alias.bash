@@ -91,7 +91,7 @@ then
     alias gp='git pull'
     __git_complete gp _git_pull
     alias gl='git log --oneline --graph --all'
-    alias gs='git ls-tree --full-tree --name-only -r HEAD'
+    alias gls='git ls-tree --full-tree --name-only -r HEAD'
     alias gitdfls='gitdf ls-tree --full-tree --name-only -r HEAD'
 fi
 
