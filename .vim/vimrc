@@ -1,41 +1,43 @@
-filetype off
-let g:loaded_rrhelper = 1
+" let s:darwin = has('mac')
+" let s:windows = has('win32') || has('win64')
 
+" CALL PLUGINS
+" {{{
 call plug#begin()
 Plug 'machakann/vim-sandwich'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
-Plug 'junegunn/vim-easy-align'
-Plug 'karb94/jupytext.vim'
 Plug 'wellle/targets.vim'
 Plug 'karb94/vim-smoothie'
-Plug 'justinmk/vim-sneak'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'vim-python/python-syntax', { 'for': 'py' }
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>r :History:<CR>
+nnoremap <leader>f :GFiles<CR>
+nnoremap <leader>F :Files<CR>
+nnoremap <leader>l :BLines<CR>
+nnoremap <leader>g :Rg<CR>
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'SirVer/ultisnips'
-Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
-" Plug 'chrisbra/Colorizer'
-call plug#end()
-
-let g:python_highlight_space_errors = 0
-let g:python_highlight_all = 1
-
-" jupytext.vim
-let g:jupytext_fmt = 'py:light'
-autocmd BufRead,BufNewFile *.ipynb set foldmethod="marker"
-
-" Easy Align
+Plug 'tpope/vim-dispatch'
+" {{{
+nnoremap <leader>m :w<CR>:silent Make -C build<CR>
+" nnoremap <leader>m :w<CR>:silent make -C build >/dev/null \| redraw! \| :cw<CR><CR>
+" }}}
+Plug 'junegunn/vim-easy-align'
+" {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
-"Sneak
+" }}}
+Plug 'karb94/jupytext.vim'
+" {{{
+let g:jupytext_fmt = 'py:light'
+autocmd BufRead,BufNewFile *.ipynb set foldmethod="marker"
+" }}}
+Plug 'justinmk/vim-sneak'
+" {{{
 let g:sneak#use_ic_scs = 1
 let g:sneak#map_netrw = 0
 let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
@@ -76,16 +78,42 @@ nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
 nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
 xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
 xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
-
-" Ultisnips
+" }}}
+Plug 'vim-python/python-syntax', { 'for': 'py' }
+" {{{
+let g:python_highlight_space_errors = 0
+let g:python_highlight_all = 1
+" }}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" {{{
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=50
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+" Introduce function text object
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+" }}}
+Plug 'SirVer/ultisnips'
+" {{{
 "Stupid workaround
 let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<C-n>"
 let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 let g:UltiSnipsEditSplit="vertical"
-
-" VimTex
+" }}}
+Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
+" {{{
 if has('mac')
     let g:vimtex_compiler_progname = '~//usr/local/bin/vim'
 endif
@@ -111,52 +139,65 @@ let g:vimtex_quickfix_latexlog = {
             \ },
             \}
 let g:vimtex_view_method = 'zathura'
-
-filetype plugin on
-syntax on
-syntax enable
+" }}}
+call plug#end()
+" }}}
 
 " SETTINGS
-let &t_SI.="\e[6 q"                      " Change cursor shape in insert mode
+" {{{
+" Change cursor shape in insert mode
+let &t_SI="\e[6 q"
 " For CX1
 if $HOSTNAME !~ "login-[0-9][0-9]*"
-    let &t_SR.="\e[4 q"                  " Change cursor shape in replace mode
-    set signcolumn=yes                   " Vim gutter always active
+    " Change cursor shape in insert mode
+    let &t_SR="\e[4 q"
+    " Vim gutter always active
+    set signcolumn=yes
 endif
-set directory^=$HOME/.vim/swapfiles//    " Central location for swap files
-set undodir=~/.vim/undodir               " Central location for undo files
-set undofile                             " Persistent undo even after closing file
-let &t_EI.="\e[2 q"                      " Change cursor shape in normal mode
-set backspace=indent,eol,start           " Backspace behaves like everywhere else
-set shortmess=Fat                        " Suppresses the file info message
-set nohlsearch                           " No highlights during search
-set number                               " Show line numbers
-set relativenumber                       " Show line numbers
-set cursorline                           " Show line numbers
-set foldmethod=manual                    " Less laggy than syntax mode
-set gdefault                             " Sets g flag on all substitutions by default
-set incsearch                            " Starts searching while you type
-set ignorecase                           " Ingores case in searches
-set smartcase                              " In combination with ignorecase, only ignores case when no uppercase is used
-let &scrolloff=float2nr(0.20*winheight(0)) " Sets scrolloff to 20% of window height
-set path+=**                             " You can search for any file in any subdirectory (as long as you enter the exact name)
-set undodir=~/.vim/undodir               " Infinite undos stored at ~/.vim/undodir
-set wildmenu                             " It opens a horizontal menu where you cycle with <Tab> and <S-Tab>
-set wildmode=longest:full,full           " Will complete to the longest common command
+" Change cursor shape in normal mode
+let &t_EI="\e[2 q"
+let mapleader=" "               "Sets leader key
+
+" Command line text
+set shortmess=mwtToOcIF
+" Persistent central location for undo files
+set undofile undodir=~/.vim/undodir
+" change unsaved buffers
+set hidden
+" Backspace behaves like everywhere else
+set backspace=indent,eol,start
+" Suppresses the file info message
+set shortmess=Fat
+" Show relative line numbers and current line number
+set relativenumber number
+" Show line numbers
+set cursorline colorcolumn=80
+" Less laggy than syntax mode
+set foldmethod=manual
+" Sets g flag on all substitutions by default
+set gdefault
+" Incremental search ignoring case unless capital case used. 
+set incsearch smartcase ignorecase
+" Highlight match pattern in search but disable highlight after committing
+augroup vimrc-incsearch-highlight
+    autocmd!
+    autocmd CmdlineEnter /,\? :set hlsearch
+    autocmd CmdlineLeave /,\? :set nohlsearch
+augroup END
+" Sets scrolloff to 20% of window height
+let &scrolloff=float2nr(0.20*winheight(0))
+" Greedy command line completion
+set wildmenu wildmode=longest:full,full
 set ttimeoutlen=0                        " Time waited for key codes
 let g:tex_conceal=""
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
-set tabstop=4                              " The tab key produces 4 'visual' spaces (only in vim, thus the need for expandtab)
-set expandtab                              " Converts tabs into spaces
-set shiftwidth=4                         " Sets the number of spaces when indenting with '>>'
-set autoindent                           " Sets new line with same indentation as current line
-set smartindent                          " Auto-indents for {
+" 4 whitespaces for <Tab> and indent. Auto-smart indent.
+set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
 " Fix stupid python double indenting
 let g:pyindent_open_paren = 'shiftwidth()'
 let g:pyindent_continue = 'shiftwidth()'
-
-" Clipboard settings
+" Add yanked text to main clipboard
 let g:os = substitute(system('uname'), '\n', '', '')
 if g:os == "Darwin"
     set clipboard=unnamed
@@ -165,38 +206,10 @@ elseif g:os == "Linux"
     set clipboard=unnamedplus
     autocmd VimLeave * call system("xsel -ib", getreg('+'))
 endif
-let mapleader=" "               "Sets leader key
-
-
-" Conquer of Completion
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-" Better display for messages
-set cmdheight=1
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-
-" Dispatch
-nnoremap <leader>m :w<CR>:silent Make -C build<CR>
-" nnoremap <leader>m :w<CR>:silent make -C build >/dev/null \| redraw! \| :cw<CR><CR>
-nnoremap <leader>m :w<CR>:silent Make -C build<CR>
+" }}}
 
 "Mappings
+" {{{
 " inoremap lk <Esc>
 " vnoremap lk <Esc>
 inoremap <C-j> <C-n>
@@ -223,32 +236,14 @@ nnoremap <leader>j J
 nnoremap H ^
 nnoremap L $
 nnoremap U :redo<CR>
-" nmap <leader>m :w<CR>:!clear; make -C build/<CR>
-
-"Color
-colorscheme peachpuff
-highlight SpellBad cterm=bold ctermfg=9 ctermbg=0
-highlight LineNr ctermfg=Yellow
-highlight CursorLineNr ctermfg=Yellow
-highlight Normal ctermfg=White
-highlight Visual ctermbg=Black ctermfg=202
-highlight incsearch ctermbg=Black ctermfg=202
-highlight Pmenu ctermbg=233 ctermfg=White
-highlight PmenuSel ctermbg=18 ctermfg=White
-highlight MatchParen ctermbg=Black ctermfg=202
-highlight Comment ctermbg=Black ctermfg=202
-highlight SignColumn ctermbg=Black
-highlight Error ctermbg=none ctermfg=Red
-hi VertSplit ctermbg=none ctermfg=green cterm=none
-hi LineNr ctermfg=226 ctermbg=none 
-hi CursorLineNr ctermfg=202 ctermbg=none cterm=bold
+" }}}
 
 "Status bar
 set laststatus=2    " Always show status bar
 set statusline=%f%r%m%=%P
 
-let g:gruvbox_sign_column = 'bg0'
 " Gruvbox
+let g:gruvbox_sign_column = 'bg0'
 set termguicolors
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'
@@ -256,32 +251,10 @@ let g:gruvbox_contrast_light = 'soft'
 let g:gruvbox_sign_column = 'bg0'
 set background=dark
 
-hi CursorLineFlash ctermfg=none ctermbg=125 cterm=none
-nnoremap <C-K> :call HighlightNearCursor()<CR>
-function HighlightNearCursor()
-    let ln = line('.')
-    for i in [1,2,3]
-        let m = matchaddpos("CursorLineFlash", [ln])
-        redraw
-        sleep 50m
-        call matchdelete(m)
-        redraw
-        sleep 50m
-    endfor
-endfunction
-
 " Reset cursor on start:
 augroup initialization
-au!
-autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
-autocmd WinEnter * set relativenumber cursorline
-autocmd WinLeave * set norelativenumber nocursorline
+    au!
+    autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
+    autocmd WinEnter * set relativenumber cursorline
+    autocmd WinLeave * set norelativenumber nocursorline
 augroup END
-
-"Fuzzy Finder (FZF)
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>r :History:<CR>
-nnoremap <leader>f :GFiles<CR>
-nnoremap <leader>F :Files<CR>
-nnoremap <leader>l :BLines<CR>
-nnoremap <leader>g :Rg<CR>
