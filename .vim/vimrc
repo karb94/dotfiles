@@ -1,15 +1,96 @@
-" let s:darwin = has('mac')
-" let s:windows = has('win32') || has('win64')
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
+
+"==============================================================================
+" SETTINGS
+"==============================================================================
+" {{{
+" Change cursor shape in insert mode
+let &t_SI="\e[6 q"
+" For CX1
+if $HOSTNAME !~ "login-[0-9][0-9]*"
+    " Change cursor shape in insert mode
+    let &t_SR="\e[4 q"
+    " Vim gutter always active
+    set signcolumn=yes
+endif
+" Change cursor shape in normal mode
+let &t_EI="\e[2 q"
 
 let mapleader=" "               "Sets leader key
+" Command line text
+set shortmess=mwtToOcIF
+" Persistent central location for undo files
+set undofile undodir=~/.vim/undodir
+" change unsaved buffers
+set hidden
+" Backspace behaves like everywhere else
+set backspace=indent,eol,start
+" Suppresses the file info message
+set shortmess=Fat
+" Show relative line numbers and current line number
+set relativenumber number
+" Show line numbers
+set cursorline colorcolumn=80
+" Less laggy than syntax mode
+set foldmethod=manual
+" Sets g flag on all substitutions by default
+set gdefault
+" Incremental search ignoring case unless capital case used. 
+set incsearch smartcase ignorecase
+" Highlight match pattern in search but disable highlight after committing
+augroup vimrc-incsearch-highlight
+    autocmd!
+    autocmd CmdlineEnter /,\? :set hlsearch
+    autocmd CmdlineLeave /,\? :set nohlsearch
+augroup END
+" Sets scrolloff to 20% of window height
+let &scrolloff=float2nr(0.20*winheight(0))
+" Greedy command line completion
+set wildmenu wildmode=longest:full,full
+set ttimeoutlen=0                        " Time waited for key codes
+let g:tex_conceal=""
+autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
+autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
+" 4 whitespaces for <Tab> and indent. Auto-smart indent.
+set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
+" Fix stupid python double indenting
+let g:pyindent_open_paren = 'shiftwidth()'
+let g:pyindent_continue = 'shiftwidth()'
+" Add yanked text to main clipboard
+let g:os = substitute(system('uname'), '\n', '', '')
+if g:os == "Darwin"
+    set clipboard=unnamed
+    autocmd VimLeave * call system("xsel -ib", getreg('*'))
+elseif g:os == "Linux"
+    set clipboard=unnamedplus
+    autocmd VimLeave * call system("xsel -ib", getreg('+'))
+endif
+"Status bar
+set laststatus=2    " Always show status bar
+set statusline=%f%y%r%m%=%c%P
+
+" Reset cursor on start
+" Disable cursorline and relativenumber when buffer is not on focus
+augroup initialization
+    au!
+    " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
+    autocmd WinEnter * set relativenumber cursorline
+    autocmd WinLeave * set norelativenumber nocursorline
+augroup END
+" }}}
+
+
+"==============================================================================
 " CALL PLUGINS
+"==============================================================================
 " {{{
 call plug#begin()
 Plug 'machakann/vim-sandwich'
-Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'wellle/targets.vim'
-Plug 'karb94/vim-smoothie'
+" Plug 'karb94/vim-smoothie'
+" let g:smoothie_update_interval = 5
+" let g:smoothie_base_speed = 80
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nnoremap <leader>b :Buffers<CR>
@@ -25,6 +106,7 @@ Plug 'tpope/vim-dispatch'
 nnoremap <leader>m :w<CR>:silent Make -C build<CR>
 " nnoremap <leader>m :w<CR>:silent make -C build >/dev/null \| redraw! \| :cw<CR><CR>
 " }}}
+Plug 'morhetz/gruvbox'
 Plug 'junegunn/vim-easy-align'
 " {{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -37,49 +119,49 @@ Plug 'karb94/jupytext.vim'
 let g:jupytext_fmt = 'py:light'
 autocmd BufRead,BufNewFile *.ipynb set foldmethod="marker"
 " }}}
-Plug 'justinmk/vim-sneak'
-" {{{
-let g:sneak#use_ic_scs = 1
-let g:sneak#map_netrw = 0
-let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
-let g:sneak#label = 1
-" Disable keymappings
-" 2-character Sneak (default)
-nmap ? <Plug>Sneak_s
-nmap ? <Plug>Sneak_S
-" visual-mode
-xmap ? <Plug>Sneak_s
-xmap ? <Plug>Sneak_S
-" operator-pending-mode
-omap ? <Plug>Sneak_s
-omap ? <Plug>Sneak_S
-" 1-character enhanced 'f'
-nmap ? <Plug>Sneak_f
-nmap ? <Plug>Sneak_F
-" visual-mode
-xmap ? <Plug>Sneak_f
-xmap ? <Plug>Sneak_F
-" operator-pending-mode
-omap ? <Plug>Sneak_f
-omap ? <Plug>Sneak_F
-" 1-character enhanced 't'
-nmap ? <Plug>Sneak_t
-nmap ? <Plug>Sneak_T
-" visual-mode
-xmap ? <Plug>Sneak_t
-xmap ? <Plug>Sneak_T
-" operator-pending-mode
-omap ? <Plug>Sneak_t
-omap ? <Plug>Sneak_T
-" label-mode
-nmap ? <Plug>SneakLabel_s
-nmap ? <Plug>SneakLabel_S
-highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
-nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
-nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
-xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
-xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
-" }}}
+" Plug 'justinmk/vim-sneak'
+" " {{{
+" let g:sneak#use_ic_scs = 1
+" let g:sneak#map_netrw = 0
+" let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
+" let g:sneak#label = 1
+" " Disable keymappings
+" " 2-character Sneak (default)
+" nmap ? <Plug>Sneak_s
+" nmap ? <Plug>Sneak_S
+" " visual-mode
+" xmap ? <Plug>Sneak_s
+" xmap ? <Plug>Sneak_S
+" " operator-pending-mode
+" omap ? <Plug>Sneak_s
+" omap ? <Plug>Sneak_S
+" " 1-character enhanced 'f'
+" nmap ? <Plug>Sneak_f
+" nmap ? <Plug>Sneak_F
+" " visual-mode
+" xmap ? <Plug>Sneak_f
+" xmap ? <Plug>Sneak_F
+" " operator-pending-mode
+" omap ? <Plug>Sneak_f
+" omap ? <Plug>Sneak_F
+" " 1-character enhanced 't'
+" nmap ? <Plug>Sneak_t
+" nmap ? <Plug>Sneak_T
+" " visual-mode
+" xmap ? <Plug>Sneak_t
+" xmap ? <Plug>Sneak_T
+" " operator-pending-mode
+" omap ? <Plug>Sneak_t
+" omap ? <Plug>Sneak_T
+" " label-mode
+" nmap ? <Plug>SneakLabel_s
+" nmap ? <Plug>SneakLabel_S
+" highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
+" nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
+" nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
+" xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
+" xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
+" " }}}
 Plug 'vim-python/python-syntax', { 'for': 'py' }
 " {{{
 let g:python_highlight_space_errors = 0
@@ -144,71 +226,10 @@ let g:vimtex_view_method = 'zathura'
 call plug#end()
 " }}}
 
-" SETTINGS
-" {{{
-" Change cursor shape in insert mode
-let &t_SI="\e[6 q"
-" For CX1
-if $HOSTNAME !~ "login-[0-9][0-9]*"
-    " Change cursor shape in insert mode
-    let &t_SR="\e[4 q"
-    " Vim gutter always active
-    set signcolumn=yes
-endif
-" Change cursor shape in normal mode
-let &t_EI="\e[2 q"
 
-" Command line text
-set shortmess=mwtToOcIF
-" Persistent central location for undo files
-set undofile undodir=~/.vim/undodir
-" change unsaved buffers
-set hidden
-" Backspace behaves like everywhere else
-set backspace=indent,eol,start
-" Suppresses the file info message
-set shortmess=Fat
-" Show relative line numbers and current line number
-set relativenumber number
-" Show line numbers
-set cursorline colorcolumn=80
-" Less laggy than syntax mode
-set foldmethod=manual
-" Sets g flag on all substitutions by default
-set gdefault
-" Incremental search ignoring case unless capital case used. 
-set incsearch smartcase ignorecase
-" Highlight match pattern in search but disable highlight after committing
-augroup vimrc-incsearch-highlight
-    autocmd!
-    autocmd CmdlineEnter /,\? :set hlsearch
-    autocmd CmdlineLeave /,\? :set nohlsearch
-augroup END
-" Sets scrolloff to 20% of window height
-let &scrolloff=float2nr(0.20*winheight(0))
-" Greedy command line completion
-set wildmenu wildmode=longest:full,full
-set ttimeoutlen=0                        " Time waited for key codes
-let g:tex_conceal=""
-autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
-autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
-" 4 whitespaces for <Tab> and indent. Auto-smart indent.
-set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
-" Fix stupid python double indenting
-let g:pyindent_open_paren = 'shiftwidth()'
-let g:pyindent_continue = 'shiftwidth()'
-" Add yanked text to main clipboard
-let g:os = substitute(system('uname'), '\n', '', '')
-if g:os == "Darwin"
-    set clipboard=unnamed
-    autocmd VimLeave * call system("xsel -ib", getreg('*'))
-elseif g:os == "Linux"
-    set clipboard=unnamedplus
-    autocmd VimLeave * call system("xsel -ib", getreg('+'))
-endif
-" }}}
-
-"Mappings
+"==============================================================================
+" MAPPINGS
+"==============================================================================
 " {{{
 " inoremap lk <Esc>
 " vnoremap lk <Esc>
@@ -233,16 +254,23 @@ nnoremap p pm`=`]``
 nnoremap P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J
-nnoremap H ^
-nnoremap L $
+let s:fivep = float2nr(0.10*winheight(0))
+" nnoremap J 5<C-e>
+" nnoremap K 5<C-y>
+exec "nnoremap J ".s:fivep."<C-e>"
+exec "nnoremap K ".s:fivep."<C-y>"
 nnoremap U :redo<CR>
+
+set wildcharm=<C-z>
+cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
+cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
 " }}}
 
-"Status bar
-set laststatus=2    " Always show status bar
-set statusline=%f%r%m%=%P
 
-" Gruvbox
+"==============================================================================
+" COLORSCHEME
+"==============================================================================
+" {{{
 let g:gruvbox_sign_column = 'bg0'
 set termguicolors
 colorscheme gruvbox
@@ -252,11 +280,4 @@ let g:gruvbox_sign_column = 'bg0'
 set background=dark
 set ttyscroll=1
 set t_ut=""
-
-" Reset cursor on start:
-augroup initialization
-    au!
-    autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
-    autocmd WinEnter * set relativenumber cursorline
-    autocmd WinLeave * set norelativenumber nocursorline
-augroup END
+" }}}
