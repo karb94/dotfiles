@@ -53,6 +53,7 @@ fi
 
 # Aliases
 alias mkdir='mkdir -v' 
+alias mv='rm -Iv' 
 alias mv='mv -iv' 
 alias cp='cp -iv' 
 alias h='cd $HOME' 
@@ -69,6 +70,7 @@ alias ds='conda activate data_science'
 alias ac='conda activate'
 alias da='conda deactivate'
 alias vpn='nmcli connection up --ask ic'
+alias vs='vim -S session.vim'
 
 # For git
 if command -v git >/dev/null 2>&1
