@@ -1,4 +1,17 @@
+# set vi mode in command line. It needs to be at the top according to fzf
 set -o vi
+
+# Commands preceeded by a space are not added to history
+# This is helpful to prevent useless fzf functions from being added to history
+HISTCONTROL=ignorespace
+
+# Append to history file after each command?
+shopt -s histappend
+# include ** globbing pattern
+shopt -s globstar
+# Change directory without cd
+shopt -s autocd
+
 
 [[ ":$PATH:" != *":~/.local/scripts/:"* ]] &&
 PATH="${PATH}:~/.local/scripts/"
@@ -8,21 +21,7 @@ PATH="${PATH}:~/.local/bin/"
 
 
 test -f ~/.config/shell/fzf.bash && source $_
-# If git command doesn't exist don't source
-if command -v git >/dev/null 2>&1
-then
-     test -f ~/.config/git/git-completion.bash && source $_
-     test -f ~/.config/git/git-prompt.sh && source $_
-fi
 test -f ~/.config/shell/alias.bash && source $_
-
-# Commands preceeded by a space are not added to history
-# This is helpful to prevent useless fzf functions from being added to history
-HISTCONTROL=ignorespace
-# Append to history file after each command?
-shopt -s histappend
-# include ** globbing pattern
-shopt -s globstar
 
 # Prompt command configuration
 PROMPT_COMMAND='

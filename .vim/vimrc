@@ -95,17 +95,25 @@ Plug 'tpope/vim-commentary'
 Plug 'wellle/targets.vim'
 
 " Plug 'karb94/vim-smoothie'
+" {{{
 " let g:smoothie_update_interval = 5
 " let g:smoothie_base_speed = 30
+" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
+" noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
+" noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
+" }}}
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" {{{
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>r :History:<CR>
 nnoremap <leader>f :GFiles<CR>
 nnoremap <leader>F :Files<CR>
 nnoremap <leader>l :BLines<CR>
 nnoremap <leader>g :Rg<CR>
+" }}}
 
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
 
@@ -133,49 +141,18 @@ let g:jupytext_fmt = 'py:light'
 autocmd BufRead,BufNewFile *.ipynb set foldmethod="marker"
 " }}}
 
-" Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'
 " " {{{
-" let g:sneak#use_ic_scs = 1
-" let g:sneak#map_netrw = 0
-" let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
-" let g:sneak#label = 1
-" " Disable keymappings
-" " 2-character Sneak (default)
-" nmap ? <Plug>Sneak_s
-" nmap ? <Plug>Sneak_S
-" " visual-mode
-" xmap ? <Plug>Sneak_s
-" xmap ? <Plug>Sneak_S
-" " operator-pending-mode
-" omap ? <Plug>Sneak_s
-" omap ? <Plug>Sneak_S
-" " 1-character enhanced 'f'
-" nmap ? <Plug>Sneak_f
-" nmap ? <Plug>Sneak_F
-" " visual-mode
-" xmap ? <Plug>Sneak_f
-" xmap ? <Plug>Sneak_F
-" " operator-pending-mode
-" omap ? <Plug>Sneak_f
-" omap ? <Plug>Sneak_F
-" " 1-character enhanced 't'
-" nmap ? <Plug>Sneak_t
-" nmap ? <Plug>Sneak_T
-" " visual-mode
-" xmap ? <Plug>Sneak_t
-" xmap ? <Plug>Sneak_T
-" " operator-pending-mode
-" omap ? <Plug>Sneak_t
-" omap ? <Plug>Sneak_T
-" " label-mode
-" nmap ? <Plug>SneakLabel_s
-" nmap ? <Plug>SneakLabel_S
-" highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
-" nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
-" nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
-" xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
-" xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
-" " }}}
+let g:sneak#use_ic_scs = 1
+let g:sneak#map_netrw = 0
+let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
+let g:sneak#label = 1
+highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
+nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
+nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
+xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
+xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
+" }}}
 
 Plug 'vim-python/python-syntax', { 'for': 'py' }
 " {{{
