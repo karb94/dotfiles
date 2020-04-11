@@ -121,7 +121,7 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 
 Plug 'tpope/vim-dispatch'
 " {{{
-nnoremap <leader>m :w<CR>:silent Make -C build<CR>
+nnoremap <leader>m :w<CR>:silent Make -C build -j $(nproc)<CR>
 " nnoremap <leader>m :w<CR>:silent make -C build >/dev/null \| redraw! \| :cw<CR><CR>
 " }}}
 

@@ -3,7 +3,7 @@ set -o vi
 
 # Commands preceeded by a space are not added to history
 # This is helpful to prevent useless fzf functions from being added to history
-HISTCONTROL=ignorespace
+HISTCONTROL=ignoreboth
 
 # Append to history file after each command?
 shopt -s histappend

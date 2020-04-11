@@ -83,6 +83,7 @@ then
     alias ga='git add'
     alias gb='git branch -avv'
     alias gc='git commit'
+    alias gca='git commit -a --amend --no-edit'
     alias gch='git checkout'
     alias gp='git pull'
     alias gl='git log --oneline --graph --all'
