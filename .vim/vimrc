@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker foldlevel=0 nomodeline:
+" vim: set foldmethod=marker foldlevel=1 nomodeline:
 
 " Check what os is vim running under
 let g:os = substitute(system('uname'), '\n', '', '')
@@ -54,7 +54,10 @@ set gdefault
 set incsearch smartcase ignorecase
 
 " Fix redrawing issues only with fast connections
-set ttyscroll=1 t_ut=""
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set ttyscroll=1
+set t_ut=""
 
 " Sets scrolloff to 20% of window height
 let &scrolloff=float2nr(0.15*winheight(0))
@@ -77,6 +80,10 @@ let g:pyindent_continue = 'shiftwidth()'
 set ttimeoutlen=0
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
+
+hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+let &t_ti = &t_ti . "\033]10;#ebdbb2\007\033]11;#1d2021\007"
+let &t_te = &t_te . "\033]110\007\033]111\007"
 
 " }}}
 
