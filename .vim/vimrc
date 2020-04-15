@@ -101,14 +101,10 @@ Plug 'tpope/vim-commentary'
 
 Plug 'wellle/targets.vim'
 
-" Plug 'karb94/vim-smoothie'
+Plug 'karb94/vim-smoothie'
 " {{{
 " let g:smoothie_update_interval = 5
 " let g:smoothie_base_speed = 30
-" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
-" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
-" noremap <silent> K :call smooth_scroll#up(5, 20, 1)<CR>
-" noremap <silent> J :call smooth_scroll#down(5, 20, 1)<CR>
 " }}}
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -258,17 +254,18 @@ nnoremap p pm`=`]``
 nnoremap P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J
-let s:fivep = float2nr(0.10*winheight(0))
+nnoremap U :redo<CR>
+" let s:fivep = float2nr(0.10*winheight(0))
 " nnoremap J 5<C-e>
 " nnoremap K 5<C-y>
-exec "nnoremap J ".s:fivep."<C-e>"
-exec "nnoremap K ".s:fivep."<C-y>"
-nnoremap U :redo<CR>
+" exec "nnoremap J ".s:fivep."<C-e>"
+" exec "nnoremap K ".s:fivep."<C-y>"
 
 set wildcharm=<C-z>
 cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
 cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
 nnoremap <leader>e :e **/*
+
 " }}}
 
 

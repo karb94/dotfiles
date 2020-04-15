@@ -10,7 +10,7 @@ shopt -s histappend
 # include ** globbing pattern
 shopt -s globstar
 # Add extended global patterns
-shodt -s extglob
+shopt -s extglob
 # Change directory without cd
 shopt -s autocd
 
