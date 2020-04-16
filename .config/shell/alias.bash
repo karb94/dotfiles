@@ -1,14 +1,12 @@
 
-
-#    $$$$$$\    $$\   $$\
-#   $$  __$$\   $$ |  \__|
-#   $$ /  $$ |  $$ |  $$\   $$$$$$\    $$$$$$$\
-#   $$$$$$$$ |  $$ |  $$ |  \____$$\  $$  _____|
-#   $$  __$$ |  $$ |  $$ |  $$$$$$$ | \$$$$$$\
-#   $$ |  $$ |  $$ |  $$ | $$  __$$ |  \____$$\
-#   $$ |  $$ |  $$ |  $$ | \$$$$$$$ | $$$$$$$  |
-#   \__|  \__|  \__|  \__|  \_______| \_______/
-
+#            $$$$$$\    $$\        $$$$$$\    $$$$$$\     $$$$$$\  
+#           $$  __$$\   $$ |       \_$$  _|  $$  __$$\   $$  __$$\ 
+#           $$ /  $$ |  $$ |         $$ |    $$ /  $$ |  $$ /  \__|
+#           $$$$$$$$ |  $$ |         $$ |    $$$$$$$$ |  \$$$$$$\  
+#           $$  __$$ |  $$ |         $$ |    $$  __$$ |   \____$$\ 
+#           $$ |  $$ |  $$ |         $$ |    $$ |  $$ |  $$\   $$ |
+#           $$ |  $$ |  $$$$$$$$\  $$$$$$\   $$ |  $$ |  \$$$$$$  |
+#           \__|  \__|  \________| \______|  \__|  \__|   \______/ 
 
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
@@ -17,10 +15,10 @@ then
     alias a='availability'
     alias eph="cd $EPHEMERAL"
     alias q='qstat -a'
-    alias cy='grep "MAX G" -A3'
     alias coor='grep "ALPHA" -A1'
     alias en='grep "TOTAL EN"'
     alias conv='grep "OPT END"'
+    alias cy='grep "MAX G" -A3'
     alias etot='grep ETOT'
     alias spin='grep SUMMED'
     alias vsub='vi ~/bin/sub'
@@ -72,6 +70,9 @@ alias ac='conda activate'
 alias da='conda deactivate'
 alias vpn='nmcli connection up --ask ic'
 alias vs='vim -S session.vim'
+alias cy='grep "MAX G" -A3'
+alias etot='grep ETOT'
+alias rgui='conda run -n ase read_gui.py'
 
 # For git
 if command -v git >/dev/null 2>&1
@@ -106,78 +107,3 @@ then
         __git_complete gp _git_pull
     fi
 fi
-
-# Functions
-push () {
-    if [ $# -eq 1 ]
-    then
-        git commit -am "$1"
-    else
-        git commit -am 'Fast push'
-    fi
-    git push
-}
-
-pull () {
-    git reset --hard
-    git pull
-}
-
-pushdf () {
-    gitdf add -u
-    if [ $# -eq 1 ]
-    then
-        echo $1
-        gitdf commit -m "$1"
-    else
-        gitdf commit -m 'Updated dotfiles'
-    fi
-    gitdf push
-}
-
-pulldf () {
-    gitdf reset --hard
-    gitdf pull
-}
-
-shopt -s extglob
-extract() {
-    local c e i
-
-    (($#)) || return
-
-    for i; do
-        c=''
-        e=1
-
-        if [[ ! -r $i ]]; then
-            echo "$0: file is unreadable: \`$i'" >&2
-            continue
-        fi
-
-        case $i in
-            *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
-                   c=(bsdtar xvf);;
-            *.7z)  c=(7z x);;
-            *.Z)   c=(uncompress);;
-            *.bz2) c=(bunzip2);;
-            *.exe) c=(cabextract);;
-            *.gz)  c=(gunzip);;
-            *.rar) c=(unrar x);;
-            *.xz)  c=(unxz);;
-            *.zip) c=(unzip);;
-            *)     echo "$0: unrecognized file extension: \`$i'" >&2
-                   continue;;
-        esac
-
-        command "${c[@]}" "$i"
-        ((e = e || $?))
-    done
-    return "$e"
-}
-
-# fff
-f() {
-    fff "$@"
-        cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
-}

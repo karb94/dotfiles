@@ -1,0 +1,148 @@
+
+#        ____  __  __   _  __  _____ ______   ____  ____    _  __   ____
+#       / __/ / / / /  / |/ / / ___//_  __/  /  _/ / __ \  / |/ /  / __/
+#      / _/  / /_/ /  /    / / /__   / /    _/ /  / /_/ / /    /  _\ \  
+#     /_/    \____/  /_/|_/  \___/  /_/    /___/  \____/ /_/|_/  /___/ 
+
+
+
+push () {
+    if [ $# -eq 1 ]
+    then
+        git commit -am "$1"
+    else
+        git commit -am 'Fast push'
+    fi
+    git push
+}
+
+pull () {
+    git reset --hard
+    git pull
+}
+
+pushdf () {
+    gitdf add -u
+    if [ $# -eq 1 ]
+    then
+        echo $1
+        gitdf commit -m "$1"
+    else
+        gitdf commit -m 'Updated dotfiles'
+    fi
+    gitdf push
+}
+
+pulldf () {
+    gitdf reset --hard
+    gitdf pull
+}
+
+extract() {
+    local c e i
+
+    (($#)) || return
+
+    for i; do
+        c=''
+        e=1
+
+        if [[ ! -r $i ]]; then
+            echo "$0: file is unreadable: \`$i'" >&2
+            continue
+        fi
+
+        case $i in
+            *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
+                c=(bsdtar xvf);;
+                *.7z)  c=(7z x);;
+                *.Z)   c=(uncompress);;
+                *.bz2) c=(bunzip2);;
+                *.exe) c=(cabextract);;
+                *.gz)  c=(gunzip);;
+                *.rar) c=(unrar x);;
+                *.xz)  c=(unxz);;
+                *.zip) c=(unzip);;
+                *)     echo "$0: unrecognized file extension: \`$i'" >&2
+                    continue;;
+            esac
+
+            command "${c[@]}" "$i"
+            ((e = e || $?))
+        done
+        return "$e"
+    }
+
+findup() {
+    [ -z "$1" ] && echo "No argument was passed" 2>&1 && return 1
+    local path=$(pwd)
+
+    while  [ ! -f "${path}/$1" ]
+    do
+        [ "$path" == "$HOME" ] && echo "reached home"
+        [ "$path" == "/" ] && echo "reached /"
+        # Exit when reaching home or root directory
+        ( [ "$path" == "$HOME" ] || [ "$path" == "/" ] ) &&
+            echo "$1 not found" 2>&1 && return 1
+                    path=${path%/*}
+                done
+                echo "$path"
+            }
+
+        rpull() {
+            # Store directory passed as argument, if none reverse search for remote
+            if [ -z "$1" ]
+            then
+                local dir="$(findup remote)" ||
+                    ( echo "File \"remote\" not found" && return 1 )
+                                else
+                                    # Strip last slash if there is one
+                                    local dir="${1%/}"
+            fi
+
+    # The remote directory
+    local remote_path="${dir}"/remote
+    if [ -f "$remote_path" ]
+    then
+        local remote="$(cat ${remote_path})"
+        remote="${remote%/}"/
+
+        # -a -> A mix of must have flags
+        # -z -> Compress during transfer if possible
+        # -P -> Do partial transfers and show progress
+        # -h -> Human readable format
+        # -v -> Verbose
+        rsync -azPhv --delete --exclude=/remote  "${remote}" "${dir}"/
+    else
+        echo "There is no file named \"remote\" at ${dir}/"
+    fi
+}
+
+rpush() {
+    # Store directory passed as argument, if none reverse search for remote
+    if [ -z "$1" ]
+    then
+        local dir="$(findup remote)" ||
+            ( echo "File \"remote\" not found" && return 1 )
+                else
+                    # Strip last slash if there is one
+                    local dir="${1%/}"
+    fi
+
+    # The remote directory
+    local remote_path="${dir}"/remote
+    if [ -f "$remote_path" ]
+    then
+        local remote="$(cat ${remote_path})"
+        remote="${remote%/}"/
+
+        # -a -> A mix of must have flags
+        # -z -> Compress during transfer if possible
+        # -u -> Update files only if outdated or have different size
+        # -h -> Human readable format
+        # -v -> Verbose
+        rsync -azuhvn --exclude=/remote  "${dir}"/ "${remote%/}"
+    else
+        echo "There is no file named \"remote\" at ${dir}/"
+    fi
+}

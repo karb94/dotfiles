@@ -24,6 +24,7 @@ PATH="${PATH}:~/.local/bin/"
 
 test -f ~/.config/shell/fzf.bash && source $_
 test -f ~/.config/shell/alias.bash && source $_
+test -f ~/.config/shell/functions.bash && source $_
 
 # Prompt command configuration
 PROMPT_COMMAND='
