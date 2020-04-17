@@ -3,7 +3,8 @@ set editing-mode vi
 set keyseq-timeout 200
 set keyseq-timeout 1
 set completion-ignore-case on
-# set show-all-if-ambiguous on
+set show-all-if-ambiguous on
+# set menu-complete-display-prefix on
 $if mode=vi
     set show-mode-in-prompt on
     set vi-ins-mode-string \1\033[38;5;11m\2(ins)\1\033[0m\e[6 q\2
@@ -14,6 +15,8 @@ $if mode=vi
     "\C-p": previous-history
     "\C-n": next-history
     "\C-L": clear-screen
+    "\t": menu-complete
+    "\e[Z": menu-complete-backward
     set keymap vi-command
     "\C-p": previous-history
     "\C-n": next-history

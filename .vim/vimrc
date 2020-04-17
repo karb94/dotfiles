@@ -101,7 +101,7 @@ Plug 'tpope/vim-commentary'
 
 Plug 'wellle/targets.vim'
 
-Plug 'karb94/vim-smoothie'
+" Plug 'karb94/vim-smoothie'
 " {{{
 " let g:smoothie_update_interval = 5
 " let g:smoothie_base_speed = 30

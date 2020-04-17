@@ -141,7 +141,23 @@ rpush() {
         # -u -> Update files only if outdated or have different size
         # -h -> Human readable format
         # -v -> Verbose
-        rsync -azuhvn --exclude=/remote  "${dir}"/ "${remote%/}"
+        # rsync -azuhvn --exclude=/remote  "${dir}"/ "${remote%/}"
+        printf "\nThese files will be uploaded:\n\n"
+        rsync -azuhvn --exclude=/remote  "${dir}"/ "${remote%/}" 2> /dev/null |
+            awk ' /sending/ {f=1;next}
+                f { if ($0 == "") {exit} {printf "\t%s\n", $0} }' &&
+                    printf "\n\n"
+            
+        read  -n 1 -r -s -p 'Press "y" to proceed'
+        echo    # (optional) move to a new line
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            rsync -azuh --progress --exclude=/remote  "${dir}"/ "${remote%/}" \
+                2> /dev/null
+        else
+            printf "\nAborting...\n"
+        fi
+        # read -n 1 -s -r -p "Press any key to proceed"
     else
         echo "There is no file named \"remote\" at ${dir}/"
     fi
