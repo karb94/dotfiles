@@ -23,8 +23,8 @@ let &t_EI="\e[2 q"
 " Set leader key
 let mapleader=" "
 
-" Command line text
-set shortmess=mwtToOcIF
+" Notification area text options
+set shortmess=mwoOcIF
 
 " Persistent central location for undo files
 set undofile undodir=~/.vim/undodir
@@ -34,9 +34,6 @@ set hidden
 
 " Backspace behaves like everywhere else
 set backspace=indent,eol,start
-
-" Suppresses the file info message
-set shortmess=Fat
 
 " Show relative line numbers and current line number
 set relativenumber number

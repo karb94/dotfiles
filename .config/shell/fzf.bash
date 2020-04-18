@@ -6,7 +6,6 @@ fi
 
 # Auto-completion
 # ---------------
-export FZF_COMPLETION_TRIGGER=';'
 [[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.bash" 2> /dev/null
 
 # Key bindings
