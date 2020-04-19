@@ -136,6 +136,9 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'morhetz/gruvbox'
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+" {{{
+let g:semshi#mark_selected_nodes = 0
+" }}}
 
 Plug 'neomake/neomake'
 
