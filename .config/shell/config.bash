@@ -12,7 +12,7 @@ shopt -s globstar
 # Add extended global patterns
 shopt -s extglob
 # Change directory without cd
-shopt -s autocd
+# shopt -s autocd
 
 
 [[ ":$PATH:" != *":~/.local/scripts/:"* ]] &&
