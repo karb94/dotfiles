@@ -43,8 +43,8 @@ set backspace=indent,eol,start
 " Show relative line numbers and current line number
 set relativenumber number
 
-" Show line numbers
-set cursorline colorcolumn=80
+" Show cursorline, colorcolumn and signcolumn
+set cursorline colorcolumn=80 signcolumn=yes
 
 " Less laggy than syntax mode
 set foldmethod=manual
@@ -262,11 +262,9 @@ nnoremap P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J
 nnoremap U :redo<CR>
-let s:fivep = float2nr(0.10*winheight(0))
-exec "nnoremap J ".s:fivep."<C-e>"
-exec "nnoremap K ".s:fivep."<C-y>"
-" nnoremap J 5<C-e>
-" nnoremap K 5<C-y>
+" let s:fivep = float2nr(0.10*winheight(0))
+" exec "nnoremap J ".s:fivep."<C-e>"
+" exec "nnoremap K ".s:fivep."<C-y>"
 
 set wildcharm=<C-z>
 cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
