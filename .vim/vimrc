@@ -48,7 +48,7 @@ set foldmethod=manual
 set gdefault
 
 " Incremental search ignoring case unless capital case used. 
-set incsearch smartcase ignorecase
+set incsearch smartcase ignorecase hlsearch
 
 " Fix redrawing issues only with fast connections
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -97,6 +97,8 @@ Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-commentary'
 
 Plug 'wellle/targets.vim'
+
+Plug 'romainl/vim-cool'
 
 " Plug 'karb94/vim-smoothie'
 " {{{
@@ -246,7 +248,7 @@ nnoremap <leader>Z :%foldopen<CR>
 nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <leader>p :put<CR>=`[
-nnoremap Y y$
+nnoremap Y yg_
 nnoremap p pm`=`]``
 nnoremap P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
@@ -305,10 +307,11 @@ augroup initialization
 augroup END
 
 " Highlight match pattern in search but disable highlight after committing
-augroup vimrc-incsearch-highlight
-    autocmd!
-    autocmd CmdlineEnter /,\? :set hlsearch
-    autocmd CmdlineLeave /,\? :set nohlsearch
-augroup END
+" Not necessary with vim-cool
+" augroup vimrc-incsearch-highlight
+"     autocmd!
+"     autocmd CmdlineEnter /,\? :set hlsearch
+"     autocmd CmdlineLeave /,\? :set nohlsearch
+" augroup END
 
 " }}}
