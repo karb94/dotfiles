@@ -37,6 +37,9 @@ set directory^=~/.config/nvim/swp
 " change unsaved buffers
 set hidden
 
+" Set the command to compile with
+let &makeprg='make -C build'
+" -j $(nproc)
 " Backspace behaves like everywhere else
 set backspace=indent,eol,start
 
@@ -55,6 +58,9 @@ set gdefault
 " Incremental smart case highlight search
 set incsearch smartcase ignorecase hlsearch
 
+" Live substitution command
+set inccommand=split
+
 " Fix redrawing issues only with fast connections
 " if !has('nvim')
 "     let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -62,6 +68,7 @@ set incsearch smartcase ignorecase hlsearch
 "     set ttyscroll=1
 "     set t_ut=""
 " endif
+" set ttyscroll=1
 
 " Sets scrolloff to 20% of window height
 let &scrolloff=float2nr(0.15*winheight(0))
@@ -84,10 +91,6 @@ set statusline=\ %f\ %y\ %r\ %m%=Column:\ %c\ \ \|\ \ %P\ \
 set ttimeoutlen=0
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
-
-" hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
-" let &t_ti = &t_ti . "\033]10;#ebdbb2\007\033]11;#1d2021\007"
-" let &t_te = &t_te . "\033]110\007\033]111\007"
 
 " }}}
 
@@ -137,7 +140,9 @@ Plug 'morhetz/gruvbox'
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " {{{
+let g:semshi#excluded_hl_groups = ['local','unresolved','parameterUnused']
 let g:semshi#mark_selected_nodes = 0
+let g:semshi#error_sign = v:false
 " }}}
 
 Plug 'neomake/neomake'
@@ -262,6 +267,7 @@ nnoremap P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <leader>j J
 nnoremap U :redo<CR>
+nnoremap <leader>m :w<CR>:Neomake!<CR>
 " let s:fivep = float2nr(0.10*winheight(0))
 " exec "nnoremap J ".s:fivep."<C-e>"
 " exec "nnoremap K ".s:fivep."<C-y>"

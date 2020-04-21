@@ -1,17 +1,17 @@
-next_img	l
-prev_img	h
-zoom_in		j
-zoom_out	k
+next_img	L
+prev_img	H
+zoom_in		J
+zoom_out	K
 
-scroll_left 	C-h
-scroll_right	C-l
-scroll_up    	C-k
-scroll_down	    C-j
+scroll_left 	h
+scroll_right	l
+scroll_up    	k
+scroll_down	    j
 
 toggle_aliasing		A
-toggle_filenames	d
+toggle_filenames	f
 toggle_pointer		o
-toggle_fullscreen	f
+toggle_fullscreen	F
 
 
 reload_image	r
