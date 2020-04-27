@@ -37,20 +37,20 @@ vf() {
         then
             if [ "${#filenames[@]}" -gt 1 ]
             then
-                vim -O2 "${filenames[@]/#/${1%/}/}" 
-                history -s vim -O2 "${filenames[@]/#/${1%/}/}" 
+                $EDITOR -O2 "${filenames[@]/#/${1%/}/}" 
+                history -s $EDITOR -O2 "${filenames[@]/#/${1%/}/}" 
             else
-                vim "${1%/}/${filenames}" 
-                history -s vim "${1%/}/${filenames}" 
+                $EDITOR "${1%/}/${filenames}" 
+                history -s $EDITOR "${1%/}/${filenames}" 
             fi
         else
             if [ "${#filenames[@]}" -gt 1 ]
             then
-                vim -O2 "${filenames[@]}"
-                history -s vim -O2 "${filenames[@]}"
+                $EDITOR -O2 "${filenames[@]}"
+                history -s $EDITOR -O2 "${filenames[@]}"
             else
-                vim ${filenames}
-                history -s vim ${filenames}
+                $EDITOR ${filenames}
+                history -s $EDITOR ${filenames}
             fi
         fi
     fi
@@ -84,7 +84,7 @@ cf() {
     local filename
     mapfile -t filenames < <( find $HOME -mindepth 1 -type d \
             ! \( \( -path "$HOME/.config*" -a ! -path "$HOME/.config/*/*" \) \
-                -o -path "$HOME/.vim" \
+                -o -path "$HOME/.$EDITOR" \
                 -o -path "$HOME/.local" \
                 -o -path "$HOME/.local/scripts" \) \
             -prune \
@@ -95,11 +95,11 @@ cf() {
     then
         if [ "${#filenames[@]}" -gt 1 ]
         then
-            vim -O2 "${filenames[@]/#/~/}"
-            history -s vim -O2 "${filenames[@]/#/'~'/}"
+            $EDITOR -O2 "${filenames[@]/#/~/}"
+            history -s $EDITOR -O2 "${filenames[@]/#/'~'/}"
         else
-            vim "${filenames[@]/#/~/}"
-            history -s vim "${filenames[@]/#/'~'/}"
+            $EDITOR "${filenames[@]/#/~/}"
+            history -s $EDITOR "${filenames[@]/#/'~'/}"
         fi
     fi
 }

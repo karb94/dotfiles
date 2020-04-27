@@ -81,7 +81,7 @@ set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
 
 "Status bar
 set laststatus=2    " Always show status bar
-set statusline=\ %f\ %y\ %r\ %m%=Column:\ %c\ \ \|\ \ %P\ \ 
+" set statusline=\ %f\ %y\ %r\ %m%=Column:\ %c\ \ \|\ \ %P\ \ 
 
 " Fix stupid python double indenting
 " let g:pyindent_open_paren = 'shiftwidth()'
@@ -91,6 +91,13 @@ set statusline=\ %f\ %y\ %r\ %m%=Column:\ %c\ \ \|\ \ %P\ \
 set ttimeoutlen=0
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
+
+" Set python3 bin path
+if g:os == "Darwin"
+let g:python3_host_prog='/Users/carless/miniconda3/envs/neovim/bin/python'
+elseif g:os == "Linux"
+let g:python3_host_prog='/usr/bin/python'
+endif
 
 " }}}
 
@@ -146,6 +153,40 @@ let g:semshi#error_sign = v:false
 " }}}
 
 Plug 'neomake/neomake'
+" {{{
+" let g:neomake_make_maker = {
+"             \ 'exe': 'make',
+"             \ 'args': ['--build'],
+"             \ 'errorformat': '%f:%l:%c: %m',
+"             \ }
+function! MyStatusNeomake(buf)
+    return neomake#statusline#get(a:buf, {
+                \ 'format_running': '[Compiling...]',
+                \ 'format_loclist_unknown': '',
+                \ 'format_quickfix_issues': '',
+                \ })
+endfunction
+
+" This function, given a buffer number, returns the current statusline for it.
+" it will be called very often.
+function! StatusLine(buf)
+    return "\ %f\ %y\ %r\ %m"
+                \ . MyStatusNeomake(a:buf)
+                \ . "%=Column:\ %c\ \ \|\ \ %P\ \ "
+endfunction
+
+" This function is set as the initial statusline, but quickly commits suicide
+" by setting a local statusline that will always be called with the correct
+" buffer number.
+function! SetStatusLine()
+    let &l:statusline = '%!StatusLine(' . bufnr('%') . ')'
+endfunction
+
+" This installs the above setter.
+set statusline=%!SetStatusLine()
+let g:neomake_open_list = 2
+nnoremap <silent> <leader>m :Neomake!<CR>
+" }}}
 
 Plug 'junegunn/vim-easy-align'
 " {{{
@@ -188,11 +229,14 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 set updatetime=50
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
+nnoremap <leader>h :CocCommand clangd.switchSourceHeader
+nmap <silent> gd <Plug>(coc-definition)
 " Introduce function text object
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
+
 " }}}
 
 Plug 'SirVer/ultisnips'
@@ -240,6 +284,18 @@ call plug#end()
 
 
 "==============================================================================
+" POST-PLUG
+"==============================================================================
+" coc-python
+if $CONDA_PREFIX == ""
+    let s:current_python_path='/Users/carless/miniconda3/envs/default'
+else
+    let s:current_python_path=$CONDA_PREFIX.'/bin/python'
+endif
+call coc#config('python', {'pythonPath': s:current_python_path})
+
+
+"==============================================================================
 " MAPPINGS
 "==============================================================================
 " {{{
@@ -247,27 +303,26 @@ call plug#end()
 " vnoremap lk <Esc>
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
-nnoremap <leader>c mbI#<Esc>`b
-nnoremap <leader>u mb^x`b
 nnoremap <leader>B :b#<CR>
 nnoremap <leader>v :vsplit<CR><C-w>w
 nnoremap <C-w> <C-w>w
-nnoremap <leader>q :q!<CR>
-nnoremap <leader>w :w<CR>
-nnoremap <leader>x :x<CR>
-nnoremap <leader>X :xa<CR>
-nnoremap <leader>z :%foldclose<CR>
-nnoremap <leader>Z :%foldopen<CR>
-nnoremap <silent><leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <leader>p :put<CR>=`[
-nnoremap Y yg_
-nnoremap p pm`=`]``
-nnoremap P Pm`=`]``
+nnoremap <silent> <leader>q :q!<CR>
+nnoremap <silent> <leader>Q :qa!<CR>
+nnoremap <silent> <leader>w :w<CR>
+nnoremap <silent> <leader>x :x<CR>
+nnoremap <silent> <leader>X :xa<CR>
+" nnoremap <leader>z :%foldclose<CR>
+" nnoremap <leader>Z :%foldopen<CR>
+nnoremap <silent> <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+nnoremap <silent> <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <silent> <leader>p :put<CR>=`[
+nnoremap <silent> <leader>P :put!<CR>=`[
+nnoremap <silent> Y yg_
+nnoremap <silent> p pm`=`]``
+nnoremap <silent> P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
-nnoremap <leader>j J
+nnoremap <silent> <leader>j J
 nnoremap U :redo<CR>
-nnoremap <leader>m :w<CR>:Neomake!<CR>
 " let s:fivep = float2nr(0.10*winheight(0))
 " exec "nnoremap J ".s:fivep."<C-e>"
 " exec "nnoremap K ".s:fivep."<C-y>"
@@ -319,6 +374,8 @@ augroup initialization
     " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
     autocmd WinEnter * set relativenumber cursorline
     autocmd WinLeave * set norelativenumber nocursorline
+    autocmd Filetype markdown set conceallevel=2
+    autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
 augroup END
 
 " Highlight match pattern in search but disable highlight after committing

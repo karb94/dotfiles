@@ -15,11 +15,11 @@ shopt -s extglob
 # shopt -s autocd
 
 
-[[ ":$PATH:" != *":~/.local/scripts/:"* ]] &&
-PATH="${PATH}:~/.local/scripts/"
+[[ ":$PATH:" != *":$HOME/.local/scripts/:"* ]] &&
+    PATH="$HOME/.local/scripts/:${PATH}"
 
-[[ ":$PATH:" != *":~/.local/bin/:"* ]] &&
-PATH="${PATH}:~/.local/bin/"
+[[ ":$PATH:" != *":$HOME/.local/bin/:"* ]] &&
+    PATH="$HOME/.local/bin/:${PATH}"
 
 
 test -f ~/.config/shell/fzf.bash && source $_

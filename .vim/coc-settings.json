@@ -1,5 +1,0 @@
-{
-    "python.jediEnabled": true,
-    "suggest.maxCompleteItemCount": 5,
-    "diagnostic.messageTarget": "echo"
-}
