@@ -19,7 +19,7 @@ alias grep='grep --color=auto'
 
 # Editing
 alias v='$EDITOR'
-alias vs='$EDITOR -S .session.vim'
+alias vs='$EDITOR -S Session.vim'
 alias sv='sudo -E $EDITOR'
 alias vb='$EDITOR ~/.config/shell/config.bash'
 alias val='$EDITOR ~/.config/shell/alias.bash'
@@ -69,13 +69,14 @@ then
     alias ga='git add'
     alias gb='git branch -avv'
     alias gc='git commit'
+    alias gd='git diff'
     alias gca='git commit -a --amend --no-edit'
     alias gch='git checkout'
     alias gp='git pull'
     alias gl='git log --oneline --graph --all'
-    alias gls='git ls-tree --full-tree --name-only -r HEAD'
+    alias gls='git ls-tree --name-only HEAD'
     alias gitdf="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-    alias gitdfls='gitdf ls-tree --full-tree --name-only -r HEAD'
+    alias gitdfls='gitdf ls-tree --name-only HEAD'
 
     # Source prompt and autocompletion files
     test -f ~/.config/git/git-prompt.sh && source $_
@@ -88,6 +89,7 @@ then
         __git_complete gs _git_status
         __git_complete ga _git_add
         __git_complete gc _git_commit
+        __git_complete gd _git_diff
         __git_complete gch _git_checkout
         __git_complete gp _git_pull
     fi

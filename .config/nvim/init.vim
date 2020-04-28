@@ -47,7 +47,7 @@ set backspace=indent,eol,start
 set relativenumber number
 
 " Show cursorline, colorcolumn and signcolumn
-set cursorline colorcolumn=80 signcolumn=yes
+set cursorline colorcolumn=81 signcolumn=yes
 
 " Less laggy than syntax mode
 set foldmethod=manual
@@ -229,7 +229,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 set updatetime=50
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
-nnoremap <leader>h :CocCommand clangd.switchSourceHeader
+nnoremap <silent> <leader>h :CocCommand clangd.switchSourceHeader<CR>
 nmap <silent> gd <Plug>(coc-definition)
 " Introduce function text object
 xmap if <Plug>(coc-funcobj-i)
