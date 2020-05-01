@@ -236,6 +236,8 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
+"CocList
+nnoremap <silent> <leader>gm :CocList --normal --no-sort outline -kind Method<CR>
 
 " }}}
 
@@ -303,7 +305,7 @@ call coc#config('python', {'pythonPath': s:current_python_path})
 " vnoremap lk <Esc>
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
-nnoremap <leader>B :b#<CR>
+nnoremap <silent> <leader>B :b#<CR>
 nnoremap <leader>v :vsplit<CR><C-w>w
 nnoremap <C-w> <C-w>w
 nnoremap <silent> <leader>q :q!<CR>
