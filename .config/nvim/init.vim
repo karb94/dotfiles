@@ -74,7 +74,7 @@ set inccommand=split
 let &scrolloff=float2nr(0.15*winheight(0))
 
 " Greedy command line completion
-set wildignorecase wildmenu wildmode=full
+set wildignorecase wildmenu wildmode=longest:full,full
 
 " 4 whitespaces for <Tab> and indent. Auto-smart indent.
 set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
@@ -83,10 +83,6 @@ set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
 set laststatus=2    " Always show status bar
 " set statusline=\ %f\ %y\ %r\ %m%=Column:\ %c\ \ \|\ \ %P\ \ 
 
-" Fix stupid python double indenting
-" let g:pyindent_open_paren = 'shiftwidth()'
-" let g:pyindent_continue = 'shiftwidth()'
-
 " Time waited for key codes
 set ttimeoutlen=0
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
@@ -94,9 +90,9 @@ autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
 
 " Set python3 bin path
 if g:os == "Darwin"
-let g:python3_host_prog='/Users/carless/miniconda3/envs/neovim/bin/python'
+    let g:python3_host_prog='$HOME/miniconda3/envs/neovim/bin/python'
 elseif g:os == "Linux"
-let g:python3_host_prog='/usr/bin/python'
+    let g:python3_host_prog='$HOME/.conda/envs/neovim/bin/python'
 endif
 
 " Set vim path
