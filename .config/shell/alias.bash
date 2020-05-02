@@ -57,6 +57,7 @@ alias en='grep "TOTAL EN"'
 alias coor='grep "ALPHA" -A1'
 alias conv='grep "OPT END"'
 alias rgui='conda run -n ase read_gui.py'
+alias qp="qstat -f | sed -n '/Output/ {s/.*WORK//; N; s/\n\s*//; s/\.o[0-9]*\s*$/.out/; p}'"
 
 # Git
 if command -v git >/dev/null 2>&1

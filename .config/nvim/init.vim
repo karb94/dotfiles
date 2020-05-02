@@ -40,6 +40,17 @@ set hidden
 " Set the command to compile with
 let &makeprg='make -C build'
 " -j $(nproc)
+set errorformat=
+            \%A\ \ File\ \"%f\"\\\,\ line\ %l\\\,%m,
+            \%C\ \ \ \ %.%#,
+            \%+Z%.%#Error\:\ %.%#,
+            \%A\ \ File\ \"%f\"\\\,\ line\ %l,
+            \%+C\ \ %.%#,
+            \%-C%p^,
+            \%Z%m,
+            \%-GTraceback%.%#
+
+
 " Backspace behaves like everywhere else
 set backspace=indent,eol,start
 
@@ -96,16 +107,17 @@ elseif g:os == "Linux"
 endif
 
 " Set vim path
-set path-=/usr/include
+set path-=/usr/include,
+set path=.
 " If inside git repo, add git directory to path
-call system("git rev-parse --is-inside-work-tree")
-let g:inside_git_repo = v:shell_error == 0
-if g:inside_git_repo
-    let g:git_dir=trim(system("git rev-parse --show-toplevel"))
-    if  index(split(&path, ","), g:git_dir) == -1
-        exe "set path+=" . g:git_dir . "/*"
-    endif
-endif
+" call system("git rev-parse --is-inside-work-tree")
+" let g:inside_git_repo = v:shell_error == 0
+" if g:inside_git_repo
+"     let g:git_dir=trim(system("git rev-parse --show-toplevel"))
+"     if  index(split(&path, ","), g:git_dir) == -1
+"         exe "set path+=" . g:git_dir . "/**/*"
+"     endif
+" endif
 
 " }}}
 
