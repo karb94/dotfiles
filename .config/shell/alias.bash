@@ -18,22 +18,22 @@ alias cp='cp -iv'
 alias grep='grep --color=auto'
 
 # Editing
-alias v='$EDITOR'
+alias e='$EDITOR'
 alias vs='$EDITOR -S Session.vim'
 alias sv='sudo -E $EDITOR'
-alias vb='$EDITOR ~/.config/shell/config.bash'
-alias val='$EDITOR ~/.config/shell/alias.bash'
+alias eb='$EDITOR ~/.config/shell/config.bash'
+alias eal='$EDITOR ~/.config/shell/alias.bash'
 alias vrc='$EDITOR ~/.vim/vimrc'
 alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 
 # Package manager
-alias p='pacman'
 alias sp='sudo pacman'
 
 # Open files
 alias j='nohup jupyter lab > /dev/null &'
 alias feh='feh --scale-down --auto-zoom'
 alias less='less -i'
+alias p='less -i'
 
 # Navigation
 alias h='cd $HOME' 

@@ -74,7 +74,7 @@ set inccommand=split
 let &scrolloff=float2nr(0.15*winheight(0))
 
 " Greedy command line completion
-set wildmenu wildmode=longest:full,full
+set wildignorecase wildmenu wildmode=full
 
 " 4 whitespaces for <Tab> and indent. Auto-smart indent.
 set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
@@ -99,6 +99,18 @@ elseif g:os == "Linux"
 let g:python3_host_prog='/usr/bin/python'
 endif
 
+" Set vim path
+set path-=/usr/include
+" If inside git repo, add git directory to path
+call system("git rev-parse --is-inside-work-tree")
+let g:inside_git_repo = v:shell_error == 0
+if g:inside_git_repo
+    let g:git_dir=trim(system("git rev-parse --show-toplevel"))
+    if  index(split(&path, ","), g:git_dir) == -1
+        exe "set path+=" . g:git_dir . "/*"
+    endif
+endif
+
 " }}}
 
 
@@ -117,11 +129,11 @@ Plug 'wellle/targets.vim'
 
 Plug 'romainl/vim-cool'
 
-Plug 'karb94/vim-smoothie'
-" {{{
-let g:smoothie_update_interval = 1
-let g:smoothie_base_speed = 30
-" }}}
+" Plug 'karb94/vim-smoothie'
+" " {{{
+" let g:smoothie_update_interval = 1
+" let g:smoothie_base_speed = 30
+" " }}}
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -313,6 +325,7 @@ nnoremap <silent> <leader>Q :qa!<CR>
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <silent> <leader>x :x<CR>
 nnoremap <silent> <leader>X :xa<CR>
+" nnoremap <leader>b :b 
 " nnoremap <leader>z :%foldclose<CR>
 " nnoremap <leader>Z :%foldopen<CR>
 nnoremap <silent> <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
@@ -325,9 +338,9 @@ nnoremap <silent> P Pm`=`]``
 nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <silent> <leader>j J
 nnoremap U :redo<CR>
-" let s:fivep = float2nr(0.10*winheight(0))
-" exec "nnoremap J ".s:fivep."<C-e>"
-" exec "nnoremap K ".s:fivep."<C-y>"
+let s:fivep = float2nr(0.10*winheight(0))
+exec "nnoremap J ".s:fivep."<C-e>"
+exec "nnoremap K ".s:fivep."<C-y>"
 
 set wildcharm=<C-z>
 cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
@@ -389,3 +402,4 @@ augroup END
 " augroup END
 
 " }}}
+
