@@ -37,15 +37,6 @@ set directory^=~/.config/nvim/swp
 " change unsaved buffers
 set hidden
 
-" Set the command to compile with
-" let &makeprg='make -C build -j $(nproc)'
-let &makeprg='python utils/plot.py test.json'
-set errorformat=
-    \%A\ \ File\ \"%f\"\\,\ line\ %l\\,\ %m,
-    \%+C\ \ \ \ %.%#,
-    \%+Z%[%^\ ]%\\@=%.%#%trror:\ %m
-    " \%Z%[%^\ ]%\\@=%t
-
 " Backspace behaves like everywhere else
 set backspace=indent,eol,start
 
@@ -169,11 +160,6 @@ let g:semshi#error_sign = v:false
 
 Plug 'neomake/neomake'
 " {{{
-" let g:neomake_make_maker = {
-"             \ 'exe': 'make',
-"             \ 'args': ['--build'],
-"             \ 'errorformat': '%f:%l:%c: %m',
-"             \ }
 function! MyStatusNeomake(buf)
     return neomake#statusline#get(a:buf, {
                 \ 'format_running': '[Compiling...]',
@@ -349,7 +335,7 @@ set wildcharm=<C-z>
 cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
 cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
 nnoremap <leader>e :e **/*
-nnoremap <silent> <leader>m :silent make!\|redraw!\|cw<CR>
+" nnoremap <silent> <leader>m :silent make!\|redraw!\|cw<CR>
 
 " }}}
 
@@ -372,7 +358,7 @@ endif
 " }}}
 
 "==============================================================================
-" FUNCTIONS
+" AUTOCOMMANDS
 "==============================================================================
 " {{{
 
@@ -396,14 +382,3 @@ augroup initialization
     autocmd Filetype markdown set conceallevel=2
     autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
 augroup END
-
-" Highlight match pattern in search but disable highlight after committing
-" Not necessary with vim-cool
-" augroup vimrc-incsearch-highlight
-"     autocmd!
-"     autocmd CmdlineEnter /,\? :set hlsearch
-"     autocmd CmdlineLeave /,\? :set nohlsearch
-" augroup END
-
-" }}}
-
