@@ -38,18 +38,13 @@ set directory^=~/.config/nvim/swp
 set hidden
 
 " Set the command to compile with
-let &makeprg='make -C build'
-" -j $(nproc)
+" let &makeprg='make -C build -j $(nproc)'
+let &makeprg='python utils/plot.py test.json'
 set errorformat=
-            \%A\ \ File\ \"%f\"\\\,\ line\ %l\\\,%m,
-            \%C\ \ \ \ %.%#,
-            \%+Z%.%#Error\:\ %.%#,
-            \%A\ \ File\ \"%f\"\\\,\ line\ %l,
-            \%+C\ \ %.%#,
-            \%-C%p^,
-            \%Z%m,
-            \%-GTraceback%.%#
-
+    \%A\ \ File\ \"%f\"\\,\ line\ %l\\,\ %m,
+    \%+C\ \ \ \ %.%#,
+    \%+Z%[%^\ ]%\\@=%.%#%trror:\ %m
+    " \%Z%[%^\ ]%\\@=%t
 
 " Backspace behaves like everywhere else
 set backspace=indent,eol,start
@@ -354,6 +349,7 @@ set wildcharm=<C-z>
 cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
 cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
 nnoremap <leader>e :e **/*
+nnoremap <silent> <leader>m :silent make!\|redraw!\|cw<CR>
 
 " }}}
 
