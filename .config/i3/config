@@ -41,8 +41,8 @@ focus_follows_mouse no
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return split h exec kitty --single-instance
-bindsym $mod+Shift+Return split v; exec kitty --single-instance
+bindsym $mod+Return split h exec kitty
+bindsym $mod+Shift+Return split v exec kitty
 
 # start internet browser
 bindsym $mod+i split h exec chromium
