@@ -22,9 +22,9 @@ shopt -s extglob
     PATH="$HOME/.local/bin/:${PATH}"
 
 
-test -f ~/.config/shell/fzf.bash && source $_
-test -f ~/.config/shell/alias.bash && source $_
-test -f ~/.config/shell/functions.bash && source $_
+test -f ~/.config/bash/fzf.bash && source $_
+test -f ~/.config/bash/alias.bash && source $_
+test -f ~/.config/bash/functions.bash && source $_
 
 # Prompt command configuration
 PROMPT_COMMAND='
