@@ -1,6 +1,9 @@
-PS1=$'\n%{\e[38;5;12m%}%n:%{\e[1m%}%{\e[38;5;208m%}%~/\n%{\e[0m%}$ '
-setopt autocd		# Automatically cd into typed directory.
 
+PS1=$'
+%{\033[1m%}%{\033[38;5;4m%}%n:%{\033[38;5;12m%}%~/
+ %{\033[38;5;14m%}>>>%{\033[0m%} '
+
+setopt autocd		# Automatically cd into typed directory.
 # The following lines were added by compinstall
 autoload -Uz compinit && compinit
 
