@@ -19,10 +19,10 @@ alias grep='grep --color=auto'
 
 # Editing
 alias e='$EDITOR'
-alias vs='$EDITOR -S Session.vim'
 alias sv='sudo -E $EDITOR'
-alias eb='$EDITOR ~/.config/shell/config.bash'
-alias eal='$EDITOR ~/.config/shell/alias.bash'
+alias eb='$EDITOR ~/.config/bash/config.bash'
+alias eal='$EDITOR ~/.config/bash/alias.bash'
+alias efu='$EDITOR ~/.config/bash/functions.bash'
 alias vrc='$EDITOR ~/.vim/vimrc'
 alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 

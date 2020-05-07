@@ -93,18 +93,25 @@ elseif g:os == "Linux"
 endif
 
 " Set vim path
-set path-=/usr/include,
-set path=.
-" If inside git repo, add git directory to path
-" call system("git rev-parse --is-inside-work-tree")
-" let g:inside_git_repo = v:shell_error == 0
-" if g:inside_git_repo
-"     let g:git_dir=trim(system("git rev-parse --show-toplevel"))
-"     if  index(split(&path, ","), g:git_dir) == -1
-"         exe "set path+=" . g:git_dir . "/**/*"
-"     endif
-" endif
+" Set a base &path
 
+set path=.,,
+" If inside git repo, add git directory to path
+function! Set_git_path()
+    call system("git rev-parse --is-inside-work-tree")
+    let g:inside_git_repo = v:shell_error == 0
+    if g:inside_git_repo
+        let g:git_root_dir=trim(system("git rev-parse --show-toplevel"))
+        let &path = g:git_root_dir
+        let l:git_dirs = systemlist("git ls-tree -dr --full-tree --name-only HEAD")
+        if empty(l:git_dirs)
+            return
+        endif
+        let l:git_abs_dirs = map(l:git_dirs, { idx, val -> g:git_root_dir . '/' . val })
+        let &path .= ',' . join(l:git_abs_dirs, ',')
+    endif
+endfunction
+call Set_git_path()
 " }}}
 
 
@@ -191,6 +198,7 @@ nnoremap <silent> <leader>m :Neomake!<CR>
 
 Plug 'junegunn/vim-easy-align'
 " {{{
+let g:easy_align_ignore_groups = []
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -379,6 +387,6 @@ augroup initialization
     " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
     autocmd WinEnter * set relativenumber cursorline
     autocmd WinLeave * set norelativenumber nocursorline
-    autocmd Filetype markdown set conceallevel=2
-    autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
+    " autocmd Filetype markdown set conceallevel=2
+    " autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
 augroup END

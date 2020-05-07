@@ -6,6 +6,16 @@
 
 
 
+vs () {
+    echo
+    if [ -f "Session.vim" ]
+    then
+        $EDITOR -S
+    else
+        echo No "Session.vim" file
+    fi
+}
+
 push () {
     if [ $# -eq 1 ]
     then
@@ -38,7 +48,7 @@ pulldf () {
     gitdf pull
 }
 
-extract() {
+extract () {
     local c e i
 
     (($#)) || return
