@@ -1,4 +1,4 @@
-PS1=$'\n%{\e[38;5;6m%}%n:%{\e[1m%}%{\e[38;5;2m%}%~/\n%{\e[0m%}$ '
+PS1=$'\n%{\e[38;5;12m%}%n:%{\e[1m%}%{\e[38;5;208m%}%~/\n%{\e[0m%}$ '
 setopt autocd		# Automatically cd into typed directory.
 
 # The following lines were added by compinstall
