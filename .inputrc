@@ -9,7 +9,7 @@ $if mode=vi
     set show-mode-in-prompt on
     set vi-ins-mode-string \1\033[38;5;11m\2(ins)\1\033[0m\e[6 q\2
     set keymap vi-insert
-    "\C-a": beginning-of-line
+    "\C-a": "\033^cW"
     "\C-e": end-of-line
     # "lk": vi-movement-mode
     "\C-p": previous-history
@@ -18,11 +18,12 @@ $if mode=vi
     "\t": menu-complete
     "\e[Z": menu-complete-backward
     set keymap vi-command
+    set vi-cmd-mode-string \1\033[38;5;9m\2(cmd)\1\033[0m\e[2 q\2
+    "\C-a": "^cW"
     "\C-p": previous-history
     "\C-n": next-history
     "H": beginning-of-line
     "L": end-of-line
-    set vi-cmd-mode-string \1\033[38;5;9m\2(cmd)\1\033[0m\e[2 q\2
 $endif
 
 
