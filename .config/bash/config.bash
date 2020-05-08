@@ -23,7 +23,7 @@ bold='\033[1m'          # Makes following text bold
 reset_font='\033[0m'    # Applies default font attributes
 PS1="
 ${color4}\u:${color12}\w/
-${bold}${color14}>${reset_font} "
+ ${bold}${color14}>${reset_font} "
 
 # Prompt command
 PROMPT_COMMAND='
