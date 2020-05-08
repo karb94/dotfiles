@@ -64,7 +64,7 @@ if command -v git >/dev/null 2>&1
 then
 
     alias g='git'
-    alias gr='git reset --hard'
+    alias gr='git reset'
     alias grh='git reset --hard HEAD~'
     alias gs='git status'
     alias ga='git add'
