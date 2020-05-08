@@ -18,14 +18,16 @@ shopt -s extglob
 # Define your command prompt
 color4='\033[38;5;4m'   # Blue1
 color12='\033[38;5;12m' # Blue2
+color14='\033[38;5;14m' # Green2
 bold='\033[1m'          # Makes following text bold
-reset_font='\033[0m'   # Applies default font attributes
-PS1="${color4}\u:${bold}${color12}\w/${reset_font}\n"
+reset_font='\033[0m'    # Applies default font attributes
+PS1="
+${color4}\u:${color12}\w/
+${bold}${color14}>${reset_font} "
 
 # Prompt command
 PROMPT_COMMAND='
     history -a
-    printf "\n"
 '
 
 test -f ~/.config/bash/fzf.bash && source $_
