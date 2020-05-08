@@ -5,6 +5,7 @@ set -o vi
 # This is helpful to prevent useless fzf functions from being added to history
 HISTCONTROL=ignoreboth
 
+# Bash options
 # Append to history file after each command?
 shopt -s histappend
 # include ** globbing pattern
@@ -14,16 +15,23 @@ shopt -s extglob
 # Change directory without cd
 # shopt -s autocd
 
+# Define your command prompt
+color4='\033[38;5;4m'   # Blue1
+color12='\033[38;5;12m' # Blue2
+bold='\033[1m'          # Makes following text bold
+reset_font='\033[0m'   # Applies default font attributes
+PS1="${color4}\u:${bold}${color12}\w/${reset_font}\n"
+
+# Prompt command
+PROMPT_COMMAND='
+    history -a
+    printf "\n"
+'
 
 test -f ~/.config/bash/fzf.bash && source $_
 test -f ~/.config/bash/alias.bash && source $_
 test -f ~/.config/bash/functions.bash && source $_
 
-# Prompt command configuration
-PROMPT_COMMAND='
-    history -a
-    printf "\n"
-'
 # Setting key bindings for the functions
 stty -a | grep -q discard >/dev/null && stty discard undef
 bind -m vi-insert -r "\ec"
