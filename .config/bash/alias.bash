@@ -74,7 +74,7 @@ then
     alias gca='git commit -a --amend --no-edit'
     alias gch='git checkout'
     alias gp='git pull'
-    alias gl='git log --oneline --graph --all'
+    alias gl='git log -20 --oneline --graph --all'
     alias gls='git ls-tree --name-only HEAD'
     alias gitdf="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
     alias gitdfls='gitdf ls-tree --name-only HEAD'
