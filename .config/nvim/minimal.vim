@@ -56,7 +56,9 @@ set gdefault
 set incsearch smartcase ignorecase hlsearch
 
 " Live substitution command
-set inccommand=split
+if has('nvim')
+    set inccommand=split
+endif
 
 " Fix redrawing issues only with fast connections
 " if !has('nvim')
