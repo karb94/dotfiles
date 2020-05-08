@@ -46,6 +46,9 @@ bind -m vi-insert -r "\ec"
 bind -m vi-command -r "\ec"
 bind -m vi-insert '"\C-b":"\C-[cccd ..\C-m"'
 bind -m vi-command '"\C-b":"cccd ..\C-m"'
+bind -x vi-insert -r "\ec"
+bind -x $'"\C-k":ls;'
+
 
 # For future use
 # if [ "$(uname)" = "Linux" ]
