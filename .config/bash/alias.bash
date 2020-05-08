@@ -45,6 +45,7 @@ alias ac='conda activate'
 alias da='conda deactivate'
 
 # Network connections
+alias q='qstat -u cr216'
 alias cx1='ssh -t cx1 "~/usr/local/bin/bash -l"'
 alias nhpc='ssh carles@nhpc16.ch.ic.ac.uk'
 alias vpn='nmcli connection up --ask ic'
