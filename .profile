@@ -18,12 +18,11 @@ prepend_to_path "$HOME/.local/scripts"
 export LANG="en_GB.utf8"
 
 # General variables
-if command -v nvim
-then
+if command -v nvim; then
     export EDITOR=nvim
-elif command -v vim
+elif command -v vim; then
     export EDITOR=vim
-elif command -v vi
+elif command -v vi; then
     export EDITOR=vi
 fi
 export PAGER=less
