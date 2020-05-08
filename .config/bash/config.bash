@@ -16,14 +16,18 @@ shopt -s extglob
 # shopt -s autocd
 
 # Define your command prompt
-color4='\033[38;5;4m'   # Blue1
-color12='\033[38;5;12m' # Blue2
-color14='\033[38;5;14m' # Green2
+blue1='\033[38;5;4m'
+blue2='\033[38;5;12m'
+yellow2='\033[38;5;11m'
+green2='\033[38;5;14m'
 bold='\033[1m'          # Makes following text bold
 reset_font='\033[0m'    # Applies default font attributes
+ssh_prompt () {
+    [ -n $SSH_CONNECTION ] && printf "${yellow2}\h" 
+}
 PS1="
-\[${color4}\]\u:\[${color12}\]\w/
- \[${bold}${color14}\]>\[${reset_font}\] "
+\[${ssh_prompt}${blue1}\]\u:\[${blue2}\]\w/
+ \[${bold}${green2}\]>\[${reset_font}\] "
 
 # Prompt command
 PROMPT_COMMAND='
