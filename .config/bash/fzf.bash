@@ -60,7 +60,9 @@ d() {
     local dir
     # strip forward slash from the end if it has it 
     local path="${1%/}"
-    dir=$(find ${path:-.} -type d -mindepth 1 -maxdepth 5 -printf '%P\n' 2> /dev/null |
+    dir=$(find ${path:-.} -type d -mindepth 1 -maxdepth 5 \
+            -name '.*' -prune \
+            -o -type d -printf '%P\n' 2> /dev/null |
         # ( [ -z "$1" ] && cat || sed "s,${path}/,," ) |
         fzf --no-exact --no-multi)
     if [ -n "$dir" ]
