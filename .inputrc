@@ -8,7 +8,9 @@ set menu-complete-display-prefix on
 $if mode=vi
     set keymap vi-insert
     "\C-a": "\033^cW"
-    "\C-e": end-of-line
+    "\C-j": "\033A !$\C-m"
+    "\C-e": "\033A !$:r"
+    "\C-b":"\033cccd ..\C-m"
     # "lk": vi-movement-mode
     "\C-p": previous-history
     "\C-n": next-history
@@ -17,6 +19,9 @@ $if mode=vi
     "\e[Z": menu-complete-backward
     set keymap vi-command
     "\C-a": "^cW"
+    "\C-j": "A !$\C-m"
+    "\C-e": "A !$:r"
+    "\C-b":"cccd ..\C-m"
     "\C-p": previous-history
     "\C-n": next-history
     "H": beginning-of-line

@@ -44,9 +44,8 @@ test -f ~/.config/bash/functions.bash && source $_
 stty -a | grep -q discard >/dev/null && stty discard undef
 bind -m vi-insert -r "\ec"
 bind -m vi-command -r "\ec"
-bind -m vi-insert '"\C-b":"\C-[cccd ..\C-m"'
-bind -m vi-command '"\C-b":"cccd ..\C-m"'
-bind -x vi-insert -r "\ec"
+# bind -x vi-insert -r "\ec"
+bind -x $'"\C-k":ls;'
 bind -x $'"\C-k":ls;'
 
 

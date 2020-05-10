@@ -111,7 +111,7 @@ cf() {
 complete -F _fzf_path_completion -o default -o bashdefault v
 
 # Setting key bindings for the functions
-bind -m vi-insert '"\C-o":"\C-[ccvf\C-m"'
-bind -m vi-command '"\C-o":"ccvf\C-m"'
+# bind -m vi-insert '"\C-o":"\C-[ccvf\C-m"'
+# bind -m vi-command '"\C-o":"ccvf\C-m"'
 bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'
 bind -m vi-command '"\C-g":"ccd\C-m"'

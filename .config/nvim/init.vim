@@ -71,7 +71,7 @@ set inccommand=split
 let &scrolloff=float2nr(0.15*winheight(0))
 
 " Greedy command line completion
-set wildignorecase wildmenu wildmode=longest:full,full
+set wildignorecase wildmenu wildmode=full
 
 " 4 whitespaces for <Tab> and indent. Auto-smart indent.
 set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
@@ -88,8 +88,6 @@ autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
 " Set python3 bin path
 if g:os == "Darwin"
     let g:python3_host_prog='$HOME/miniconda3/envs/neovim/bin/python'
-elseif g:os == "Linux"
-    let g:python3_host_prog='$HOME/.conda/envs/neovim/bin/python'
 endif
 
 " Set vim path
@@ -299,7 +297,7 @@ call plug#end()
 "==============================================================================
 " coc-python
 if $CONDA_PREFIX == ""
-    let s:current_python_path='/Users/carless/miniconda3/envs/default'
+    let s:current_python_path="$HOME/miniconda3/envs/default"
 else
     let s:current_python_path=$CONDA_PREFIX.'/bin/python'
 endif
@@ -315,8 +313,9 @@ call coc#config('python', {'pythonPath': s:current_python_path})
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 nnoremap <silent> <leader>B :b#<CR>
-nnoremap <leader>v :vsplit<CR><C-w>w
-nnoremap <C-w> <C-w>w
+nnoremap <leader>b :b 
+" nnoremap <leader>v :vsplit<CR><C-w>w
+" nnoremap <C-w> <C-w>w
 nnoremap <silent> <leader>q :q!<CR>
 nnoremap <silent> <leader>Q :qa!<CR>
 nnoremap <silent> <leader>w :w<CR>
