@@ -191,7 +191,7 @@ endfunction
 " This installs the above setter.
 set statusline=%!SetStatusLine()
 let g:neomake_open_list = 2
-nnoremap <silent> <leader>m :Neomake!<CR>
+nnoremap <silent> <leader>m :w<CR>:Neomake!<CR>
 " }}}
 
 Plug 'junegunn/vim-easy-align'
@@ -313,7 +313,8 @@ call coc#config('python', {'pythonPath': s:current_python_path})
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 nnoremap <silent> <leader>B :b#<CR>
-nnoremap <leader>b :b 
+" nnoremap <leader>b :b 
+nnoremap <leader>e :cc
 " nnoremap <leader>v :vsplit<CR><C-w>w
 " nnoremap <C-w> <C-w>w
 nnoremap <silent> <leader>q :q!<CR>

@@ -10,7 +10,7 @@ $if mode=vi
     "\C-a": "\033^cW"
     "\C-j": "\033A !$\C-m"
     "\C-e": "\033A !$:r"
-    "\C-b":"\033cccd ..\C-m"
+    "\C-b":"\033cc cd ..\C-m"
     # "lk": vi-movement-mode
     "\C-p": previous-history
     "\C-n": next-history
@@ -21,7 +21,7 @@ $if mode=vi
     "\C-a": "^cW"
     "\C-j": "A !$\C-m"
     "\C-e": "A !$:r"
-    "\C-b":"cccd ..\C-m"
+    "\C-b":"cc cd ..\C-m"
     "\C-p": previous-history
     "\C-n": next-history
     "H": beginning-of-line
