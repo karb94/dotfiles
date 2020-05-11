@@ -16,20 +16,32 @@ shopt -s extglob
 # shopt -s autocd
 
 # Define your command prompt
+red1='\033[38;5;1m'
+green1='\033[38;5;2m'
 blue1='\033[38;5;4m'
 blue2='\033[38;5;12m'
-red1='\033[38;5;6m'
+aqua1='\033[38;5;6m'
+aqua2='\033[38;5;14m'
 yellow2='\033[38;5;11m'
-green2='\033[38;5;14m'
-bold='\033[1m'          # Makes following text bold
-reset_font='\033[0m'    # Applies default font attributes
+orange1='\033[38;5;166m'
+bold='\033[1m'
+reset_font='\033[0m'
 ssh_prompt () {
-    [ -n "$SSH_CONNECTION" ] &&
-        printf "${yellow2}${HOSTNAME}${reset_font}" 
+    [ -n "$SSH_CONNECTION" ] && printf "${yellow2}${HOSTNAME}${reset_font}" 
+}
+git_prompt () {
+    local branch_name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+    if [ "$branch_name" == 'HEAD' ]; then
+        printf "${orange1}(detached ${branch_name})"
+    elif [ -n "$branch_name" ]; then
+        ( git diff --quiet HEAD && git diff --cached --quiet ) &&
+            printf "${aqua2}(${branch_name})${reset_font}" ||
+            printf "${red1}(${branch_name})${reset_font}"
+    fi
 }
 PS1="
-\[$(ssh_prompt)${blue1}\]\u:\[${blue2}\]\w/
- \[${bold}${green2}\]>\[${reset_font}\] "
+\[\$(git_prompt)\$(ssh_prompt)${blue1}\]\u:\[${blue2}\]\w/
+ \[${bold}${aqua2}\]>\[${reset_font}\] "
 
 # Prompt command
 PROMPT_COMMAND='
