@@ -1,0 +1,18 @@
+[user]
+	email = ka_rafols@hotmail.com
+	name = Carles Rafols
+[core]
+	pager = less
+[alias]
+    s = status
+    c = commit
+    r = reset
+    f = fetch --all --prune
+    rh = reset --hard
+    ca = commit -a --amend --no-edit
+    ch = checkout
+    sw = switch
+    l = !git --no-pager log -20 --oneline --graph --all
+    log = log --oneline --graph --all
+    ls = ls-tree --name-only HEAD
+    df = !git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
