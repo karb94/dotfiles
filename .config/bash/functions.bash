@@ -32,15 +32,15 @@ pull () {
 }
 
 pushdf () {
-    gitdf add -u
     if [ $# -eq 1 ]
     then
         echo $1
-        gitdf commit -m "$1"
+        git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME commit -am "$1"
     else
-        gitdf commit -m 'Updated dotfiles'
+        git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME \
+            commit -am 'Updated dotfiles'
     fi
-    gitdf push
+    git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME push
 }
 
 pulldf () {

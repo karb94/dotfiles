@@ -61,41 +61,8 @@ alias rgui='conda run -n ase read_gui.py'
 alias qp="qstat -f | sed -n '/Output/ {s/.*WORK//; N; s/\n\s*//; s/\.o[0-9]*\s*$/.out/; p}' | sort"
 
 # Git
-if command -v git >/dev/null 2>&1
-then
-
-    alias g='git'
-    alias gr='git reset'
-    alias grh='git reset --hard HEAD~'
-    alias gs='git status'
-    alias ga='git add'
-    alias gb='git branch -avv'
-    alias gc='git commit'
-    alias gd='git diff'
-    alias gca='git commit -a --amend --no-edit'
-    alias gch='git checkout'
-    alias gp='git pull'
-    alias gl='git log -20 --oneline --graph --all'
-    alias gls='git ls-tree --name-only HEAD'
-    alias gitdf="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-    alias gitdfls='gitdf ls-tree --name-only HEAD'
-
-    # Source prompt and autocompletion files
-    test -f ~/.config/git/git-prompt.sh && source $_
-    if [ -f ~/.config/git/git-completion.bash ]
-    then
-        source ~/.config/git/git-completion.bash 
-        __git_complete gitdf _git
-        __git_complete g _git
-        __git_complete gr _git_reset
-        __git_complete gs _git_status
-        __git_complete ga _git_add
-        __git_complete gc _git_commit
-        __git_complete gd _git_diff
-        __git_complete gch _git_checkout
-        __git_complete gp _git_pull
-    fi
-fi
+command -v git >/dev/null 2>&1 && alias g='git' &&
+    test -f ~/.config/git/git-completion.bash && source $_
 
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
