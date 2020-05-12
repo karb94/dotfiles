@@ -86,9 +86,9 @@ autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
 
 " Set python3 bin path
-if g:os == "Darwin"
-    let g:python3_host_prog='$HOME/miniconda3/envs/neovim/bin/python'
-endif
+" if g:os == "Darwin"
+let g:python3_host_prog='$HOME/miniconda3/envs/neovim/bin/python'
+" endif
 
 " Set vim path
 " Set a base &path
