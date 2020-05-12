@@ -121,21 +121,17 @@ call Set_git_path()
 call plug#begin()
 
 Plug 'machakann/vim-sandwich'
-
 Plug 'tpope/vim-commentary'
-
+Plug 'tpope/vim-fugitive'
 Plug 'wellle/targets.vim'
-
 Plug 'romainl/vim-cool'
-
-" Plug 'karb94/vim-smoothie'
-" " {{{
-" let g:smoothie_update_interval = 1
-" let g:smoothie_base_speed = 30
-" " }}}
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+Plug 'morhetz/gruvbox'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
 " {{{
 let g:fzf_layout = { 'window': {
             \ 'width': 1.0,
@@ -149,13 +145,6 @@ nnoremap <leader>F :Files<CR>
 nnoremap <leader>l :BLines<CR>
 nnoremap <leader>g :Rg<CR>
 " }}}
-
-Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
-
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
-
-Plug 'morhetz/gruvbox'
-
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " {{{
 let g:semshi#excluded_hl_groups = ['local','unresolved','parameterUnused']
