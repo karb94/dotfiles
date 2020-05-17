@@ -74,7 +74,8 @@ let &scrolloff=float2nr(0.15*winheight(0))
 set wildignorecase wildmenu wildmode=full
 
 " 4 whitespaces for <Tab> and indent. Auto-smart indent.
-set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
+" set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
+set expandtab autoindent smartindent
 
 "Status bar
 set laststatus=2    " Always show status bar
@@ -128,6 +129,11 @@ Plug 'romainl/vim-cool'
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'morhetz/gruvbox'
+
+" Google auto-formating
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -284,6 +290,8 @@ call plug#end()
 "==============================================================================
 " POST-PLUG
 "==============================================================================
+" Google auto-formating
+call glaive#Install()
 " coc-python
 if $CONDA_PREFIX == ""
     let s:current_python_path="$HOME/miniconda3/envs/default"
