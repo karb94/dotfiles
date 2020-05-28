@@ -43,6 +43,9 @@ set backspace=indent,eol,start
 " Show relative line numbers and current line number
 set relativenumber number
 
+" Allow mouse interaction in normal mode
+set mouse=n
+
 " Show cursorline, colorcolumn and signcolumn
 set cursorline colorcolumn=81 signcolumn=yes
 
@@ -137,6 +140,10 @@ Plug 'google/vim-glaive'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+Plug 'takac/vim-hardtime'
+let g:hardtime_maxcount = 2
+let g:hardtime_default_on = 1
 
 " {{{
 let g:fzf_layout = { 'window': {
@@ -382,6 +389,8 @@ set clipboard+=unnamedplus
 augroup initialization
     au!
     " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
+    " autocmd WinEnter * set cursorline
+    " autocmd WinLeave * set nocursorline
     autocmd WinEnter * set relativenumber cursorline
     autocmd WinLeave * set norelativenumber nocursorline
     " autocmd Filetype markdown set conceallevel=2
