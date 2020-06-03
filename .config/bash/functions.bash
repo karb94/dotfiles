@@ -44,8 +44,7 @@ pushdf () {
 }
 
 pulldf () {
-    gitdf reset --hard
-    gitdf pull
+    git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME pull
 }
 
 extract () {

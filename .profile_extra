@@ -26,7 +26,7 @@ elif command -v vi > /dev/null 2>&1; then
     export EDITOR=vi
 fi
 export PAGER=less
-export TERMINAL=kitty
+export TERMINAL=kitty --single-instance
 export BROWSER=chromium
 
 # Default XDG Base Directories

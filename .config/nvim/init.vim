@@ -142,7 +142,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'takac/vim-hardtime'
-let g:hardtime_maxcount = 2
+let g:hardtime_maxcount = 3
 let g:hardtime_default_on = 1
 
 " {{{
