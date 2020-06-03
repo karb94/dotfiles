@@ -237,6 +237,8 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=50
 " Remap keys for gotos
+nmap <silent> ]e <Plug>(coc-diagnostic-next)
+nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> gd <Plug>(coc-definition)
 nnoremap <silent> <leader>h :CocCommand clangd.switchSourceHeader<CR>
 nmap <silent> gd <Plug>(coc-definition)
@@ -346,7 +348,6 @@ exec "nnoremap K ".s:fivep."<C-y>"
 set wildcharm=<C-z>
 cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
 cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
-nnoremap <leader>e :e **/*
 " nnoremap <silent> <leader>m :silent make!\|redraw!\|cw<CR>
 
 " }}}
