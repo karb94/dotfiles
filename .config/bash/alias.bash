@@ -33,7 +33,7 @@ alias sp='sudo pacman'
 alias j='nohup jupyter lab > /dev/null &'
 alias feh='feh --scale-down --auto-zoom'
 alias less='less -i'
-alias p='less -i'
+alias p='$PAGER'
 
 # Navigation
 alias h='cd $HOME' 
