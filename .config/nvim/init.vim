@@ -237,6 +237,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=50
 " Remap keys for gotos
+nmap <leader>i <Plug>(coc-diagnostic-info)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> gd <Plug>(coc-definition)
