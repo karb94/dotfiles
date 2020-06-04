@@ -3,7 +3,6 @@
     "diagnostic.enableMessage": "always",
     "diagnostic.messageTarget": "echo",
     "diagnostic.checkCurrentLine": true,
-    "diagnostic.refreshAfterSave": true,
     "suggest.maxCompleteItemCount": 5,
     "python.jediEnabled": false,
     "python.autoComplete.extraPaths": ["./"]

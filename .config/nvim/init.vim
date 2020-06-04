@@ -143,7 +143,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'takac/vim-hardtime'
 let g:hardtime_maxcount = 3
-let g:hardtime_default_on = 1
+" let g:hardtime_default_on = 1
 
 " {{{
 let g:fzf_layout = { 'window': {
@@ -167,6 +167,7 @@ let g:semshi#error_sign = v:false
 
 Plug 'neomake/neomake'
 " {{{
+let g:neomake_virtualtext_current_error=0
 function! MyStatusNeomake(buf)
     return neomake#statusline#get(a:buf, {
                 \ 'format_running': '[Compiling...]',
