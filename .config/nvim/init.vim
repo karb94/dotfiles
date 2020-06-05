@@ -77,8 +77,8 @@ let &scrolloff=float2nr(0.15*winheight(0))
 set wildignorecase wildmenu wildmode=full
 
 " 4 whitespaces for <Tab> and indent. Auto-smart indent.
-" set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
-set expandtab autoindent smartindent
+set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
+" set expandtab autoindent smartindent
 
 "Status bar
 set laststatus=2    " Always show status bar
@@ -271,7 +271,6 @@ if has('mac')
     let g:vimtex_compiler_progname = '~//usr/local/bin/vim'
 endif
 let g:vimtex_compiler_latexmk = {
-            \ 'backend' : 'jobs',
             \ 'background' : 1,
             \ 'build_dir' : 'build',
             \ 'callback' : 1,
