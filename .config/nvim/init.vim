@@ -130,7 +130,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'wellle/targets.vim'
 Plug 'romainl/vim-cool'
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'morhetz/gruvbox'
 
 " Google auto-formating
@@ -138,13 +138,10 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 
+Plug 'junegunn/goyo.vim'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-Plug 'takac/vim-hardtime'
-let g:hardtime_maxcount = 3
-" let g:hardtime_default_on = 1
-
 " {{{
 let g:fzf_layout = { 'window': {
             \ 'width': 1.0,
@@ -152,12 +149,13 @@ let g:fzf_layout = { 'window': {
             \ 'yoffset': 1.0
             \ } }
 nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>r :History:<CR>
+nnoremap <leader>R :History:<CR>
 nnoremap <leader>f :GFiles<CR>
 nnoremap <leader>F :Files<CR>
 nnoremap <leader>l :BLines<CR>
 nnoremap <leader>g :Rg<CR>
 " }}}
+
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " {{{
 let g:semshi#excluded_hl_groups = ['local','unresolved','parameterUnused']
@@ -266,6 +264,8 @@ let g:UltiSnipsEditSplit="vertical"
 
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 " {{{
+" Prevents detecting 'latex' files as 'plain tex' files
+let g:tex_flavor = 'latex'
 let g:tex_conceal=""
 if has('mac')
     let g:vimtex_compiler_progname = '~//usr/local/bin/vim'
@@ -339,7 +339,7 @@ nnoremap <silent> <leader>P :put!<CR>=`[
 nnoremap <silent> Y yg_
 nnoremap <silent> p pm`=`]``
 nnoremap <silent> P Pm`=`]``
-nnoremap <leader>rc :source $MYVIMRC<CR>
+" nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <silent> <leader>j J
 nnoremap U :redo<CR>
 let s:fivep = float2nr(0.10*winheight(0))
@@ -371,6 +371,37 @@ endif
 
 " }}}
 
+
+"==============================================================================
+" AUTOCOMMANDS
+"==============================================================================
+" {{{
+fun! ToggleReadingMode()
+    if !exists('b:ReadingMode')
+        let b:ReadingMode=1
+        normal M
+        set nonumber norelativenumber nocursorline colorcolumn=
+        exec "nnoremap J ".s:fivep."<C-e>M"
+        exec "nnoremap K ".s:fivep."<C-y>M"
+        nnoremap j <C-e>M
+        nnoremap k <C-y>M
+        nnoremap d <C-d>M
+        nnoremap u <C-u>M
+    else
+        unlet b:ReadingMode
+        set number relativenumber cursorline colorcolumn=81
+        exec "nnoremap J ".s:fivep."<C-e>"
+        exec "nnoremap K ".s:fivep."<C-y>"
+        nunmap j
+        nunmap k
+        nunmap d
+        nunmap u
+    endif
+endfun
+nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
+" }}}
+
+
 "==============================================================================
 " AUTOCOMMANDS
 "==============================================================================
@@ -393,8 +424,10 @@ augroup initialization
     " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
     " autocmd WinEnter * set cursorline
     " autocmd WinLeave * set nocursorline
-    autocmd WinEnter * set relativenumber cursorline
-    autocmd WinLeave * set norelativenumber nocursorline
+    autocmd BufWinEnter * if &l:buftype == '' | set relativenumber cursorline | endif
+    autocmd BufWinLeave * if &l:buftype == '' | set norelativenumber nocursorline | endif
+    autocmd BufWinEnter * if &l:buftype == 'help' | call ToggleReadingMode() | endif
+    autocmd BufWinLeave * if &l:buftype == 'help' | call ToggleReadingMode() | endif
     " autocmd Filetype markdown set conceallevel=2
     " autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
 augroup END

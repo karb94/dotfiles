@@ -4,6 +4,7 @@
     "diagnostic.messageTarget": "echo",
     "diagnostic.checkCurrentLine": true,
     "suggest.maxCompleteItemCount": 5,
+    "clangd.semanticHighlighting": true,
     "python.jediEnabled": false,
     "python.autoComplete.extraPaths": ["./"]
 }

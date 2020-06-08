@@ -5,6 +5,7 @@
 	pager = less
 [alias]
     s = status
+    a = add
     c = commit
     r = reset
     f = fetch --all --prune
@@ -15,4 +16,5 @@
     l = !git --no-pager log -20 --oneline --graph --all
     log = log --oneline --graph --all
     ls = ls-tree --name-only HEAD
+    lsf = ls-tree -r --name-only --full-tree HEAD
     df = !git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME

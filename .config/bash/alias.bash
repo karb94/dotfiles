@@ -28,6 +28,7 @@ alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 
 # Package manager
 alias sp='sudo pacman'
+alias tlmgr='TEXMFDIST/scripts/texlive/tlmgr.pl --usermode'
 
 # Open files
 alias j='nohup jupyter lab > /dev/null &'

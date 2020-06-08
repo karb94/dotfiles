@@ -1,8 +1,8 @@
 #! /bin/sh
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d I II III IV V
 
-bspc config border_width         2
+bspc config border_width         3
 bspc config window_gap           2
 
 bspc config split_ratio          0.5
@@ -11,4 +11,8 @@ bspc config gapless_monocle      true
 
 bspc rule --add kitty --one-shot desktop=^2 && kitty --single-instance &
 bspc rule --add Chromium --one-shot desktop=^1 && chromium &
+bspc rule --add polybar layer=above
 bspc desktop -f '^1'
+
+# Launch polybar
+$HOME/.config/polybar/launch.sh

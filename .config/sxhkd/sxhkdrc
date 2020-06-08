@@ -65,6 +65,10 @@ super + ctrl + r: {h,H,j,J,k,K,l,L}
 super + r
  bspc node @/ -R 90
 
+# Hide polybar
+super + b
+ polybar-msg cmd toggle
+
 ## alternate between the tiled and monocle layout
 ## super + f
 ## 	bspc desktop -l next
