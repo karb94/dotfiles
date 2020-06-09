@@ -324,6 +324,7 @@ nnoremap <silent> <leader>B :b#<CR>
 nnoremap <leader>e :cc
 " nnoremap <leader>v :vsplit<CR><C-w>w
 " nnoremap <C-w> <C-w>w
+nnoremap <silent> <C-w> <C-w><C-w>:if &buftype !=# ''<Bar>wincmd w<Bar>endif<CR>
 nnoremap <silent> <leader>q :q!<CR>
 nnoremap <silent> <leader>Q :qa!<CR>
 nnoremap <silent> <leader>w :w<CR>
@@ -380,22 +381,22 @@ fun! ToggleReadingMode()
     if !exists('b:ReadingMode')
         let b:ReadingMode=1
         normal M
-        set nonumber norelativenumber nocursorline colorcolumn=
-        exec "nnoremap J ".s:fivep."<C-e>M"
-        exec "nnoremap K ".s:fivep."<C-y>M"
-        nnoremap j <C-e>M
-        nnoremap k <C-y>M
-        nnoremap d <C-d>M
-        nnoremap u <C-u>M
+        setlocal nonumber norelativenumber nocursorline colorcolumn=
+        exec "nnoremap <buffer> J ".s:fivep."<C-e>M"
+        exec "nnoremap <buffer> K ".s:fivep."<C-y>M"
+        nnoremap <buffer> j <C-e>M
+        nnoremap <buffer> k <C-y>M
+        nnoremap <buffer> d <C-d>M
+        nnoremap <buffer> u <C-u>M
     else
         unlet b:ReadingMode
         set number relativenumber cursorline colorcolumn=81
-        exec "nnoremap J ".s:fivep."<C-e>"
-        exec "nnoremap K ".s:fivep."<C-y>"
-        nunmap j
-        nunmap k
-        nunmap d
-        nunmap u
+        exec "nnoremap <buffer> J ".s:fivep."<C-e>"
+        exec "nnoremap <buffer> K ".s:fivep."<C-y>"
+        nunmap <buffer> j
+        nunmap <buffer> k
+        nunmap <buffer> d
+        nunmap <buffer> u
     endif
 endfun
 nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
@@ -424,8 +425,9 @@ augroup initialization
     " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
     " autocmd WinEnter * set cursorline
     " autocmd WinLeave * set nocursorline
-    autocmd WinEnter * if &l:buftype == '' | set relativenumber cursorline | endif
-    autocmd WinLeave * if &l:buftype == '' | set norelativenumber nocursorline | endif
+    autocmd WinEnter * if &l:buftype == '' | setlocal relativenumber cursorline | endif
+    autocmd WinLeave * if &l:buftype == '' | setlocal norelativenumber nocursorline | endif
+    " autocmd WinLeave * if &l:buftype == '' | set norelativenumber nocursorline | endif
     " autocmd BufEnter * if &l:buftype == '' | echo 'entering' | endif
     " autocmd BufLeave * if &l:buftype == '' | echo 'leaving' | endif
     autocmd WinEnter * if &l:buftype == 'help' | call ToggleReadingMode() | endif
