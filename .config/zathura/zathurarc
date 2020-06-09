@@ -2,16 +2,18 @@ set selection-clipboard clipboard
 set statusbar-h-padding 0
 set statusbar-v-padding 0
 set page-padding 1
+set guioptions ""
 map u scroll half-up
 map d scroll half-down
 map D toggle_page_mode
-map r reload
-map R rotate
+map R reload
+map r rotate
 map K zoom in
 map J zoom out
-ap i recolor
+map f toggle_statusbar
 map H navigate previous
 map L navigate next
+ap i recolor
 set font "monospace normal 14"
 set window-title-home-tilde true
 set statusbar-home-tilde true

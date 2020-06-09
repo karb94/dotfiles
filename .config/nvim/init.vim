@@ -424,10 +424,12 @@ augroup initialization
     " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
     " autocmd WinEnter * set cursorline
     " autocmd WinLeave * set nocursorline
-    autocmd BufWinEnter * if &l:buftype == '' | set relativenumber cursorline | endif
-    autocmd BufWinLeave * if &l:buftype == '' | set norelativenumber nocursorline | endif
-    autocmd BufWinEnter * if &l:buftype == 'help' | call ToggleReadingMode() | endif
-    autocmd BufWinLeave * if &l:buftype == 'help' | call ToggleReadingMode() | endif
+    autocmd WinEnter * if &l:buftype == '' | set relativenumber cursorline | endif
+    autocmd WinLeave * if &l:buftype == '' | set norelativenumber nocursorline | endif
+    " autocmd BufEnter * if &l:buftype == '' | echo 'entering' | endif
+    " autocmd BufLeave * if &l:buftype == '' | echo 'leaving' | endif
+    autocmd WinEnter * if &l:buftype == 'help' | call ToggleReadingMode() | endif
+    autocmd WinLeave * if &l:buftype == 'help' | call ToggleReadingMode() | endif
     " autocmd Filetype markdown set conceallevel=2
     " autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
 augroup END

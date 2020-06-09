@@ -56,9 +56,7 @@ super + {1-9,0}
  bspc desktop -f '^{1-9,10}'
 
 # expand a window by moving one of its side outward
-super + e
- bspc node -z left -20 0
-super + ctrl + r: {h,H,j,J,k,K,l,L}
+super + shift + r: {h,H,j,J,k,K,l,L}
  bspc node -z {left -20 0,left 20 0,bottom 0 20,bottom 0 -20,top 0 -20,top 0 20,right 20 0,right -20 0}
 
 # Rotate workspace
@@ -68,6 +66,9 @@ super + r
 # Hide polybar
 super + b
  polybar-msg cmd toggle
+
+super + {equal,minus}
+ amixer -c 1 -- sset Master playback 10%{+,-}
 
 ## alternate between the tiled and monocle layout
 ## super + f

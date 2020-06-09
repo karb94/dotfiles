@@ -30,9 +30,9 @@ alert = #bd2c40
 [bar/example]
 enable-ipc = true
 ;monitor = ${env:MONITOR:HDMI-1}
-width = 150
-offset-x = 50%:-75
-height = 27
+width = 100%
+; offset-x = 50%:-75
+height = 30
 ; offset-y = -5
 ; radius-top = 50
 ; pseudo-transparency = false
@@ -55,7 +55,8 @@ padding-right = 5
 module-margin-left = 1
 module-margin-right = 2
 
-override-redirect = true
+; Force window manager to reserve space for polybar
+override-redirect = false
 
 font-0 = fixed:pixelsize=14;1
 font-1 = unifont:fontformat=truetype:size=12:antialias=false;0

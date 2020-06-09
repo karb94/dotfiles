@@ -19,7 +19,7 @@ alias grep='grep --color=auto'
 
 # Editing
 alias e='$EDITOR'
-alias sv='sudo -E $EDITOR'
+alias se='sudo -E $EDITOR'
 alias eb='$EDITOR ~/.config/bash/config.bash'
 alias eal='$EDITOR ~/.config/bash/alias.bash'
 alias efu='$EDITOR ~/.config/bash/functions.bash'
