@@ -265,11 +265,9 @@ let g:UltiSnipsEditSplit="vertical"
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 " {{{
 " Prevents detecting 'latex' files as 'plain tex' files
+let g:vimtex_compiler_progname = '$HOME/miniconda3/envs/neovim/bin/nvr'
 let g:tex_flavor = 'latex'
 let g:tex_conceal=""
-if has('mac')
-    let g:vimtex_compiler_progname = '~//usr/local/bin/vim'
-endif
 let g:vimtex_compiler_latexmk = {
             \ 'background' : 1,
             \ 'build_dir' : 'build',
@@ -285,11 +283,11 @@ let g:vimtex_compiler_latexmk = {
             \ ],
             \}
 " Disable overfull/underfull \hbox and all package warnings
-let g:vimtex_quickfix_latexlog = {
-            \ 'packages' : {
-            \   'default' : 0,
-            \ },
-            \}
+" let g:vimtex_quickfix_latexlog = {
+"             \ 'packages' : {
+"             \   'default' : 0,
+"             \ },
+"             \}
 let g:vimtex_view_method = 'zathura'
 " }}}
 
@@ -324,7 +322,7 @@ nnoremap <silent> <leader>B :b#<CR>
 nnoremap <leader>e :cc
 " nnoremap <leader>v :vsplit<CR><C-w>w
 " nnoremap <C-w> <C-w>w
-nnoremap <silent> <C-w> <C-w><C-w>:if &buftype !=# ''<Bar>wincmd w<Bar>endif<CR>
+nnoremap <silent> <tab> <C-w><C-w>:if &buftype!=#'quickfix'\|wincmd w\|endif<CR>
 nnoremap <silent> <leader>q :q!<CR>
 nnoremap <silent> <leader>Q :qa!<CR>
 nnoremap <silent> <leader>w :w<CR>
@@ -333,6 +331,8 @@ nnoremap <silent> <leader>X :xa<CR>
 " nnoremap <leader>b :b 
 " nnoremap <leader>z :%foldclose<CR>
 " nnoremap <leader>Z :%foldopen<CR>
+nnoremap <silent> ]c :<C-u>cnext<CR>
+nnoremap <silent> [c :<C-u>cprevious<CR>
 nnoremap <silent> <leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent> <leader>O :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <silent> <leader>p :put<CR>=`[
@@ -402,7 +402,51 @@ endfun
 nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
 " }}}
 
+"==============================================================================
+" FUNCTIONS
+"==============================================================================
+" {{{
 
+function! SmallWordMotion(count, vmode, forward)
+    let l:flag = a:forward ? '' : 'b'
+    if a:vmode
+        normal gv
+    endif
+    for _ in range(a:count)
+        call search('\C\v[A-Z]?[a-z]+', l:flag, line('.'))
+    endfor
+endfunction
+nnoremap <silent> w :<C-u>call SmallWordMotion(v:count1,0,1)<CR>
+xnoremap <silent> w :<c-u>call SmallWordMotion(v:count1,1,1)<CR>
+onoremap <silent> w :<c-u>call SmallWordMotion(v:count1,0,1)<CR>
+nnoremap <silent> b :<C-u>call SmallWordMotion(v:count1,0,0)<CR>
+xnoremap <silent> b :<c-u>call SmallWordMotion(v:count1,1,0)<CR>
+onoremap <silent> b :<c-u>call SmallWordMotion(v:count1,0,0)<CR>
+nnoremap  cw cw
+
+function! AroundSmallWord(count)
+    let l:line = line('.')
+        if (!search('\C\v[a-z]+','ce', l:line))
+            return
+        endif
+    for _ in range(a:count - 1)
+        call search('\C\v[a-z]+','e', l:line)
+    endfor
+    normal! v
+        call search('\C\v[A-Z]?[a-z]+','b', l:line)
+    normal! o
+endfunction
+xnoremap <silent> iw :<c-u>call AroundSmallWord(v:count1)<cr>
+onoremap <silent> iw :<c-u>call AroundSmallWord(v:count1)<cr>
+nnoremap  W w
+xnoremap  W w
+onoremap  W w
+nnoremap  iW iw
+xnoremap  iW iw
+onoremap  iW iw
+
+" }}}
+" fewfwafEfsdfaGfsf_fasf.fasf
 "==============================================================================
 " AUTOCOMMANDS
 "==============================================================================
