@@ -35,7 +35,7 @@ set undofile undodir=~/.config/nvim/undodir
 set directory^=~/.config/nvim/swp
 
 " Definition of what a 'word' is
-set iskeyword="a-z,A-Z,48-57,_,"
+set iskeyword=a-z,A-Z,48-57,_
 
 " change unsaved buffers
 set hidden
@@ -412,11 +412,12 @@ nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
 
 function! SmallWordMotion(count, vmode, forward)
     let l:flag = a:forward ? '' : 'b'
+    let l:regex = '\C\v(\u?\l+|\u+|[^A-Za-z ]{2,}|[ ^]\zs[^A-Za-z ]+[ $])'
     if a:vmode
         normal gv
     endif
     for _ in range(a:count)
-        call search('\C\v[A-Z]?[a-z]+', l:flag, line('.'))
+        call search(l:regex, l:flag, line('.'))
     endfor
 endfunction
 nnoremap <silent> w :<C-u>call SmallWordMotion(v:count1,0,1)<CR>
@@ -444,7 +445,6 @@ onoremap <silent> iw :<c-u>call AroundSmallWord(v:count1)<cr>
 nnoremap  W w
 xnoremap  W w
 onoremap  W w
-nnoremap  iW iw
 xnoremap  iW iw
 onoremap  iW iw
 
