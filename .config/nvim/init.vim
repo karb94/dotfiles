@@ -34,6 +34,9 @@ set undofile undodir=~/.config/nvim/undodir
 " Use ~/.vim/swp to store swap files
 set directory^=~/.config/nvim/swp
 
+" Definition of what a 'word' is
+set iskeyword="a-z,A-Z,48-57,_,"
+
 " change unsaved buffers
 set hidden
 
