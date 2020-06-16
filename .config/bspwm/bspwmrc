@@ -9,7 +9,7 @@ bspc config split_ratio          0.5
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule --add kitty --one-shot desktop=^2 && kitty --single-instance &
+bspc rule --add alacritty --one-shot desktop=^2 && alacritty --single-instance &
 bspc rule --add Chromium --one-shot desktop=^1 && chromium &
 bspc rule --add polybar layer=above
 bspc rule --add Zathura state=tiled
