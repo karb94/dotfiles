@@ -412,7 +412,7 @@ nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
 
 function! SmallWordMotion(count, vmode, forward)
     let l:flag = a:forward ? '' : 'b'
-    let l:regex = '\C\v(\u?\l+|\u+|[^A-Za-z ]{2,}|[ ^]\zs[^A-Za-z ]+[ $])'
+    let l:regex = '\C\v(\u?\l+|\u+|[^A-Za-z ]{2,}|(^|\s)\zs[^A-Za-z ]+(\s|$))'
     if a:vmode
         normal gv
     endif

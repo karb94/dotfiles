@@ -8,10 +8,13 @@ super + backslash
 # quit/restart bspwm
 super + shift + {q,r}
  bspc {quit,wm -r}
+# Suspend computer
+super + shift + s
+ systemctl suspend
 
 ## terminal emulator
 super + t
- kitty --single-instance
+ alacritty
 
 super + {f,F}
  bspc node -t {~fullscreen,~floating}
