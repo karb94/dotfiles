@@ -322,10 +322,10 @@ inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
 nnoremap <silent> <leader>B :b#<CR>
 " nnoremap <leader>b :b 
-nnoremap <leader>e :cc
+nnoremap <leader>e :cc<CR>
 " nnoremap <leader>v :vsplit<CR><C-w>w
 " nnoremap <C-w> <C-w>w
-nnoremap <silent> <tab> <C-w><C-w>:if &buftype!=#'quickfix'\|wincmd w\|endif<CR>
+nnoremap <silent> <tab> <C-w><C-w>:if &buftype==#'quickfix'\|wincmd w\|endif<CR>
 nnoremap <silent> <leader>q :q!<CR>
 nnoremap <silent> <leader>Q :qa!<CR>
 nnoremap <silent> <leader>w :w<CR>
@@ -481,4 +481,20 @@ augroup initialization
     autocmd WinLeave * if &l:buftype == 'help' | call ToggleReadingMode() | endif
     " autocmd Filetype markdown set conceallevel=2
     " autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
+augroup END
+
+" Fix for CursorLine highlighting (see neovim issue #9019)
+function! s:CustomizeColors()
+	if has('guirunning') || has('termguicolors')
+		let cursorline_gui=''
+		let cursorline_cterm='ctermfg=white'
+	else
+		let cursorline_gui='guifg=white'
+		let cursorline_cterm=''
+	endif
+	exec 'hi CursorLine ' . cursorline_gui . ' ' . cursorline_cterm 
+endfunction
+augroup OnColorScheme
+	autocmd!
+	autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
 augroup END
