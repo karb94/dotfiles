@@ -89,7 +89,7 @@ window:
 
 # Font configuration
 font:
-  size: 10.0
+  size: 10
   normal:
     family: FiraCode Nerd Font Mono
     # family: Fira Code

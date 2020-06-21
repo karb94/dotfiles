@@ -1,5 +1,4 @@
 " vim: set foldmethod=marker foldlevel=1 nomodeline:
-
 " Check what os is vim running under
 let g:os = substitute(system('uname'), '\n', '', '')
 
@@ -35,7 +34,7 @@ set undofile undodir=~/.config/nvim/undodir
 set directory^=~/.config/nvim/swp
 
 " Definition of what a 'word' is
-set iskeyword=a-z,A-Z,48-57,_
+set iskeyword=a-z,A-Z,48-57,_,-
 
 " change unsaved buffers
 set hidden
@@ -428,7 +427,7 @@ xnoremap <silent> b :<c-u>call SmallWordMotion(v:count1,1,0)<CR>
 onoremap <silent> b :<c-u>call SmallWordMotion(v:count1,0,0)<CR>
 nnoremap  cw cw
 
-function! AroundSmallWord(count)
+function! InsideSmallWord(count)
     let l:line = line('.')
         if (!search('\C\v[a-z]+','ce', l:line))
             return
@@ -440,13 +439,43 @@ function! AroundSmallWord(count)
         call search('\C\v[A-Z]?[a-z]+','b', l:line)
     normal! o
 endfunction
-xnoremap <silent> iw :<c-u>call AroundSmallWord(v:count1)<cr>
-onoremap <silent> iw :<c-u>call AroundSmallWord(v:count1)<cr>
+xnoremap <silent> iw :<c-u>call InsideSmallWord(v:count1)<cr>
+onoremap <silent> iw :<c-u>call InsideSmallWord(v:count1)<cr>
 nnoremap  W w
 xnoremap  W w
 onoremap  W w
 xnoremap  iW iw
 onoremap  iW iw
+
+function! InsideSpaces(count)
+    let l:line = line('.')
+    if (!search('\v.(\s|$)','', l:line))
+        return
+    endif
+    for _ in range(a:count - 1)
+        call search('\v\zs.(\s|$)','', l:line)
+    endfor
+    normal! v
+    call search('\v(^|\s).','b', l:line)
+    normal! o
+endfunction
+xnoremap <silent> is :<c-u>call InsideSpaces(v:count1)<cr>
+onoremap <silent> is :<c-u>call InsideSpaces(v:count1)<cr>
+
+function! InsideNumbers(count)
+    let l:line = line('.')
+    if (!search('\v\d','', l:line))
+        return
+    endif
+    for _ in range(a:count - 1)
+        call search('\v\zs.(\s|$)','', l:line)
+    endfor
+    normal! v
+    call search('\v(^|\s).','b', l:line)
+    normal! o
+endfunction
+xnoremap <silent> is :<c-u>call InsideNumbers(v:count1)<cr>
+onoremap <silent> is :<c-u>call InsideNumbers(v:count1)<cr>
 
 " }}}
 " fewfwafEfsdfaGfsf_fasf.fasf
@@ -467,21 +496,23 @@ set clipboard+=unnamedplus
 
 " Reset cursor on start
 " Disable cursorline and relativenumber when buffer is not on focus
-augroup initialization
-    au!
-    " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
-    " autocmd WinEnter * set cursorline
-    " autocmd WinLeave * set nocursorline
-    autocmd WinEnter * if &l:buftype == '' | setlocal relativenumber cursorline | endif
-    autocmd WinLeave * if &l:buftype == '' | setlocal norelativenumber nocursorline | endif
-    " autocmd WinLeave * if &l:buftype == '' | set norelativenumber nocursorline | endif
-    " autocmd BufEnter * if &l:buftype == '' | echo 'entering' | endif
-    " autocmd BufLeave * if &l:buftype == '' | echo 'leaving' | endif
-    autocmd WinEnter * if &l:buftype == 'help' | call ToggleReadingMode() | endif
-    autocmd WinLeave * if &l:buftype == 'help' | call ToggleReadingMode() | endif
-    " autocmd Filetype markdown set conceallevel=2
-    " autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
-augroup END
+if !&diff
+    augroup initialization
+        au!
+        " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
+        " autocmd WinEnter * set cursorline
+        " autocmd WinLeave * set nocursorline
+        autocmd WinEnter * if &l:buftype == '' | setlocal relativenumber cursorline | endif
+        autocmd WinLeave * if &l:buftype == '' | setlocal norelativenumber nocursorline | endif
+        " autocmd WinLeave * if &l:buftype == '' | set norelativenumber nocursorline | endif
+        " autocmd BufEnter * if &l:buftype == '' | echo 'entering' | endif
+        " autocmd BufLeave * if &l:buftype == '' | echo 'leaving' | endif
+        autocmd WinEnter * if &l:buftype == 'help' | call ToggleReadingMode() | endif
+        autocmd WinLeave * if &l:buftype == 'help' | call ToggleReadingMode() | endif
+        " autocmd Filetype markdown set conceallevel=2
+        " autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
+    augroup END
+endif
 
 " Fix for CursorLine highlighting (see neovim issue #9019)
 function! s:CustomizeColors()

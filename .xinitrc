@@ -31,6 +31,7 @@ done
 unset f
 fi
 
+unclutter --timout 1 --ignore-scrolling &
 picom -CG &
 sxhkd -m -1 &
 test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
