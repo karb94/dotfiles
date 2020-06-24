@@ -129,7 +129,7 @@ call plug#begin()
 Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'wellle/targets.vim'
+" Plug 'wellle/targets.vim'
 Plug 'romainl/vim-cool'
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
 Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -453,10 +453,10 @@ function! InsideSpaces(count)
         return
     endif
     for _ in range(a:count - 1)
-        call search('\v\zs.(\s|$)','', l:line)
+        call search('\v.(\s|$)','c', l:line)
     endfor
     normal! v
-    call search('\v(^|\s).','b', l:line)
+    call search('\v(^|\s)\zs.','b', l:line)
     normal! o
 endfunction
 xnoremap <silent> is :<c-u>call InsideSpaces(v:count1)<cr>
@@ -474,8 +474,8 @@ function! InsideNumbers(count)
     call search('\v(^|\s).','b', l:line)
     normal! o
 endfunction
-xnoremap <silent> is :<c-u>call InsideNumbers(v:count1)<cr>
-onoremap <silent> is :<c-u>call InsideNumbers(v:count1)<cr>
+xnoremap <silent> in :<c-u>call InsideNumbers(v:count1)<cr>
+onoremap <silent> in :<c-u>call InsideNumbers(v:count1)<cr>
 
 " }}}
 " fewfwafEfsdfaGfsf_fasf.fasf

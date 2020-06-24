@@ -8,6 +8,12 @@
 #           $$ |  $$ |  $$$$$$$$\  $$$$$$\   $$ |  $$ |  \$$$$$$  |
 #           \__|  \__|  \________| \______|  \__|  \__|   \______/ 
 
+# Source bashrc
+alias sb='source ~/.bashrc'
+
+# Launch application
+alias ta='tmux attach-session'
+
 # Built-ins
 alias ls='\ls -pGrt --color=auto --group-directories-first' 
 alias lsh='ls -d .*'
@@ -29,18 +35,17 @@ alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 # Package manager
 alias sp='sudo pacman'
 alias p='pacman'
-alias tlmgr='TEXMFDIST/scripts/texlive/tlmgr.pl --usermode'
+alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias c='chezmoi'
 
 # Open files
 alias j='nohup jupyter lab > /dev/null &'
 alias feh='feh --scale-down --auto-zoom'
-alias less='less -i'
 alias p='$PAGER'
 
 # Navigation
 alias h='cd $HOME' 
-alias sb='source ~/.bashrc'
+alias cfg='$HOME/.config'
 
 # Conda environments
 alias ds='conda activate data_science'

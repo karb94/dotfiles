@@ -3,14 +3,14 @@
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-# env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  #TERM: alacritty
+  TERM: alacritty
 
 window:
   # Window dimensions (changes require restart)
@@ -89,23 +89,19 @@ window:
 
 # Font configuration
 font:
-  size: 10
+  size: 11
   normal:
-    family: FiraCode Nerd Font Mono
-    # family: Fira Code
-    style: Medium
+    family: Fira Code
+    style: Regular
   bold:
-    family: FiraCode Nerd Font Mono
-    # family: Fira Code
-    style: Bold
+    family: Fira Code
+    style: Medium
   italic:
-    family: FiraCode Nerd Font Mono
-    # family: Fira Code
+    family: Fira Code
     style: Light
   bold_italic:
-    family: FiraCode Nerd Font Mono
-    # family: Fira Code
-    style: Bold
+    family: Fira Code
+    style: Medium
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
