@@ -83,6 +83,8 @@ d() {
     #     fzf --no-exact --no-multi)
     }
 cf() {
+    # Only files at least 2 directories deep
+    # Only hidden files in $HOME
     local filename
     mapfile -t filenames < <( find $HOME -mindepth 1 -type d \
             ! \( \( -path "$HOME/.config*" -a ! -path "$HOME/.config/*/*" \) \

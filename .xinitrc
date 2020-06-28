@@ -31,11 +31,11 @@ done
 unset f
 fi
 
-unclutter --timeout 1 --ignore-scrolling &
 picom -CG &
+xsetroot -cursor_name left_ptr &
+unclutter --timeout 1 --ignore-scrolling &
 sxhkd -m -1 &
 test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
         xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &
-# xbindkeys &
 exec bspwm
 # exec i3

@@ -34,7 +34,7 @@ alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 
 # Package manager
 alias sp='sudo pacman'
-alias p='pacman'
+alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias c='chezmoi'
 

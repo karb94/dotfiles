@@ -449,7 +449,7 @@ onoremap  iW iw
 
 function! InsideSpaces(count)
     let l:line = line('.')
-    if (!search('\v.(\s|$)','', l:line))
+    if (!search('\v.(\s|$)','c', l:line))
         return
     endif
     for _ in range(a:count - 1)
