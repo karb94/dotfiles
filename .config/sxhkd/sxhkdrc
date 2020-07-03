@@ -2,8 +2,8 @@
 # wm independent hotkeys
 #
 # Change layouts
-super + backslash
- ckbl
+# super + backslash
+#  ckbl
 
 # quit/restart bspwm
 super + shift + {q,r}
@@ -23,7 +23,7 @@ super + {f,F}
 super + w
  chromium
 ## program launcher
-super + space
+super + slash
  rofi -show run
 
 ## make sxhkd reload its configuration files:
@@ -45,6 +45,10 @@ super + {h,j,k,l}
 ## Swap the node in the given direction
 super + m; {h,j,k,l}
  bspc node -s {west,south,north,east}
+
+# Flip vertically
+super + shift + {backslash,minus}
+ bspc node @/ --flip {vertical,horizontal}
 
 # Send to the given desktop
 super + m; {1-9,0}

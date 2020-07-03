@@ -83,6 +83,19 @@ d() {
     #     fzf --no-exact --no-multi)
     }
 cf() {
+    local cmd fzf_opts
+    if [ $# -gt 0 ]; then
+        case "$1" in
+            c) 
+                test -n "$2" && cmd="chezmoi $2" || exit 1;;
+            cd) 
+                cmd=cd;;
+            *)
+                exit 1;;
+        esac
+    else
+        fzf_opts=--multi
+    fi
     # Only files at least 2 directories deep
     # Only hidden files in $HOME
     local filename
@@ -94,16 +107,23 @@ cf() {
             -prune \
             -o -type f -path "$HOME/*/*" -printf '%P\n' \
             -o -type f -name ".*" -printf '%P\n' |
-        fzf --multi )
-    if [ -n "${filenames[0]}" ] 
-    then
-        if [ "${#filenames[@]}" -gt 1 ]
-        then
-            $EDITOR -O2 "${filenames[@]/#/~/}"
-            history -s $EDITOR -O2 "${filenames[@]/#/'~'/}"
+        fzf $fzf_opts )
+    if [ -n "$cmd" ]; then
+        if [ "$cmd" = cd ]; then
+            cd ${filenames%/*}
         else
-            $EDITOR "${filenames[@]/#/~/}"
-            history -s $EDITOR "${filenames[@]/#/'~'/}"
+            echo $cmd $filenames
+            $cmd $filenames
+        fi
+    else
+        if [ -n "${filenames[0]}" ]; then
+            if [ "${#filenames[@]}" -gt 1 ]; then
+                $EDITOR -O2 "${filenames[@]/#/~/}"
+                history -s $EDITOR -O2 "${filenames[@]/#/'~'/}"
+            else
+                $EDITOR "${filenames[@]/#/~/}"
+                history -s $EDITOR "${filenames[@]/#/'~'/}"
+            fi
         fi
     fi
 }

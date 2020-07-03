@@ -39,7 +39,7 @@ alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias c='chezmoi'
 
 # Open files
-alias j='nohup jupyter lab > /dev/null &'
+alias j='setsid -f jupyter lab > /dev/null 2>&1 &'
 alias feh='feh --scale-down --auto-zoom'
 alias p='$PAGER'
 
