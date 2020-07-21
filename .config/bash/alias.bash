@@ -11,9 +11,6 @@
 # Source bashrc
 alias sb='source ~/.bashrc'
 
-# Launch application
-alias ta='tmux attach-session'
-
 # Built-ins
 alias ls='\ls -pGrt --color=auto --group-directories-first' 
 alias lsh='ls -d .*'

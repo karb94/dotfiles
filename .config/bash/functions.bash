@@ -5,6 +5,17 @@
 #     /_/    \____/  /_/|_/  \___/  /_/    /___/  \____/ /_/|_/  /___/ 
 
 
+
+# t () {
+#     pgrep -vx tmux > /dev/null
+# }
+t () {
+    pgrep -x "tmux: server" > /dev/null && tmux attach-session ||
+    ( tmux new-session -d -s delete-me &&
+    tmux run-shell "${TMUX_DIR}/plugins/tmux-resurrect/scripts/restore.sh"
+    tmux kill-session -t delete-me && tmux attach-session )
+}
+
 s () {
     setsid -f "$@"; exit
 }

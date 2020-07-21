@@ -28,7 +28,8 @@ fi
 export PAGER="less -i"
 export TERMINAL="alacritty"
 # export TERMINAL="kitty --single-instance"
-export BROWSER=chromium
+export BROWSER="chromium"
+export TMUX_DIR="$HOME/.tmux"
 
 # Default XDG Base Directories
 export XDG_CONFIG_HOME="$HOME/.config"

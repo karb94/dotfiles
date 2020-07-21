@@ -126,6 +126,8 @@ call Set_git_path()
 
 call plug#begin()
 
+Plug 'machakann/vim-highlightedyank'
+let g:highlightedyank_highlight_duration = 150
 Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -513,6 +515,13 @@ if !&diff
         " autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
     augroup END
 endif
+
+" Add highlight after yank operation
+" augroup highlight_yank
+"     autocmd!
+"     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("Substitute", 500)
+" augroup END
+" IncSearch
 
 " Fix for CursorLine highlighting (see neovim issue #9019)
 function! s:CustomizeColors()

@@ -110,10 +110,11 @@ cf() {
         fzf $fzf_opts )
     if [ -n "$cmd" ]; then
         if [ "$cmd" = cd ]; then
-            cd ${filenames%/*}
+            cd $HOME/${filenames%/*}
+            history -s cd "${filenames/#/'~'/}"
         else
-            echo $cmd $filenames
-            $cmd $filenames
+            $cmd $HOME/$filenames
+            history -s $cmd "${filenames/#/'~'/}"
         fi
     else
         if [ -n "${filenames[0]}" ]; then
