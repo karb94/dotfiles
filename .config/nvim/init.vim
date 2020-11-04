@@ -131,7 +131,7 @@ let g:highlightedyank_highlight_duration = 150
 Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-" Plug 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
 Plug 'romainl/vim-cool'
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
 Plug 'jackguo380/vim-lsp-cxx-highlight'
@@ -214,19 +214,19 @@ let g:jupytext_fmt = 'py:light'
 autocmd BufRead,BufNewFile *.ipynb set foldmethod="marker"
 " }}}
 
-Plug 'justinmk/vim-sneak'
-" {{{
-" let g:sneak#no_default_mappings = 1
-let g:sneak#use_ic_scs = 1
-let g:sneak#map_netrw = 0
-let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
-let g:sneak#label = 1
-highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
-nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
-nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
-xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
-xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
-" }}}
+" Plug 'justinmk/vim-sneak'
+" " {{{
+" " let g:sneak#no_default_mappings = 1
+" let g:sneak#use_ic_scs = 1
+" let g:sneak#map_netrw = 0
+" let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
+" let g:sneak#label = 1
+" highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
+" nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
+" nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
+" xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
+" xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
+" " }}}
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " {{{
