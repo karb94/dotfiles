@@ -7,14 +7,6 @@ let g:os = substitute(system('uname'), '\n', '', '')
 "==============================================================================
 " {{{
 
-" For CX1
-" if $HOSTNAME !~ "login-[0-9][0-9]*"
-"     " Change cursor shape in insert mode
-"     let &t_SR="\e[4 q"
-"     " Vim gutter always active
-"     set signcolumn=yes
-" endif
-
 " Change cursor shape for start and end of insert mode and replace mode
 " mode
 let &t_SI="\e[6 q"
@@ -38,6 +30,9 @@ set iskeyword=a-z,A-Z,48-57,_,-
 
 " change unsaved buffers
 set hidden
+
+" Set textwidth to automatically break line if longer than 80
+set textwidth=80
 
 " Backspace behaves like everywhere else
 set backspace=indent,eol,start
@@ -355,7 +350,6 @@ set wildcharm=<C-z>
 cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
 cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
 " nnoremap <silent> <leader>m :silent make!\|redraw!\|cw<CR>
-
 " }}}
 
 
@@ -373,43 +367,43 @@ if has_key(plugs, 'gruvbox')
     let g:gruvbox_sign_column = 'bg0'
     set background=dark
 endif
-
 " }}}
 
-
-"==============================================================================
-" AUTOCOMMANDS
-"==============================================================================
-" {{{
-fun! ToggleReadingMode()
-    if !exists('b:ReadingMode')
-        let b:ReadingMode=1
-        normal M
-        setlocal nonumber norelativenumber nocursorline colorcolumn=
-        exec "nnoremap <buffer> J ".s:fivep."<C-e>M"
-        exec "nnoremap <buffer> K ".s:fivep."<C-y>M"
-        nnoremap <buffer> j <C-e>M
-        nnoremap <buffer> k <C-y>M
-        nnoremap <buffer> d <C-d>M
-        nnoremap <buffer> u <C-u>M
-    else
-        unlet b:ReadingMode
-        set number relativenumber cursorline colorcolumn=81
-        exec "nnoremap <buffer> J ".s:fivep."<C-e>"
-        exec "nnoremap <buffer> K ".s:fivep."<C-y>"
-        nunmap <buffer> j
-        nunmap <buffer> k
-        nunmap <buffer> d
-        nunmap <buffer> u
-    endif
-endfun
-nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
-" }}}
 
 "==============================================================================
 " FUNCTIONS
 "==============================================================================
 " {{{
+function! EnableReadingMode()
+    setlocal nonumber norelativenumber nocursorline colorcolumn=
+    exec "nnoremap <buffer> J ".s:fivep."<C-e>M"
+    exec "nnoremap <buffer> K ".s:fivep."<C-y>M"
+    nnoremap <buffer> j <C-e>M
+    nnoremap <buffer> k <C-y>M
+    nnoremap <buffer> d <C-d>M
+    nnoremap <buffer> u <C-u>M
+    normal M
+endfunction
+function! DisableReadingMode()
+    set number relativenumber cursorline colorcolumn=81
+    exec "nnoremap <buffer> J ".s:fivep."<C-e>"
+    exec "nnoremap <buffer> K ".s:fivep."<C-y>"
+    nunmap <buffer> j
+    nunmap <buffer> k
+    nunmap <buffer> d
+    nunmap <buffer> u
+endfunction
+
+function! ToggleReadingMode()
+    if !exists('b:ReadingMode')
+        let b:ReadingMode=1
+        call EnableReadingMode()
+    else
+        unlet b:ReadingMode
+        call DisableReadingMode()
+    endif
+endfunction
+nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
 
 function! SmallWordMotion(count, vmode, forward)
     let l:flag = a:forward ? '' : 'b'
@@ -501,18 +495,8 @@ set clipboard+=unnamedplus
 if !&diff
     augroup initialization
         au!
-        " autocmd VimEnter * :normal! :startinsert :stopinsert    "Reset cursor shape
-        " autocmd WinEnter * set cursorline
-        " autocmd WinLeave * set nocursorline
-        autocmd WinEnter * if &l:buftype == '' | setlocal relativenumber cursorline | endif
-        autocmd WinLeave * if &l:buftype == '' | setlocal norelativenumber nocursorline | endif
-        " autocmd WinLeave * if &l:buftype == '' | set norelativenumber nocursorline | endif
-        " autocmd BufEnter * if &l:buftype == '' | echo 'entering' | endif
-        " autocmd BufLeave * if &l:buftype == '' | echo 'leaving' | endif
-        autocmd WinEnter * if &l:buftype == 'help' | call ToggleReadingMode() | endif
-        autocmd WinLeave * if &l:buftype == 'help' | call ToggleReadingMode() | endif
-        " autocmd Filetype markdown set conceallevel=2
-        " autocmd Filetype markdown call matchadd('Conceal', '\v(\[[^\]]*\])@<=\_s?\(.*\)', 10)
+        autocmd BufEnter * if &l:buftype == 'help' |
+                    \ call EnableReadingMode() | endif
     augroup END
 endif
 
