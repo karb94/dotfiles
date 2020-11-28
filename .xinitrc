@@ -31,6 +31,8 @@ done
 unset f
 fi
 
+test -f $HOME/.local/scripts/tmux_init && . $HOME/.local/scripts/tmux_init
+
 picom -CG &
 xsetroot -cursor_name left_ptr &
 unclutter --timeout 1 --ignore-scrolling &

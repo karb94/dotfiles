@@ -17,6 +17,13 @@ prepend_to_path "$HOME/.local/scripts"
 # Locale
 export LANG="en_GB.utf8"
 
+# Default XDG Base Directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+export XDG_CONFIG_DIRS="/etc/xdg"
+
 # General variables
 if command -v nvim > /dev/null 2>&1; then
     export EDITOR=nvim
@@ -29,14 +36,12 @@ export PAGER="less -i"
 export TERMINAL="alacritty"
 # export TERMINAL="kitty --single-instance"
 export BROWSER="chromium"
-export TMUX_DIR="$HOME/.tmux"
 
-# Default XDG Base Directories
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_DATA_DIRS="/usr/local/share:/usr/share"
-export XDG_CONFIG_DIRS="/etc/xdg"
+# Shell variables
+export SHELL="/bin/bash"
+# History file path
+mkdir -p "$HOME/.config/bash"
+export HISTFILE="$HOME/.config/bash/history"
 
-# Start window manager
-# startx > /dev/null 2>&1
+# Initialise custom tmux sessions
+test -f 

@@ -15,49 +15,38 @@ let &t_SR="\e[4 q"
 
 " Set leader key
 let mapleader=" "
-
 " Notification area text options
 set shortmess=mwoOcIF
-
 " Persistent central location for undo files
 set undofile undodir=~/.config/nvim/undodir
-
 " Use ~/.vim/swp to store swap files
 set directory^=~/.config/nvim/swp
-
+" Split window below or on the right
+set splitbelow splitright
 " Definition of what a 'word' is
 set iskeyword=a-z,A-Z,48-57,_,-
-
 " change unsaved buffers
 set hidden
-
 " Set textwidth to automatically break line if longer than 80
 set textwidth=80
-
 " Backspace behaves like everywhere else
 set backspace=indent,eol,start
-
 " Show relative line numbers and current line number
 set relativenumber number
-
 " Allow mouse interaction in normal mode
 set mouse=n
-
 " Show cursorline, colorcolumn and signcolumn
 set cursorline colorcolumn=81 signcolumn=yes
-
 " Less laggy than syntax mode
 set foldmethod=manual
-
 " Sets g flag on all substitutions by default
 set gdefault
-
 " Incremental smart case highlight search
 set incsearch smartcase ignorecase hlsearch
-
 " Live substitution command
 set inccommand=split
-
+" To what register you yank to
+set clipboard+=unnamedplus
 " Fix redrawing issues only with fast connections
 " if !has('nvim')
 "     let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
@@ -66,25 +55,23 @@ set inccommand=split
 "     set t_ut=""
 " endif
 " set ttyscroll=1
-
 " Sets scrolloff to 20% of window height
 let &scrolloff=float2nr(0.15*winheight(0))
-
 " Greedy command line completion
 set wildignorecase wildmenu wildmode=full
-
 " 4 whitespaces for <Tab> and indent. Auto-smart indent.
 set tabstop=4 expandtab shiftwidth=4 autoindent smartindent
 " set expandtab autoindent smartindent
-
 "Status bar
 set laststatus=2    " Always show status bar
 " set statusline=\ %f\ %y\ %r\ %m%=Column:\ %c\ \ \|\ \ %P\ \ 
-
 " Time waited for key codes
 set ttimeoutlen=0
 autocmd InsertEnter * set timeoutlen=200 " Time waited for mappings
 autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
+
+" To always have vertical splits in TermDebugger
+let g:termdebug_wide = 1
 
 " Set python3 bin path
 " if g:os == "Darwin"
@@ -131,6 +118,7 @@ Plug 'romainl/vim-cool'
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'morhetz/gruvbox'
+Plug 'justinmk/vim-dirvish'
 
 " Google auto-formating
 Plug 'google/vim-maktaba'
@@ -203,6 +191,7 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}}
 
+Plug 'karb94/TermDebug'
 Plug 'karb94/jupytext.vim'
 " {{{
 let g:jupytext_fmt = 'py:light'
@@ -232,6 +221,7 @@ inoremap <silent><expr> <TAB>
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <C-q> coc#float#close_all()
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=50
 " Remap keys for gotos
@@ -290,6 +280,25 @@ let g:vimtex_compiler_latexmk = {
 let g:vimtex_view_method = 'zathura'
 " }}}
 
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+" {{{
+" let g:loaded_nvimgdb = 0
+function! NvimGdbNoTKeymaps()
+    tnoremap <silent> <buffer> <esc> <c-\><c-n>
+endfunction
+
+let g:nvimgdb_config_override = {
+            \ 'codewin_command': 'vnew',
+            \ 'key_next': 'n',
+            \ 'key_step': 's',
+            \ 'key_finish': 'f',
+            \ 'key_continue': 'c',
+            \ 'key_until': 'u',
+            \ 'key_breakpoint': 'b',
+            \ 'set_tkeymaps': "NvimGdbNoTKeymaps",
+            \ }
+" }}}
+
 call plug#end()
 " }}}
 
@@ -327,6 +336,8 @@ nnoremap <silent> <leader>Q :qa!<CR>
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <silent> <leader>x :x<CR>
 nnoremap <silent> <leader>X :xa<CR>
+nnoremap <silent> ]t :tabn<CR>
+nnoremap <silent> [t :tabp<CR>
 " nnoremap <leader>b :b 
 " nnoremap <leader>z :%foldclose<CR>
 " nnoremap <leader>Z :%foldopen<CR>
@@ -342,14 +353,30 @@ nnoremap <silent> P Pm`=`]``
 " nnoremap <leader>rc :source $MYVIMRC<CR>
 nnoremap <silent> <leader>j J
 nnoremap U :redo<CR>
-let s:fivep = float2nr(0.10*winheight(0))
-exec "nnoremap J ".s:fivep."<C-e>"
-exec "nnoremap K ".s:fivep."<C-y>"
 
 set wildcharm=<C-z>
 cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
 cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
 " nnoremap <silent> <leader>m :silent make!\|redraw!\|cw<CR>
+" Terminal mappings
+tnoremap <C-]> <C-\><C-n>
+" TermDebugger mappings
+nnoremap <silent> <leader>m :w<CR>:Neomake! make<CR>
+nnoremap <silent> <leader>d :w<CR>:Neomake! debug<CR>
+" nmap <silent> ,n :Over<CR>
+" nmap <silent> ,s :Step<CR>
+" nmap <silent> ,c :call TermDebugSendCommand('continue')<CR>
+" nmap <silent> ,l :Clear<CR>
+" nmap <silent> ,e :Evaluate<CR>
+" nmap <silent> ,b :Break<CR>
+" nmap <silent> ,ib :call TermDebugSendCommand('info break')<CR>
+" nmap <silent> ,iw :call TermDebugSendCommand('info watch')<CR>
+" nmap <silent> ,d :call TermDebugSendCommand('delete')<CR>
+" nmap <silent> ,q :Gdb<CR>:startinsert<CR>q<CR>:redraw!
+" nmap <silent> ,r :Run<CR>
+let s:fivep = float2nr(0.10*winheight(0))
+exec "nnoremap J ".s:fivep."<C-e>"
+exec "nnoremap K ".s:fivep."<C-y>"
 " }}}
 
 
@@ -367,6 +394,9 @@ if has_key(plugs, 'gruvbox')
     let g:gruvbox_sign_column = 'bg0'
     set background=dark
 endif
+" Highlight commands alwasy after setting the colorscheme
+highlight debugPC term=reverse ctermbg=darkblue guibg=darkblue
+highlight debugBreakpoint term=reverse ctermbg=red guibg=red
 " }}}
 
 
@@ -374,36 +404,6 @@ endif
 " FUNCTIONS
 "==============================================================================
 " {{{
-function! EnableReadingMode()
-    setlocal nonumber norelativenumber nocursorline colorcolumn=
-    exec "nnoremap <buffer> J ".s:fivep."<C-e>M"
-    exec "nnoremap <buffer> K ".s:fivep."<C-y>M"
-    nnoremap <buffer> j <C-e>M
-    nnoremap <buffer> k <C-y>M
-    nnoremap <buffer> d <C-d>M
-    nnoremap <buffer> u <C-u>M
-    normal M
-endfunction
-function! DisableReadingMode()
-    set number relativenumber cursorline colorcolumn=81
-    exec "nnoremap <buffer> J ".s:fivep."<C-e>"
-    exec "nnoremap <buffer> K ".s:fivep."<C-y>"
-    nunmap <buffer> j
-    nunmap <buffer> k
-    nunmap <buffer> d
-    nunmap <buffer> u
-endfunction
-
-function! ToggleReadingMode()
-    if !exists('b:ReadingMode')
-        let b:ReadingMode=1
-        call EnableReadingMode()
-    else
-        unlet b:ReadingMode
-        call DisableReadingMode()
-    endif
-endfunction
-nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
 
 function! SmallWordMotion(count, vmode, forward)
     let l:flag = a:forward ? '' : 'b'
@@ -479,33 +479,95 @@ onoremap <silent> in :<c-u>call InsideNumbers(v:count1)<cr>
 " AUTOCOMMANDS
 "==============================================================================
 " {{{
+function! EnableDebuggingMode()
+  setlocal nonumber norelativenumber nocursorline colorcolumn=
+  exec "nnoremap <buffer> J ".s:fivep."<C-e>"
+  exec "nnoremap <buffer> K ".s:fivep."<C-y>"
+  nnoremap d :call TermDebugSendCommand('delete')<CR>
+  nnoremap n :Over<CR>
+  nnoremap s :Step<CR>
+  nnoremap b :Break<CR>
+  nnoremap c :Continue<CR>
+  nnoremap r :Run<CR>
+endfunction
+function! DisableDebuggingMode()
+  set number relativenumber cursorline colorcolumn=81
+  exec "nnoremap <buffer> J ".s:fivep."<C-e>"
+  exec "nnoremap <buffer> K ".s:fivep."<C-y>"
+  nunmap d
+  nunmap n
+  nunmap s
+  nunmap b
+  nunmap c
+  nunmap r
+endfunction
+function! ToggleDebuggingMode()
+  if !exists('g:DebuggingMode')
+    let g:DebuggingMode=1
+    call EnableDebuggingMode()
+  else
+    unlet g:DebuggingMode
+    call DisableDebuggingMode()
+  endif
+endfunction
+nnoremap <silent> <leader>t :call ToggleDebuggingMode()<CR>
 
-set clipboard+=unnamedplus
-" Add yanked text to main clipboard
-" if g:os == "Darwin"
-"     set clipboard=unnamed
-"     autocmd VimLeave * call system("xsel -ib", getreg('*'))
-" elseif g:os == "Linux"
-"     set clipboard=unnamedplus
-"     autocmd VimLeave * call system("xsel -ib", getreg('+'))
-" endif
+function! EnableReadingMode()
+  setlocal nonumber norelativenumber nocursorline colorcolumn=
+  exec "nnoremap <buffer> J ".s:fivep."<C-e>M"
+  exec "nnoremap <buffer> K ".s:fivep."<C-y>M"
+  nnoremap <buffer> j <C-e>M
+  nnoremap <buffer> k <C-y>M
+  nnoremap <buffer> d <C-d>M
+  nnoremap <buffer> u <C-u>M
+  normal M
+endfunction
+function! DisableReadingMode()
+  set number relativenumber cursorline colorcolumn=81
+  exec "nnoremap <buffer> J ".s:fivep."<C-e>"
+  exec "nnoremap <buffer> K ".s:fivep."<C-y>"
+  nunmap <buffer> j
+  nunmap <buffer> k
+  nunmap <buffer> d
+  nunmap <buffer> u
+endfunction
 
-" Reset cursor on start
-" Disable cursorline and relativenumber when buffer is not on focus
+function! ToggleReadingMode()
+  if !exists('b:ReadingMode')
+    let b:ReadingMode=1
+    call EnableReadingMode()
+  else
+    unlet b:ReadingMode
+    call DisableReadingMode()
+  endif
+endfunction
+nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
 if !&diff
     augroup initialization
         au!
+        autocmd WinEnter * if (&l:buftype == '' && !exists('b:ReadingMode')) |
+                    \ setlocal relativenumber cursorline | endif
+        autocmd WinLeave * if (&l:buftype == '' && !exists('b:ReadingMode')) |
+                    \ setlocal norelativenumber nocursorline | endif
         autocmd BufEnter * if &l:buftype == 'help' |
                     \ call EnableReadingMode() | endif
     augroup END
 endif
 
-" Add highlight after yank operation
-" augroup highlight_yank
-"     autocmd!
-"     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("Substitute", 500)
-" augroup END
-" IncSearch
+function! LaunchDebugger() abort
+  let context = g:neomake_hook_context
+  if context.jobinfo.exit_code == 0
+    echom printf('The "%s" job has completed without errors',
+          \ context.jobinfo.maker.name)
+    if context.jobinfo.maker.name == 'debug'
+      Termdebug
+    endif
+  endif
+endfunction
+augroup my_neomake_hooks
+  au!
+  autocmd User NeomakeJobFinished call LaunchDebugger()
+augroup END
 
 " Fix for CursorLine highlighting (see neovim issue #9019)
 function! s:CustomizeColors()

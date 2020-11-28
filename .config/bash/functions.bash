@@ -20,6 +20,21 @@ s () {
     setsid -f "$@"; exit
 }
 
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
+bind '"\C-f":"lfcd\C-m"'
+
 vs () {
     echo
     if [ -f "Session.vim" ]
@@ -90,11 +105,11 @@ extract () {
                     continue;;
             esac
 
-            command "${c[@]}" "$i"
-            ((e = e || $?))
-        done
-        return "$e"
-    }
+        command "${c[@]}" "$i"
+        ((e = e || $?))
+    done
+    return "$e"
+}
 
 findup() {
     [ -z "$1" ] && echo "No argument was passed" 2>&1 && return 1
@@ -107,21 +122,21 @@ findup() {
         # Exit when reaching home or root directory
         ( [ "$path" == "$HOME" ] || [ "$path" == "/" ] ) &&
             echo "$1 not found" 2>&1 && return 1
-                    path=${path%/*}
-                done
-                echo "$path"
-            }
+        path=${path%/*}
+    done
+    echo "$path"
+}
 
-        rpull() {
-            # Store directory passed as argument, if none reverse search for remote
-            if [ -z "$1" ]
-            then
-                local dir="$(findup remote)" ||
-                    ( echo "File \"remote\" not found" && return 1 )
-                                else
-                                    # Strip last slash if there is one
-                                    local dir="${1%/}"
-            fi
+rpull() {
+    # Store directory passed as argument, if none reverse search for remote
+    if [ -z "$1" ]
+    then
+        local dir="$(findup remote)" ||
+            ( echo "File \"remote\" not found" && return 1 )
+                        else
+                            # Strip last slash if there is one
+                            local dir="${1%/}"
+    fi
 
     # The remote directory
     local remote_path="${dir}"/remote

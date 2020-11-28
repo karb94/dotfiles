@@ -16,4 +16,4 @@ bspc rule --add Zathura state=tiled
 bspc desktop -f '^1'
 
 # Launch polybar
-$HOME/.config/polybar/launch.sh
+# $HOME/.config/polybar/launch.sh

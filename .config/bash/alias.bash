@@ -19,6 +19,7 @@ alias rv='rm -Iv'
 alias mv='mv -iv' 
 alias cp='cp -iv' 
 alias grep='grep --color=auto'
+alias sd='shutdown 0'
 
 # Editing
 alias e='$EDITOR'
@@ -36,7 +37,7 @@ alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias c='chezmoi'
 
 # Open files
-alias j='setsid -f jupyter lab > /dev/null 2>&1 &'
+alias j='echo jupyter && setsid -f jupyter lab > /dev/null 2>&1 &'
 alias feh='feh --scale-down --auto-zoom'
 alias p='$PAGER'
 
@@ -54,6 +55,10 @@ alias q='qstat -u cr216'
 alias cx1='ssh -t cx1 "~/usr/local/bin/bash -l"'
 alias nhpc='ssh carles@nhpc16.ch.ic.ac.uk'
 alias vpn='nmcli connection up --ask ic'
+
+# Tmux
+alias ta='tmux attach'
+alias tk='tmux kill-server'
 
 # DFT
 alias etot='grep ETOT'
