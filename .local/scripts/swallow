@@ -1,18 +1,30 @@
 #!/bin/bash
 
+# Run input command in the background
+"$@" >/dev/null 2>&1 &
 NODE_CURRENT=$(bspc query -N -n focused)
-bspc node $NODE_CURRENT -i --flag hidden=on
-# bspc node $NODE_CURRENT --focus
+unfocused_color=$(bspc config normal_border_color)
+focused_color=$(bspc config focused_border_color)
+# Because the focus will move to a new window when we hide it
+# turn border color of the focused node to the color of unfocused node
+bspc config focused_border_color $unfocused_color
+# Hides current node and leaves a receptacle behind
+bspc node $NODE_CURRENT --insert-receptacle --flag hidden=on
+# Add rule for next application launched to occupy the receptacle space
 bspc rule --add "*" --one-shot focused=on state=locked \
     node=$(bspc query -N -d -n '.leaf.!window')
-"$@" >/dev/null 2>&1 &
+# Watch until a new node is added and get the info
+# In a script you can do it before launching the app because it is fast enough
 WATCH=$(bspc subscribe -c 1 node_add)
+# Reset the focused window color to the original one
+bspc config focused_border_color $focused_color
+# Trim to get the ID of the new node
 NODE_NEW=${WATCH##* }
-# echo $NODE_NEW
-# bspc node -s $NODE_CURRENT
+# Watch until new node is removed and change the focused color to unfocused
 while read EVENT
 do
-    [ "${EVENT##* }" = "$NODE_NEW" ] && break
+    [ "${EVENT##* }" = "$NODE_NEW" ] &&
+        # Unhide the original node
+        bspc node $NODE_CURRENT --flag hidden=off --focus &&
+        break
 done < <(bspc subscribe node_remove)
-# bspc node $NODE_NEW -i --flag hidden=on &&
-bspc node $NODE_CURRENT --flag hidden=off --focus

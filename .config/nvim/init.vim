@@ -13,8 +13,11 @@ let &t_SI="\e[6 q"
 let &t_EI="\e[2 q"
 let &t_SR="\e[4 q"
 
-" Set leader key
+" Set leader and local leader keys
 let mapleader=" "
+let maplocalleader=","
+" Language for spell checking
+set spelllang=en_gb
 " Notification area text options
 set shortmess=mwoOcIF
 " Persistent central location for undo files
@@ -261,7 +264,7 @@ let g:vimtex_compiler_latexmk = {
             \ 'background' : 1,
             \ 'build_dir' : 'build',
             \ 'callback' : 1,
-            \ 'continuous' : 1,
+            \ 'continuous' : 0,
             \ 'executable' : 'latexmk',
             \ 'hooks' : [],
             \ 'options' : [
@@ -278,6 +281,10 @@ let g:vimtex_compiler_latexmk = {
 "             \ },
 "             \}
 let g:vimtex_view_method = 'zathura'
+let g:vimtex_grammar_textidote = {
+            \ 'jar': '/opt/textidote/textidote.jar',
+            \ 'args': '',
+            \}
 " }}}
 
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
@@ -567,6 +574,11 @@ endfunction
 augroup my_neomake_hooks
   au!
   autocmd User NeomakeJobFinished call LaunchDebugger()
+augroup END
+
+augroup spellChecking
+    au!
+    autocmd Filetype tex setlocal spell
 augroup END
 
 " Fix for CursorLine highlighting (see neovim issue #9019)

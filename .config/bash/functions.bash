@@ -33,7 +33,7 @@ lfcd () {
         fi
     fi
 }
-bind '"\C-f":"lfcd\C-m"'
+bind '"\C-f":"\033cc clear; lfcd\C-m"'
 
 vs () {
     echo

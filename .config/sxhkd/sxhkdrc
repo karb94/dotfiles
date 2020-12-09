@@ -77,6 +77,8 @@ super + b
 super + {equal,minus}
  amixer -c 1 -- sset Master playback 10%{+,-}
 
+super + s
+ rofi -modi "Test:f.sh" -show Test
 ## alternate between the tiled and monocle layout
 ## super + f
 ## 	bspc desktop -l next

@@ -10,7 +10,12 @@ fi
 
 # Key bindings
 # ------------
-source "$HOME/.fzf/shell/key-bindings.bash"
+[ -f "$HOME/.fzf/shell/key-bindings.bash" ] &&
+    . "$HOME/.fzf/shell/key-bindings.bash" ||
+    [ -f "/usr/share/fzf/key-bindings.bash" ] &&
+    . "/usr/share/fzf/key-bindings.bash"
+
+
 
 # Overwriting default commands and options
 # ---------------------
