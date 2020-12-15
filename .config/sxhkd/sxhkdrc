@@ -16,11 +16,12 @@ super + shift + s
 super + t
  alacritty
 
-super + {f,F}
- bspc node -t {~fullscreen,~floating}
+# Full screen or tiled
+super + {f,F,T}
+ bspc node -t {~fullscreen,~floating,tiled}
 
 ## Web Browser
-super + w
+alt + w
  chromium
 ## program launcher
 super + slash
@@ -44,7 +45,11 @@ super + {h,j,k,l}
 
 ## Swap the node in the given direction
 super + m; {h,j,k,l}
- bspc node -s {west,south,north,east}
+ bspc node --swap {west,south,north,east}
+
+## Swap the node in the given direction
+super + m; {H,J,K,L}
+ bspc node --to-node {west,south,north,east}
 
 # Flip vertically
 super + shift + {backslash,minus}
@@ -79,6 +84,9 @@ super + {equal,minus}
 
 super + s
  rofi -modi "Test:f.sh" -show Test
+super + @p
+ xdotool keyup Super_L+p && play &
+ # xdotool windowactivate --sync 0x01400007 --clearmodifiers key ctrl+Tab
 ## alternate between the tiled and monocle layout
 ## super + f
 ## 	bspc desktop -l next

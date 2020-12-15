@@ -30,8 +30,6 @@ set splitbelow splitright
 set iskeyword=a-z,A-Z,48-57,_,-
 " change unsaved buffers
 set hidden
-" Set textwidth to automatically break line if longer than 80
-set textwidth=80
 " Backspace behaves like everywhere else
 set backspace=indent,eol,start
 " Show relative line numbers and current line number

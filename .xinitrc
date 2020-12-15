@@ -36,6 +36,7 @@ test -f $HOME/.local/scripts/tmux_init && . $HOME/.local/scripts/tmux_init
 picom -CG &
 xsetroot -cursor_name left_ptr &
 unclutter --timeout 1 --ignore-scrolling &
+dunst &
 sxhkd -m -1 &
 test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
         xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &
