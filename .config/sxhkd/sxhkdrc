@@ -13,12 +13,15 @@ super + shift + s
  systemctl suspend
 
 ## terminal emulator
-super + t
+super + s
+ alacritty
+
+ super + s
  alacritty
 
 # Full screen or tiled
 super + {f,F,T}
- bspc node -t {~fullscreen,~floating,tiled}
+ bspc node -t {~fullscreen,floating,tiled}
 
 ## Web Browser
 alt + w
@@ -40,8 +43,12 @@ super + {c,backspace}
  bspc node -{c,k}
 
 ## Focus the node in the given direction
-super + {h,j,k,l}
- bspc node -f {west,south,north,east}
+super + {h,j,k,l,t}
+ bspc node --focus {west,south,north,east,focused:any.floating}
+
+# Cycle through tiled windows
+super + {_,shift + } Tab
+ bspc node -f {next,prev}.local.floating
 
 ## Swap the node in the given direction
 super + m; {h,j,k,l}
@@ -61,11 +68,11 @@ super + m; {1-9,0}
 
 # Focus the next occupied workspace
 super + {period,comma}
- bspc desktop -f {next,prev}.occupied.local
+ bspc desktop --focus {next,prev}.occupied.local
 
 # Focus or send to the given desktop
 super + {1-9,0}
- bspc desktop -f '^{1-9,10}'
+ bspc desktop --focus '^{1-9,10}'
 
 # expand a window by moving one of its side outward
 super + shift + r: {h,H,j,J,k,K,l,L}
@@ -82,82 +89,5 @@ super + b
 super + {equal,minus}
  amixer -c 1 -- sset Master playback 10%{+,-}
 
-super + s
- rofi -modi "Test:f.sh" -show Test
 super + @p
  xdotool keyup Super_L+p && play &
- # xdotool windowactivate --sync 0x01400007 --clearmodifiers key ctrl+Tab
-## alternate between the tiled and monocle layout
-## super + f
-## 	bspc desktop -l next
-
-## send the newest marked node to the newest preselected node
-#super + y
-#	bspc node newest.marked.local -n newest.!automatic.local
-
-## swap the current node and the biggest node
-#super + g
-#	bspc node -s biggest
-
-##
-## state/flags
-##
-
-## set the window state
-# super + {f,F}
-#         bspc node -t {~fullscreen,~floating}
-
-## set the node flags
-#super + ctrl + {m,x,y,z}
-#	bspc node -g {marked,locked,sticky,private}
-
-##
-## focus/swap
-##
-
-
-## focus the node for the given path jump
-#super + {p,b,comma,period}
-#	bspc node -f @{parent,brother,first,second}
-
-## focus the next/previous desktop in the current monitor
-#super + bracket{left,right}
-#	bspc desktop -f {prev,next}.local
-
-## focus the last node/desktop
-#super + {grave,Tab}
-#	bspc {node,desktop} -f last
-
-## focus the older or newer node in the focus history
-#super + {o,i}
-#	bspc wm -h off; \
-#	bspc node {older,newer} -f; \
-#	bspc wm -h on
-
-##
-## preselect
-##
-
-## preselect the direction
-#super + ctrl + {h,j,k,l}
-#	bspc node -p {west,south,north,east}
-
-## preselect the ratio
-#super + ctrl + {1-9}
-#	bspc node -o 0.{1-9}
-
-## cancel the preselection for the focused node
-#super + ctrl + space
-#	bspc node -p cancel
-
-## cancel the preselection for the focused desktop
-#super + ctrl + shift + space
-#	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
-
-##
-## move/resize
-##
-
-## move a floating window
-#super + {Left,Down,Up,Right}
-#	bspc node -v {-20 0,0 20,0 -20,20 0}

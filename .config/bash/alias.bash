@@ -60,6 +60,9 @@ alias vpn='nmcli connection up --ask ic'
 alias ta='tmux attach'
 alias tk='tmux kill-server'
 
+# Miscellaneous
+alias nb='newsboat --quiet'
+
 # DFT
 alias etot='grep ETOT'
 alias spin='grep SUMMED'
