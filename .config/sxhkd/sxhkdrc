@@ -24,7 +24,7 @@ super + {f,F,T}
  bspc node -t {~fullscreen,floating,tiled}
 
 ## Web Browser
-alt + w
+super + w
  chromium
 ## program launcher
 super + slash
@@ -43,8 +43,8 @@ super + {c,backspace}
  bspc node -{c,k}
 
 ## Focus the node in the given direction
-super + {h,j,k,l,t}
- bspc node --focus {west,south,north,east,focused:any.floating}
+super + {h,j,k,l}
+ bspc node --focus {west,south,north,east}
 
 # Cycle through tiled windows
 super + {_,shift + } Tab

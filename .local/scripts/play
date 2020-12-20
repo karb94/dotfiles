@@ -1,0 +1,10 @@
+#! /bin/sh
+
+xdotool key --clearmodifiers Control_L+l
+xdotool key --clearmodifiers Control_L+c
+xdotool key --clearmodifiers F6
+xdotool key --clearmodifiers F6
+xdotool key --clearmodifiers F6
+url=$(xsel -o)
+# xdotool key --clearmodifiers Control_L+w
+video_path=$(download_youtube "$url")

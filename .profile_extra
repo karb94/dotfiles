@@ -32,10 +32,19 @@ elif command -v vim > /dev/null 2>&1; then
 elif command -v vi > /dev/null 2>&1; then
     export EDITOR=vi
 fi
-export PAGER="less -i"
+export PAGER="less -iR"
 export TERMINAL="alacritty"
 # export TERMINAL="kitty --single-instance"
 export BROWSER="chromium"
+
+# Export less variables to have colored man pages
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # Shell variables
 export SHELL="/bin/bash"
@@ -43,4 +52,4 @@ export SHELL="/bin/bash"
 mkdir -p "$HOME/.config/bash"
 export HISTFILE="$HOME/.config/bash/history"
 
-( newsboat -x reload; dlytrss ) &
+dlytrss &

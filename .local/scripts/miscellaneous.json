@@ -1,0 +1,10 @@
+[
+    {
+        "name": "reset display resolution",
+        "command": "xrandr --output HDMI-A-0 --mode 2560x1440 --rate 144"
+    },
+    {
+        "name": "wifi",
+        "command": "nmcli connection show"
+    }
+]

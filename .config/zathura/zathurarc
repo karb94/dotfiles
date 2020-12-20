@@ -22,7 +22,7 @@ set font "monospace normal 14"
 set window-title-home-tilde true
 set statusbar-home-tilde true
 # set highlight-active-color "#ff0000"
-set highlight-transparency 0.3
+set highlight-transparency 0.2
 set recolor-darkcolor "#ebdbb2"
 set recolor-lightcolor "#1d2021"
 set recolor

@@ -1,0 +1,368 @@
+xkb_keymap {
+xkb_keycodes "qwerty" {
+    minimum = 8;
+    maximum = 255;
+     <ESC> = 9;
+    <AE01> = 10;
+    <AE02> = 11;
+    <AE03> = 12;
+    <AE04> = 13;
+    <AE05> = 14;
+    <AE06> = 15;
+    <AE07> = 16;
+    <AE08> = 17;
+    <AE09> = 18;
+    <AE10> = 19;
+    <AE11> = 20;
+    <AE12> = 21;
+    <BKSP> = 22;
+     <TAB> = 23;
+    <AD01> = 24;
+    <AD02> = 25;
+    <AD03> = 26;
+    <AD04> = 27;
+    <AD05> = 28;
+    <AD06> = 29;
+    <AD07> = 30;
+    <AD08> = 31;
+    <AD09> = 32;
+    <AD10> = 33;
+    <AD11> = 34;
+    <AD12> = 35;
+    <RTRN> = 36;
+    <LCTL> = 37;
+    <AC01> = 38;
+    <AC02> = 39;
+    <AC03> = 40;
+    <AC04> = 41;
+    <AC05> = 42;
+    <AC06> = 43;
+    <AC07> = 44;
+    <AC08> = 45;
+    <AC09> = 46;
+    <AC10> = 47;
+    <AC11> = 48;
+    <TLDE> = 49;
+    <LFSH> = 50;
+    <BKSL> = 51;
+    <AB01> = 52;
+    <AB02> = 53;
+    <AB03> = 54;
+    <AB04> = 55;
+    <AB05> = 56;
+    <AB06> = 57;
+    <AB07> = 58;
+    <AB08> = 59;
+    <AB09> = 60;
+    <AB10> = 61;
+    <RTSH> = 62;
+    <KPMU> = 63;
+    <LALT> = 64;
+    <SPCE> = 65;
+    <CAPS> = 66;
+    <FK01> = 67;
+    <FK02> = 68;
+    <FK03> = 69;
+    <FK04> = 70;
+    <FK05> = 71;
+    <FK06> = 72;
+    <FK07> = 73;
+    <FK08> = 74;
+    <FK09> = 75;
+    <FK10> = 76;
+    <FK11> = 95;
+    <FK12> = 96;
+    <RCTL> = 105;
+    <RALT> = 108;
+    <HOME> = 110;
+      <UP> = 111;
+    <PGUP> = 112;
+    <LEFT> = 113;
+    <RGHT> = 114;
+     <END> = 115;
+    <DOWN> = 116;
+    <PGDN> = 117;
+    <DELE> = 119;
+    <LWIN> = 133;
+    <RWIN> = 134;
+    alias <LatQ> = <AD01>;
+    alias <LatW> = <AD02>;
+    alias <LatE> = <AD03>;
+    alias <LatR> = <AD04>;
+    alias <LatT> = <AD05>;
+    alias <LatY> = <AD06>;
+    alias <LatU> = <AD07>;
+    alias <LatI> = <AD08>;
+    alias <LatO> = <AD09>;
+    alias <LatP> = <AD10>;
+    alias <LatA> = <AC01>;
+    alias <LatS> = <AC02>;
+    alias <LatD> = <AC03>;
+    alias <LatF> = <AC04>;
+    alias <LatG> = <AC05>;
+    alias <LatH> = <AC06>;
+    alias <LatJ> = <AC07>;
+    alias <LatK> = <AC08>;
+    alias <LatL> = <AC09>;
+    alias <LatZ> = <AB01>;
+    alias <LatX> = <AB02>;
+    alias <LatC> = <AB03>;
+    alias <LatV> = <AB04>;
+    alias <LatB> = <AB05>;
+    alias <LatN> = <AB06>;
+    alias <LatM> = <AB07>;
+};
+
+xkb_types "complete" {
+
+    virtual_modifiers NumLock,Alt,LevelThree,LAlt,RAlt,RControl,LControl,ScrollLock,LevelFive,AltGr,Meta,Super,Hyper;
+
+    type "ONE_LEVEL" {
+        modifiers= none;
+        level_name[Level1]= "Any";
+    };
+    type "TWO_LEVEL" {
+        modifiers= Shift;
+        map[Shift]= Level2;
+        level_name[Level1]= "Base";
+        level_name[Level2]= "Shift";
+    };
+    type "ALPHABETIC" {
+        modifiers= Shift+Lock;
+        map[Shift]= Level2;
+        map[Lock]= Level2;
+        level_name[Level1]= "Base";
+        level_name[Level2]= "Caps";
+    };
+    type "ALPHABETIC+SYMBOLS" {
+        modifiers= Shift+Mod3;
+        map[Shift]= Level2;
+        map[Mod3]= Level3;
+        map[Shift+Mod3]= Level4;
+        level_name[Level1]= "Base";
+        level_name[Level2]= "Shift";
+        level_name[Level3]= "Mod3";
+        level_name[Level4]= "Shift+Mod3";
+    };
+    type "KEYPAD" {
+        modifiers= Shift+NumLock;
+        map[Shift]= Level2;
+        map[NumLock]= Level2;
+        level_name[Level1]= "Base";
+        level_name[Level2]= "Number";
+    };
+    type "SHIFT+ALT" {
+        modifiers= Shift+Alt;
+        map[Shift+Alt]= Level2;
+        level_name[Level1]= "Base";
+        level_name[Level2]= "Shift+Alt";
+    };
+    type "CTRL+ALT" {
+        modifiers= Shift+Control+Alt+LevelThree;
+        map[Shift]= Level2;
+        preserve[Shift]= Shift;
+        map[LevelThree]= Level3;
+        map[Shift+LevelThree]= Level4;
+        preserve[Shift+LevelThree]= Shift;
+        map[Control+Alt]= Level5;
+        level_name[Level1]= "Base";
+        level_name[Level2]= "Shift";
+        level_name[Level3]= "Alt Base";
+        level_name[Level4]= "Shift Alt";
+        level_name[Level5]= "Ctrl+Alt";
+    };
+};
+
+default xkb_compatibility "minimal" {
+
+    virtual_modifiers  NumLock,AltGr;
+
+    interpret.repeat= False;
+    setMods.clearLocks= True;
+    latchMods.clearLocks= True;
+    latchMods.latchToLock= True;
+
+    interpret Shift_Lock+AnyOf(Shift+Lock) {
+	action= LockMods(modifiers=Shift);
+    };
+
+    interpret Any+Lock {
+	action= LockMods(modifiers=Lock);
+    };
+
+    interpret ISO_Next_Group+AnyOfOrNone(all) {
+        action= LockGroup(group=+1);
+    };
+
+    interpret Any + Any {
+	action= SetMods(modifiers=modMapMods);
+    };
+
+    include "ledcaps"
+    include "lednum"
+    indicator "Shift Lock" {
+	!allowExplicit;
+	whichModState= Locked;
+	modifiers= Shift;
+    };
+};
+
+xkb_symbols "qwerty" {
+
+    key  <ESC> {         [          Escape ] };
+    key <AE01> {         [               1,          exclam ] };
+    key <AE02> {         [               2,              at ] };
+    key <AE03> {         [               3,      numbersign ] };
+    key <AE04> {         [               4,          dollar ] };
+    key <AE05> {         [               5,         percent ] };
+    key <AE06> {         [               6,     asciicircum ] };
+    key <AE07> {         [               7,       ampersand ] };
+    key <AE08> {         [               8,        asterisk ] };
+    key <AE09> {         [               9,       parenleft ] };
+    key <AE10> {         [               0,      parenright ] };
+    key <AE11> {         [           minus,      underscore ] };
+    key <AE12> {         [           equal,            plus ] };
+    key <BKSP> {         [       BackSpace,       BackSpace ] };
+    key  <TAB> {         [             Tab,    ISO_Left_Tab ] };
+    key <FK01> { [ F1   ]       };
+    key <FK02> { [ F2   ]       };
+    key <FK03> { [ F3   ]       };
+    key <FK04> { [ F4   ]       };
+    key <FK05> { [ F5   ]       };
+    key <FK06> { [ F6   ]       };
+    key <FK07> { [ F7   ]       };
+    key <FK08> { [ F8   ]       };
+    key <FK09> { [ F9   ]       };
+    key <FK10> { [ F10   ]       };
+    key <FK11> { [ F11   ]       };
+    key <FK12> { [ F12   ]       };
+    key <LatQ> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [q, Q] };
+    key <LatW> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [w, W] };
+    key <LatE> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [e, E]};
+    key <LatR> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [r, R]};
+    key <LatT> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [t, T]};
+    key <LatY> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [y, Y]};
+    key <LatU> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [u, U]};
+    key <LatI> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [i, I, BackSpace]};
+    key <LatO> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [o, O]};
+    key <LatP> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [p, P]};
+    key <AD11> {
+        type= "ALPHABETIC+SYMBOLS",
+        [     bracketleft,       braceleft, asciitilde] };
+    key <AD12> {         [    bracketright,      braceright ] };
+    key <LatA> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [a, A, exclam] };
+    key <LatS> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [s, S, at]};
+    key <LatD> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [d, D, numbersign]};
+    key <LatF> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [f, F, dollar]};
+    key <LatG> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [g, G, percent] };
+    key <LatH> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [h, H, asciicircum]};
+    key <LatJ> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [j, J, ampersand]};
+    key <LatK> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [k, K, asterisk]};
+    key <LatL> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [l, L, parenleft]};
+    key <AC10> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [semicolon, colon, parenright]};
+    key <AC11> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [apostrophe, quotedbl, underscore] };
+    key <TLDE> {         [           grave,      asciitilde ] };
+    key <LFSH> {         [         Shift_L ] };
+    key <BKSL> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [backslash, bar, ISO_Next_Group]};
+    key <LatZ> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [z, Z, asciitilde]};
+    key <LatX> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [x, X]};
+    key <LatC> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [c, C, ccedilla, Ccedilla]};
+    key <LatV> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [v, V] };
+    key <LatB> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [b, B]};
+    key <LatN> {
+        type= "ALPHABETIC+SYMBOLS",
+        symbols[Group1]= [n, N, ntilde, Ntilde]};
+    key <LatM> {
+        type= "ALPHABETIC",
+        symbols[Group1]= [m, M]};
+    key <AB08> {         [           comma,            less ] };
+    key <AB09> {         [          period,         greater ] };
+    key <AB10> {         [           slash,        question ] };
+    key <RTSH> {         [         Shift_R ] };
+    key <KPMU> {
+        type= "CTRL+ALT",
+        symbols[Group1]= [     KP_Multiply,     KP_Multiply,     KP_Multiply,     KP_Multiply,   XF86ClearGrab ]
+    };
+    key <SPCE> {         [           space ] };
+    key <CAPS> {         [       Caps_Lock ] };
+    key <RTRN> {         [          Return ] };
+    key <LCTL> {         [       Control_L ] };
+    key <RCTL> {         [       Control_R ] };
+    key <LALT> {         [           Alt_L,          Alt_L ] };
+    key <RALT> {         [           Alt_R,          Alt_R ] };
+    key <HOME> {         [            Home ] };
+    key   <UP> {         [              Up ] };
+    key <PGUP> {         [           Prior ] };
+    key <LEFT> {         [            Left ] };
+    key <RGHT> {         [           Right ] };
+    key  <END> {         [             End ] };
+    key <DOWN> {         [            Down ] };
+    key <PGDN> {         [            Next ] };
+    key <DELE> {         [          Delete ] };
+    key <LWIN> {         [         Super_L ] };
+    key <RWIN> {         [         Super_R ] };
+    modifier_map Control { <LCTL> };
+    modifier_map Control { <RCTL> };
+    modifier_map Shift { <LFSH> };
+    modifier_map Shift { <RTSH> };
+    modifier_map Lock { <CAPS> };
+    modifier_map Mod3 { <LALT> };
+    modifier_map Mod3 { <RALT> };
+    modifier_map Mod4 { <LWIN> };
+    modifier_map Mod4 { <RWIN> };
+};
+};

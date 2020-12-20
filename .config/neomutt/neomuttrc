@@ -1,0 +1,13 @@
+set folder = "imaps://ka_rafols@hotmail.com@outlook.office365.com:993"
+set smtp_url = "smtps://ka_rafols@hotmail.com@outlook.office365.com:587"
+
+set from = "ka_rafols@hotmail.com"
+set realname = "Carles"
+set spoolfile = "+INBOX"
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Drafts"
+
+mailboxes =INBOX =Sent =Trash =Drafts
+
+set sort = reverse-date

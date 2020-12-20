@@ -1,0 +1,32 @@
+"query:Youtube:tags # \"youtube\""
+"query:Github:tags # \"github\""
+
+# TECH
+# Linus Tech Tips
+https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw ! youtube tech
+# Techquickie
+https://www.youtube.com/feeds/videos.xml?channel_id=UC0vBXGSyV14uvJ4hECDOl0Q ! youtube tech
+# Marques Brownlee
+https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ ! youtube tech
+# Gamer Meld
+https://www.youtube.com/feeds/videos.xml?channel_id=UCkK4Tzb9ieuAhcyWUZnLBBQ ! youtube tech
+
+# LINUX
+# Brodie Robertson
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA ! youtube tech
+# Luke Smith
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA ! youtube linux
+# Distrotube
+https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg ! youtube linux
+
+# MISCELLANEOUS
+# Oversimplified
+https://www.youtube.com/feeds/videos.xml?channel_id=UCNIuvl7V8zACPpTmmNIqP2A ! youtube linux
+
+# GITHUB
+# Neovim
+https://github.com/neovim/neovim/releases.atom ! github
+# Picom
+https://github.com/yshui/picom/releases.atom ! github
+# Dunst
+https://github.com/dunst-project/dunst/releases.atom ! github

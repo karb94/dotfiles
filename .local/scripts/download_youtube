@@ -1,0 +1,51 @@
+#! /bin/sh
+
+# Script to download videos form youtube with notification popup
+
+url="$1"
+video_id="${url#*=}"
+video_path=/tmp/"${video_id}".mkv
+
+# If file already exists print path and exit
+[ -f "$video_path" ] && printf '%s' "$video_path" && exit 0
+
+# Get video length from source code
+video_length_regex='"videoDetails":{.*?"lengthSeconds":"\K\d*'
+video_length=$(curl --silent "$url" | grep -Po "$video_length_regex")
+
+# If video is longer than 40 min
+[ $video_length -gt 2400 ] && exit 0
+
+# Get metadata (thumbnail, channel name and title)
+video_data=$(youtube-dl --quiet --get-thumbnail --get-filename \
+    --output '%(uploader)s^%(title)s' "$1")
+thumbnail=$(mktemp)
+thumbnail_url=$(printf "$video_data" | head --lines=1 -)
+curl -s $thumbnail_url > "$thumbnail"
+if [ \( 'png' != "${thumbnail_url##*.}" \) \
+    -a \( 'jpg' != "${thumbnail_url##*.}" \) \
+    -a \( -n "${thumbnail_url##*jpg*}" \) ]
+then
+    dwebp -quiet "$thumbnail" -o "$thumbnail".png
+    rm "$thumbnail"
+    thumbnail="$thumbnail".png
+fi
+creator_title=$(printf "$video_data" | tail --lines=1 -)
+creator="${creator_title%^*}"
+title="${creator_title#*^}"
+title="$(printf '%s' "$title" | fold -sw 30 -)"
+
+# Download the video and pipe the progress to notify-send
+format='/tmp/%(id)s.%(ext)s'
+youtube-dl --no-post-overwrites --output "$format" "$url" |
+    stdbuf -oL tr '\r' '\n' | stdbuf -oL grep -Po '\d+(?=\.\d+%)' |
+        xargs -I'%' dunstify --timeout=60000 --icon=$thumbnail \
+        --hints=int:value:% "$creator" "$title"
+
+printf '%s' "$video_path"
+action=$(dunstify --timeout=1200000 --icon="$thumbnail" --hints=int:value:100 \
+    --action=play,play_label "$creator" "$title")
+rm "$thumbnail"
+[ "$action" = "play" ] && bspc rule --add mpv --one-shot \
+    desktop=$(bspc query -D -d) state=floating &&
+    mpv --no-terminal "$video_path" && rm "$video_path"

@@ -1,0 +1,16 @@
+#! /bin/sh
+
+# Updated newsboat RSS feed
+newsboat -x reload
+
+# Query newsboat for unread youtube feeds and parallelise the downloads
+query="SELECT url
+FROM rss_item
+WHERE unread = 1
+and url like '%youtube.com/watch?v=%';"
+sqlite3 "$HOME/.local/share/newsboat/cache.db" "$query" |
+    parallel -P 10 download_youtube
+
+# Send a final notification once all the downloads are finished
+notify-send --expire-time=600000 --icon="${icon_path}" \
+    'Youtube downloads finished'

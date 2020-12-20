@@ -1,0 +1,8 @@
+xmodmap -e "clear lock"
+xmodmap -e "clear control"
+xmodmap -e "keycode 66 = Control_L Caps_Lock"
+xmodmap -e "keycode 36 = Control_R"
+xmodmap -e "keycode any = Return"
+xmodmap -e "add control = Control_L"
+xmodmap -e "add control = Control_R"
+xcape -t 200 -e "Control_R=Return"

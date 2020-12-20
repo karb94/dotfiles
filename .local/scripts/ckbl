@@ -1,0 +1,9 @@
+#! /bin/sh
+
+KBL_DIR=$HOME/.local/share/X11/xkb
+
+xkbcomp $DISPLAY /tmp/kbl &&
+        ( grep --quiet "qwerty" /tmp/kbl &&
+        xkbcomp $KBL_DIR/colemak-dh.xkb $DISPLAY ||
+        xkbcomp $KBL_DIR/qwerty.xkb $DISPLAY )
+rm /tmp/kbl
