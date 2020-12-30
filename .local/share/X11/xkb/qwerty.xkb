@@ -85,6 +85,7 @@ xkb_keycodes "qwerty" {
     <DELE> = 119;
     <LWIN> = 133;
     <RWIN> = 134;
+    <COMP> = 135;
     alias <LatQ> = <AD01>;
     alias <LatW> = <AD02>;
     alias <LatE> = <AD03>;
@@ -342,6 +343,7 @@ xkb_symbols "qwerty" {
     key <RTRN> {         [          Return ] };
     key <LCTL> {         [       Control_L ] };
     key <RCTL> {         [       Control_R ] };
+    key <COMP> {         [       Control_R ] };
     key <LALT> {         [           Alt_L,          Alt_L ] };
     key <RALT> {         [           Alt_R,          Alt_R ] };
     key <HOME> {         [            Home ] };
@@ -357,6 +359,7 @@ xkb_symbols "qwerty" {
     key <RWIN> {         [         Super_R ] };
     modifier_map Control { <LCTL> };
     modifier_map Control { <RCTL> };
+    modifier_map Control { <COMP> };
     modifier_map Shift { <LFSH> };
     modifier_map Shift { <RTSH> };
     modifier_map Lock { <CAPS> };

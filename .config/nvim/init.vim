@@ -75,9 +75,9 @@ autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
 let g:termdebug_wide = 1
 
 " Set python3 bin path
-" if g:os == "Darwin"
-let g:python3_host_prog='$HOME/miniconda3/envs/neovim/bin/python'
-" endif
+if g:os == "Darwin"
+    let g:python3_host_prog='$HOME/miniconda3/envs/neovim/bin/python'
+endif
 
 " Set vim path
 " Set a base &path
