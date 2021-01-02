@@ -3,8 +3,9 @@ bind-key j down
 bind-key k up
 bind-key l open
 bind-key h quit
+bind-key / open-search
 bind-key q hard-quit
-bind-key TAB toggle-article-read
+bind-key n toggle-article-read
 bind-key s toggle-show-read-feeds
 bind-key r reload-all
 bind-key SPACE macro-prefix

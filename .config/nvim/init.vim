@@ -255,7 +255,7 @@ let g:UltiSnipsEditSplit="vertical"
 Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
 " {{{
 " Prevents detecting 'latex' files as 'plain tex' files
-let g:vimtex_compiler_progname = '$HOME/miniconda3/envs/neovim/bin/nvr'
+let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor = 'latex'
 let g:tex_conceal=""
 let g:vimtex_compiler_latexmk = {

@@ -49,7 +49,7 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 # Aur Utils
 export AUR_REPO="aur"
 export AUR_DBROOT="/var/cache/pacman/aurpkg"
-export AUR_PAGER=less
+export AUR_PAGER="nvim"
 
 # Shell variables
 export SHELL="/bin/bash"

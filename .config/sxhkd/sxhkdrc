@@ -87,7 +87,7 @@ super + b
  polybar-msg cmd toggle
 
 super + {equal,minus}
- amixer -c 1 -- sset Master playback 10%{+,-}
+ pactl set-sink-volume @DEFAULT_SINK@ {+,-}10%
 
 super + @p
  xdotool keyup Super_L+p && play &
