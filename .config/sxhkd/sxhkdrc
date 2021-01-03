@@ -16,12 +16,16 @@ super + shift + s
 super + s
  alacritty
 
- super + s
+super + s
  alacritty
 
 # Full screen or tiled
-super + {f,F,T}
- bspc node -t {~fullscreen,floating,tiled}
+super + {f,F}
+ bspc node --state {~fullscreen,floating}
+
+# Tile window to the biggest node
+super + t
+ bspc node --to-node biggest.local; bspc node --state tiled
 
 ## Web Browser
 super + w
@@ -55,8 +59,8 @@ super + m; {h,j,k,l}
  bspc node --swap {west,south,north,east}
 
 ## Swap the node in the given direction
-super + m; {H,J,K,L}
- bspc node --to-node {west,south,north,east}
+super + m; {H,J,K,L,b}
+bspc node --to-node {west,south,north,east,biggest.local}
 
 # Flip vertically
 super + shift + {backslash,minus}

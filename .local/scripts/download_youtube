@@ -39,7 +39,7 @@ then
     format='/tmp/%(id)s.%(ext)s'
     youtube-dl --no-post-overwrites --output "$format" "$url" |
         stdbuf -oL tr '\r' '\n' | stdbuf -oL grep -Po '\d+(?=\.\d+%)' |
-            xargs -I'%' dunstify --timeout=60000 \
+            xargs -I'%' dunstify --timeout=60000 --icon="$thumbnail" \
             --hints=int:value:% --hints=string:x-dunst-stack-tag:${video_id} \
             "$creator" "$title"
 fi
