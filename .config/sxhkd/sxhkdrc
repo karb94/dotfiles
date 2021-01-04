@@ -60,7 +60,7 @@ super + m; {h,j,k,l}
 
 ## Swap the node in the given direction
 super + m; {H,J,K,L,b}
-bspc node --to-node {west,south,north,east,biggest.local}
+ bspc node --to-node {west,south,north,east,biggest.local; bspc node --state tiled}
 
 # Flip vertically
 super + shift + {backslash,minus}
@@ -95,3 +95,6 @@ super + {equal,minus}
 
 super + @p
  xdotool keyup Super_L+p && play &
+
+super + n
+ dunstctl action
