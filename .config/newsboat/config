@@ -2,10 +2,13 @@ unbind-key -a
 bind-key j down
 bind-key k up
 bind-key l open
+bind-key g home
+bind-key G end
 bind-key h quit
 bind-key / open-search
 bind-key q hard-quit
 bind-key n toggle-article-read
+bind-key N mark-all-above-as-read
 bind-key s toggle-show-read-feeds
 bind-key r reload-all
 bind-key SPACE macro-prefix

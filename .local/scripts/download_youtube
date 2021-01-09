@@ -2,8 +2,8 @@
 
 # Script to download videos form youtube with notification popup
 
-url="$1"
-video_id="${url#*=}"
+export url="$1"
+export video_id="${url#*=}"
 video_path=/tmp/"${video_id}".mkv
 
 # Get video length from source code
@@ -11,46 +11,93 @@ video_length_regex='"videoDetails":{.*?"lengthSeconds":"\K\d*'
 video_length=$(curl --silent "$url" | grep -Po "$video_length_regex")
 
 # If video is longer than 40 min
-[ $video_length -gt 2400 ] && exit 0
+[ "$video_length" -gt 2400 ] && exit 0
 
 # Get metadata (thumbnail, channel name and title)
 video_data=$(youtube-dl --quiet --get-thumbnail --get-filename \
     --output '%(uploader)s^%(title)s' "$1")
-thumbnail=$(mktemp)
-thumbnail_url=$(printf "$video_data" | head --lines=1 -)
-curl -s $thumbnail_url > "$thumbnail"
-if [ \( 'png' != "${thumbnail_url##*.}" \) \
-    -a \( 'jpg' != "${thumbnail_url##*.}" \) \
-    -a \( -n "${thumbnail_url##*jpg*}" \) ]
+export thumbnail=$(mktemp)
+thumbnail_url=$(printf '%s' "$video_data" | head --lines=1 -)
+curl -s "$thumbnail_url" > "$thumbnail"
+if  [ 'png' != "${thumbnail_url##*.}" ] &&
+    [ 'jpg' != "${thumbnail_url##*.}" ] &&
+    [ -n "${thumbnail_url##*jpg*}" ]
 then
     dwebp -quiet "$thumbnail" -o "$thumbnail".png
     rm "$thumbnail"
     thumbnail="$thumbnail".png
 fi
-creator_title=$(printf "$video_data" | tail --lines=1 -)
-creator="${creator_title%^*}"
-title="${creator_title#*^}"
+creator_title=$(printf '%s' "$video_data" | tail --lines=1 -)
+export creator="${creator_title%^*}"
+export title="${creator_title#*^}"
 title="$(printf '%s' "$title" | fold -sw 30 -)"
 
-# If file already exists print path and exit
+exit_code=0
+# If file already exists print path and exit if not, download it
 if [ ! -f "$video_path" ]
 then
-    # Download the video and pipe the progress to notify-send
-    format='/tmp/%(id)s.%(ext)s'
-    youtube-dl --no-post-overwrites --output "$format" "$url" |
-        stdbuf -oL tr '\r' '\n' | stdbuf -oL grep -Po '\d+(?=\.\d+%)' |
-            xargs -I'%' dunstify --timeout=60000 --icon="$thumbnail" \
-            --hints=int:value:% --hints=string:x-dunst-stack-tag:${video_id} \
+    export format='/tmp/%(id)s.%(ext)s'
+    yt_notify () {
+        dunstify \
+            --timeout=60000                                 \
+            --icon="$thumbnail"                             \
+            --hints=int:value:"$1"                          \
+            --hints=string:x-dunst-stack-tag:"$video_id"    \
             "$creator" "$title"
-fi
-# Print video path
-printf '%s' "$video_path"
+    }
+    export -f yt_notify
+    download_notify () {
+        youtube-dl --no-post-overwrites --output "$format" "$url" |
+            stdbuf -oL tr '\r' '\n' |
+            stdbuf -oL grep -Po '\d+(?=\.\d+%)' |
+            parallel yt_notify
+    }
+    export -f download_notify
 
-# Show notification
-action=$(dunstify --timeout=1200000 --icon="$thumbnail" \
-    --action=play,play_label --hints=string:x-dunst-stack-tag:${video_id} \
-    "$creator" "$title")
-rm "$thumbnail"
-[ "$action" = "play" ] && bspc rule --add mpv --one-shot \
-    desktop=$(bspc query -D -d) state=floating &&
-    mpv --no-terminal "$video_path" && rm "$video_path"
+    # Download the video and pipe the progress to notify-send
+    timeout --preserve-status 15s sh -c download_notify
+    exit_code=$?
+    if [ $exit_code != 0 ]
+    then
+        for run in {1..5}
+        do
+            timeout --preserve-status 15s sh -c download_notify
+            exit_code=$?
+            [ $exit_code = 0 ] && break
+        done
+    fi
+fi
+
+# If the video was downloaded successfully
+if [ $exit_code = 0 ]
+then
+    # Print video path
+    printf '%s' "$video_path"
+    completed_notify () {
+        dunstify                                            \
+            --timeout=1200000                               \
+            --icon="$thumbnail"                             \
+            --action=play,label                             \
+            --hints=string:x-dunst-stack-tag:"${video_id}"  \
+            "$creator [READY]" "$title"
+    }
+    floating_rule () {
+        bspc rule                           \
+            --add mpv                       \
+            --one-shot                      \
+            desktop="$(bspc query -D -d)"   \
+            state=floating
+    }
+    # Show notification
+    action=$(completed_notify)
+    [ "$action" = "play" ] && floating_rule && mpv --no-terminal "$video_path"
+else
+    dunstify                                            \
+        --timeout=5000                                  \
+        --icon="$thumbnail"                             \
+        --action=play,label                             \
+        --hints=string:x-dunst-stack-tag:"${video_id}"  \
+        "$creator [CANCELLED]" "$title" >/dev/null 
+fi
+
+rm "$thumbnail" "${video_path%.*}"*
