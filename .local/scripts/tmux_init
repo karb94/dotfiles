@@ -3,13 +3,34 @@
 # Starts a new session without attaching to it and run a command
 # Commands are separated by ';' which needs to be escaped in bash
 # If display size is messed up update the default-size in .tmux.conf
+# tmux \
+#     new-session -d -c "$HOME/phd/model_paper" -s "Model Paper" -n "Neovim" \; \
+#     send-keys -t "Model Paper:Neovim" C-L \; \
+#     send-keys -t "Model Paper:Neovim" \
+#         "$EDITOR paper.tex bibliography.bib"
+# sleep 1
+# tmux send-keys -t "Model Paper:Neovim" Enter
+    # send-keys -t \"Model Paper:Neovim\" \
+    # send-keys -t \"Model Paper:Neovim\" \
+    # \"$EDITOR paper.tex bibliography.bib\" Enter
+    #\; \
+    # new-session -d -c "$HOME/phd/CSG_model" -s "Model Code" -n "Neovim" \; \
+    # send-keys -t "Model Code:Neovim" C-L \
+    # "$EDITOR -O2 src/* include/*" Enter \; \
+    # new-window -d -n "Testing" -c "#{pane_current_path}" \; \
+    # new-window -d -n "Python scripts" -c "#{pane_current_path}/utils" \; \
+    # split-window -h -t "Model Code:Testing" -c "#{pane_current_path}/debug"
 tmux \
     new-session -d -c "$HOME/phd/model_paper" -s "Model Paper" -n "Neovim" \; \
-    send-keys -t "Model Paper:Neovim" C-L \
+    new-session -d -c "$HOME/phd/CSG_model" -s "Model Code" -n "Neovim"
+
+# Wait for the shells to start up in each session
+sleep 0.5
+
+tmux send-keys -t "Model Paper:Neovim" C-L \
         "$EDITOR paper.tex bibliography.bib" Enter \; \
-    new-session -d -c "$HOME/phd/CSG_model" -s "Model Code" -n "Neovim" \; \
-        send-keys -t "Model Code:Neovim" C-L \
+    send-keys -t "Model Code:Neovim" C-L \
         "$EDITOR -O2 src/* include/*" Enter \; \
-        new-window -d -n "Testing" -c "#{pane_current_path}" \; \
-        new-window -d -n "Python scripts" -c "#{pane_current_path}/utils" \; \
-        split-window -h -t "Model Code:Testing" -c "#{pane_current_path}/debug"
+    new-window -d -n "Testing" -c "#{pane_current_path}" \; \
+    new-window -d -n "Python scripts" -c "#{pane_current_path}/utils" \; \
+    split-window -h -t "Model Code:Testing" -c "#{pane_current_path}/debug"

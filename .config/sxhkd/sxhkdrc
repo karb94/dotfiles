@@ -91,7 +91,7 @@ super + b
  polybar-msg cmd toggle
 
 super + {equal,minus}
- pactl set-sink-volume @DEFAULT_SINK@ {+,-}10%
+ pactl set-sink-volume @DEFAULT_SINK@ {+,-}5% && xob_volume
 
 super + @p
  xdotool keyup Super_L+p && play &

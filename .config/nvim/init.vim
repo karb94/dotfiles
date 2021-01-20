@@ -106,6 +106,7 @@ call Set_git_path()
 " CALL PLUGINS
 "==============================================================================
 " {{{
+packadd termdebug
 
 call plug#begin()
 
@@ -192,7 +193,7 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}}
 
-Plug 'karb94/TermDebug'
+" Plug 'karb94/TermDebug'
 Plug 'karb94/jupytext.vim'
 " {{{
 let g:jupytext_fmt = 'py:light'
@@ -287,7 +288,7 @@ let g:vimtex_grammar_textidote = {
 
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 " {{{
-" let g:loaded_nvimgdb = 0
+let g:loaded_nvimgdb = 1
 function! NvimGdbNoTKeymaps()
     tnoremap <silent> <buffer> <esc> <c-\><c-n>
 endfunction
@@ -341,6 +342,7 @@ nnoremap <silent> <leader>Q :qa!<CR>
 nnoremap <silent> <leader>w :w<CR>
 nnoremap <silent> <leader>x :x<CR>
 nnoremap <silent> <leader>X :xa<CR>
+nnoremap <silent> <leader>v <C-v>
 nnoremap <silent> ]t :tabn<CR>
 nnoremap <silent> [t :tabp<CR>
 " nnoremap <leader>b :b 
@@ -368,17 +370,17 @@ tnoremap <C-]> <C-\><C-n>
 " TermDebugger mappings
 nnoremap <silent> <leader>m :w<CR>:Neomake! make<CR>
 nnoremap <silent> <leader>d :w<CR>:Neomake! debug<CR>
-" nmap <silent> ,n :Over<CR>
-" nmap <silent> ,s :Step<CR>
-" nmap <silent> ,c :call TermDebugSendCommand('continue')<CR>
-" nmap <silent> ,l :Clear<CR>
-" nmap <silent> ,e :Evaluate<CR>
-" nmap <silent> ,b :Break<CR>
-" nmap <silent> ,ib :call TermDebugSendCommand('info break')<CR>
-" nmap <silent> ,iw :call TermDebugSendCommand('info watch')<CR>
-" nmap <silent> ,d :call TermDebugSendCommand('delete')<CR>
-" nmap <silent> ,q :Gdb<CR>:startinsert<CR>q<CR>:redraw!
-" nmap <silent> ,r :Run<CR>
+nmap <silent> ,n :Over<CR>
+nmap <silent> ,s :Step<CR>
+nmap <silent> ,c :call TermDebugSendCommand('continue')<CR>
+nmap <silent> ,l :Clear<CR>
+nmap <silent> ,e :Evaluate<CR>
+nmap <silent> ,b :Break<CR>
+nmap <silent> ,ib :call TermDebugSendCommand('info break')<CR>
+nmap <silent> ,iw :call TermDebugSendCommand('info watch')<CR>
+nmap <silent> ,d :call TermDebugSendCommand('delete')<CR>
+nmap <silent> ,q :Gdb<CR>:startinsert<CR>q<CR>:redraw!
+nmap <silent> ,r :Run<CR>
 let s:fivep = float2nr(0.10*winheight(0))
 exec "nnoremap J ".s:fivep."<C-e>"
 exec "nnoremap K ".s:fivep."<C-y>"

@@ -11,7 +11,7 @@ video_length_regex='"videoDetails":{.*?"lengthSeconds":"\K\d*'
 video_length=$(curl --silent "$url" | grep -Po "$video_length_regex")
 
 # If video is longer than 40 min
-[ "$video_length" -gt 2400 ] && exit 0
+# [ "$video_length" -gt 2400 ] && exit 0
 
 # Get metadata (thumbnail, channel name and title)
 video_data=$(youtube-dl --quiet --get-thumbnail --get-filename \
@@ -55,11 +55,11 @@ then
     export -f download_notify
 
     # Download the video and pipe the progress to notify-send
-    timeout --preserve-status 15s sh -c download_notify
+    timeout --preserve-status 30s sh -c download_notify
     exit_code=$?
     if [ $exit_code != 0 ]
     then
-        for run in {1..5}
+        for run in {1..10}
         do
             timeout --preserve-status 15s sh -c download_notify
             exit_code=$?
@@ -75,7 +75,7 @@ then
     printf '%s' "$video_path"
     completed_notify () {
         dunstify                                            \
-            --timeout=1200000                               \
+            --timeout=1000000                               \
             --icon="$thumbnail"                             \
             --action=play,label                             \
             --hints=string:x-dunst-stack-tag:"${video_id}"  \

@@ -20,6 +20,13 @@ s () {
     setsid -f "$@"; exit
 }
 
+misc () {
+    cmd="$(cat $HOME/.local/scripts/miscellaneous | fzf)"
+    cmd=${cmd%#*}
+    history -s "$cmd"
+    $cmd
+}
+
 lfcd () {
     tmp="$(mktemp)"
     lf -last-dir-path="$tmp" "$@"

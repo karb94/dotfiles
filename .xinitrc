@@ -31,12 +31,17 @@ done
 unset f
 fi
 
-test -f $HOME/.local/scripts/tmux_init && . $HOME/.local/scripts/tmux_init
 
+# xsetroot -cursor_name left_ptr solves problem with "cross" cursor
 picom -CG &
 xsetroot -cursor_name left_ptr &
+hsetroot -solid "#000000" &
 unclutter --timeout 1 --ignore-scrolling &
 dunst &
+command -v xob && mkfifo /tmp/xob_volume >/dev/null 2>&1
+    (tail -f /tmp/xob_volume | xob -s volume >/dev/null 2>&1) &
+[ -f $HOME/.local/scripts/tmux_init ] &&
+    $HOME/.local/scripts/tmux_init &
 sxhkd -m -1 &
 test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
         xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &

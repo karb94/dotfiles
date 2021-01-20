@@ -17,6 +17,8 @@ $if mode=vi
     "\C-L": clear-screen
     "\t": menu-complete
     "\e[Z": menu-complete-backward
+    "\C-J": yank-last-arg
+    # "\C-J": insert-last-argument
     set keymap vi-command
     "\C-a": "^cW"
     # "\C-j": "A !$\015"
@@ -26,6 +28,7 @@ $if mode=vi
     "\C-n": next-history
     "H": beginning-of-line
     "L": end-of-line
+    "\C-J": yank-last-arg
 
     set show-mode-in-prompt on
     set vi-cmd-mode-string \1\e[2 q\2\1\2
