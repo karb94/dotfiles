@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker foldlevel=1 nomodeline:
+" vim: set foldmethod=marker foldlevel=0:
 " Check what os is vim running under
 let g:os = substitute(system('uname'), '\n', '', '')
 
@@ -37,7 +37,9 @@ set relativenumber number
 " Allow mouse interaction in normal mode
 set mouse=n
 " Show cursorline, colorcolumn and signcolumn
-set cursorline colorcolumn=81 signcolumn=yes
+set colorcolumn=81 signcolumn=yes
+" Show cursorline
+setlocal cursorline
 " Less laggy than syntax mode
 set foldmethod=manual
 " Sets g flag on all substitutions by default
@@ -75,9 +77,10 @@ autocmd InsertLeave * set timeoutlen=600 " Time waited for mappings
 let g:termdebug_wide = 1
 
 " Set python3 bin path
-if g:os == "Darwin"
-    let g:python3_host_prog='$HOME/miniconda3/envs/neovim/bin/python'
-endif
+" if g:os == "Darwin"
+"     let g:python3_host_prog='$HOME/miniconda3/envs/neovim/bin/python'
+" endif
+let g:python3_host_prog='/usr/bin/python'
 
 " Set vim path
 " Set a base &path
@@ -101,15 +104,15 @@ endfunction
 call Set_git_path()
 " }}}
 
-
 "==============================================================================
 " CALL PLUGINS
 "==============================================================================
 " {{{
-packadd termdebug
 
+packadd termdebug
 call plug#begin()
 
+Plug 'karb94/neo-smooth-scroll.nvim'
 Plug 'machakann/vim-highlightedyank'
 let g:highlightedyank_highlight_duration = 150
 Plug 'machakann/vim-sandwich'
@@ -121,6 +124,8 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'morhetz/gruvbox'
 Plug 'justinmk/vim-dirvish'
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "neovim"
 
 " Google auto-formating
 Plug 'google/vim-maktaba'
@@ -286,32 +291,13 @@ let g:vimtex_grammar_textidote = {
             \}
 " }}}
 
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
-" {{{
-let g:loaded_nvimgdb = 1
-function! NvimGdbNoTKeymaps()
-    tnoremap <silent> <buffer> <esc> <c-\><c-n>
-endfunction
-
-let g:nvimgdb_config_override = {
-            \ 'codewin_command': 'vnew',
-            \ 'key_next': 'n',
-            \ 'key_step': 's',
-            \ 'key_finish': 'f',
-            \ 'key_continue': 'c',
-            \ 'key_until': 'u',
-            \ 'key_breakpoint': 'b',
-            \ 'set_tkeymaps': "NvimGdbNoTKeymaps",
-            \ }
-" }}}
-
 call plug#end()
 " }}}
-
 
 "==============================================================================
 " POST-PLUG
 "==============================================================================
+" {{{
 " Google auto-formating
 call glaive#Install()
 " coc-python
@@ -320,8 +306,10 @@ if $CONDA_PREFIX == ""
 else
     let s:current_python_path=$CONDA_PREFIX.'/bin/python'
 endif
+let s:current_python_path='/usr/bin/python'
 call coc#config('python', {'pythonPath': s:current_python_path})
 
+" }}}
 
 "==============================================================================
 " MAPPINGS
@@ -336,7 +324,7 @@ nnoremap <silent> <leader>B :b#<CR>
 nnoremap <leader>e :cc<CR>
 " nnoremap <leader>v :vsplit<CR><C-w>w
 " nnoremap <C-w> <C-w>w
-nnoremap <silent> <tab> <C-w><C-w>:if &buftype==#'quickfix'\|wincmd w\|endif<CR>
+" nnoremap <silent> <tab> <C-w><C-w>:if &buftype==#'quickfix'\|wincmd w\|endif<CR>
 nnoremap <silent> <leader>q :q!<CR>
 nnoremap <silent> <leader>Q :qa!<CR>
 nnoremap <silent> <leader>w :w<CR>
@@ -373,7 +361,7 @@ nnoremap <silent> <leader>d :w<CR>:Neomake! debug<CR>
 nmap <silent> ,n :Over<CR>
 nmap <silent> ,s :Step<CR>
 nmap <silent> ,c :call TermDebugSendCommand('continue')<CR>
-nmap <silent> ,l :Clear<CR>
+nmap <silent> ,B :Clear<CR>
 nmap <silent> ,e :Evaluate<CR>
 nmap <silent> ,b :Break<CR>
 nmap <silent> ,ib :call TermDebugSendCommand('info break')<CR>
@@ -385,7 +373,6 @@ let s:fivep = float2nr(0.10*winheight(0))
 exec "nnoremap J ".s:fivep."<C-e>"
 exec "nnoremap K ".s:fivep."<C-y>"
 " }}}
-
 
 "==============================================================================
 " COLORSCHEME
@@ -404,8 +391,8 @@ endif
 " Highlight commands alwasy after setting the colorscheme
 highlight debugPC term=reverse ctermbg=darkblue guibg=darkblue
 highlight debugBreakpoint term=reverse ctermbg=red guibg=red
+highlight CursorLineNr guifg=#fabd2f guibg=#1d2021
 " }}}
-
 
 "==============================================================================
 " FUNCTIONS
@@ -517,7 +504,7 @@ function! ToggleDebuggingMode()
     call DisableDebuggingMode()
   endif
 endfunction
-nnoremap <silent> <leader>t :call ToggleDebuggingMode()<CR>
+" nnoremap <silent> <leader>t :call ToggleDebuggingMode()<CR>
 
 function! EnableReadingMode()
   setlocal nonumber norelativenumber nocursorline colorcolumn=

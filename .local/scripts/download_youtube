@@ -2,23 +2,48 @@
 
 # Script to download videos form youtube with notification popup
 
+completed_notify () {
+    dunstify                                            \
+        --timeout=1000000                               \
+        --icon="$thumbnail"                             \
+        --action=play,label                             \
+        --hints=string:x-dunst-stack-tag:"${video_id}"  \
+        "$creator [LIVE]" "$title"
+    }
+floating_rule () {
+    bspc rule                           \
+        --add mpv                       \
+        --one-shot                      \
+        desktop="$(bspc query -D -d)"   \
+        state=floating
+    }
+
 export url="$1"
-export video_id="${url#*=}"
+
+metadata=$(mktemp)
+youtube-dl -J "$url" > "$metadata"
+# If it's a live stream
+if jq --exit-status '.is_live' "$metadata" >/dev/null
+then
+    # Show notification
+    action=$(completed_notify)
+    [ "$action" = "play" ] &&
+        floating_rule &&
+        youtube-dl -o - "$url" | mpv --no-terminal "$video_path" &&
+        exit 0
+fi
+
+export video_id="$(jq --raw-output '.id' "$metadata")"
 video_path=/tmp/"${video_id}".mkv
+length="$(jq --raw-output '.duration' "$metadata")"
+thumbnail_url="$(jq --raw-output '.thumbnail' "$metadata")"
+export title="$(jq --raw-output '.title' "$metadata" | fold -sw 30 -)"
+export creator="$(jq --raw-output '.uploader' "$metadata")"
 
-# Get video length from source code
-video_length_regex='"videoDetails":{.*?"lengthSeconds":"\K\d*'
-video_length=$(curl --silent "$url" | grep -Po "$video_length_regex")
 
-# If video is longer than 40 min
-# [ "$video_length" -gt 2400 ] && exit 0
-
-# Get metadata (thumbnail, channel name and title)
-video_data=$(youtube-dl --quiet --get-thumbnail --get-filename \
-    --output '%(uploader)s^%(title)s' "$1")
 export thumbnail=$(mktemp)
-thumbnail_url=$(printf '%s' "$video_data" | head --lines=1 -)
 curl -s "$thumbnail_url" > "$thumbnail"
+# Convert into png/jpg format if necessary
 if  [ 'png' != "${thumbnail_url##*.}" ] &&
     [ 'jpg' != "${thumbnail_url##*.}" ] &&
     [ -n "${thumbnail_url##*jpg*}" ]
@@ -27,10 +52,6 @@ then
     rm "$thumbnail"
     thumbnail="$thumbnail".png
 fi
-creator_title=$(printf '%s' "$video_data" | tail --lines=1 -)
-export creator="${creator_title%^*}"
-export title="${creator_title#*^}"
-title="$(printf '%s' "$title" | fold -sw 30 -)"
 
 exit_code=0
 # If file already exists print path and exit if not, download it
@@ -90,7 +111,10 @@ then
     }
     # Show notification
     action=$(completed_notify)
-    [ "$action" = "play" ] && floating_rule && mpv --no-terminal "$video_path"
+    [ "$action" = "play" ] &&
+        floating_rule &&
+        mpv --no-terminal "$video_path" &&
+        rm "$thumbnail" "${video_path%.*}"*
 else
     dunstify                                            \
         --timeout=5000                                  \
@@ -98,6 +122,6 @@ else
         --action=play,label                             \
         --hints=string:x-dunst-stack-tag:"${video_id}"  \
         "$creator [CANCELLED]" "$title" >/dev/null 
-fi
 
-rm "$thumbnail" "${video_path%.*}"*
+    rm "$thumbnail" "${video_path%.*}"*
+fi

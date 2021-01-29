@@ -24,6 +24,9 @@ set scrolloff 10
 set sortby time
 set reverse
 
+# Previews
+set previewer ~/.config/lf/previewer.sh
+set cleaner ~/.config/lf/clear_img.sh
 
 # use enter for shell commands
 map <enter> shell
