@@ -48,6 +48,8 @@ set gdefault
 set incsearch smartcase ignorecase hlsearch
 " Live substitution command
 set inccommand=split
+" Lua syntax highlighting inside vimscript
+let g:vimsyn_embed = 'l'
 " To what register you yank to
 set clipboard+=unnamedplus
 " Fix redrawing issues only with fast connections
@@ -121,11 +123,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'wellle/targets.vim'
 Plug 'romainl/vim-cool'
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
-Plug 'jackguo380/vim-lsp-cxx-highlight'
-Plug 'morhetz/gruvbox'
-Plug 'justinmk/vim-dirvish'
-Plug 'jpalardy/vim-slime'
-let g:slime_target = "neovim"
+
+" Lua port of gruvbox
+Plug 'rktjmp/lush.nvim'
+Plug 'karb94/gruvbox.nvim'
 
 " Google auto-formating
 Plug 'google/vim-maktaba'
@@ -148,13 +149,6 @@ nnoremap <leader>f :GFiles<CR>
 nnoremap <leader>F :Files<CR>
 nnoremap <leader>l :BLines<CR>
 nnoremap <leader>g :Rg<CR>
-" }}}
-
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-" {{{
-let g:semshi#excluded_hl_groups = ['local','unresolved','parameterUnused']
-let g:semshi#mark_selected_nodes = 0
-let g:semshi#error_sign = v:false
 " }}}
 
 Plug 'neomake/neomake'
@@ -219,35 +213,6 @@ autocmd BufRead,BufNewFile *.ipynb set foldmethod="marker"
 " xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
 " " }}}
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" {{{
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <C-q> coc#float#close_all()
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=50
-" Remap keys for gotos
-nmap <leader>i <Plug>(coc-diagnostic-info)
-nmap <silent> ]e <Plug>(coc-diagnostic-next)
-nmap <silent> [e <Plug>(coc-diagnostic-prev)
-nmap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> <leader>h :CocCommand clangd.switchSourceHeader<CR>
-nmap <silent> gd <Plug>(coc-definition)
-" Introduce function text object
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-"CocList
-nnoremap <silent> <leader>gm :CocList --normal --no-sort outline -kind Method<CR>
-
-" }}}
-
 Plug 'SirVer/ultisnips'
 " {{{
 "Stupid workaround
@@ -291,6 +256,10 @@ let g:vimtex_grammar_textidote = {
             \}
 " }}}
 
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/completion-nvim'
+
 call plug#end()
 " }}}
 
@@ -300,15 +269,8 @@ call plug#end()
 " {{{
 " Google auto-formating
 call glaive#Install()
-" coc-python
-if $CONDA_PREFIX == ""
-    let s:current_python_path="$HOME/miniconda3/envs/default"
-else
-    let s:current_python_path=$CONDA_PREFIX.'/bin/python'
-endif
-let s:current_python_path='/usr/bin/python'
-call coc#config('python', {'pythonPath': s:current_python_path})
 
+lua require('plugins_config/lsp')
 " }}}
 
 "==============================================================================
@@ -319,6 +281,8 @@ call coc#config('python', {'pythonPath': s:current_python_path})
 " vnoremap lk <Esc>
 inoremap <C-j> <C-n>
 inoremap <C-k> <C-p>
+cnoremap <C-j> <C-n>
+cnoremap <C-k> <C-p>
 nnoremap <silent> <leader>B :b#<CR>
 " nnoremap <leader>b :b 
 nnoremap <leader>e :cc<CR>
@@ -379,7 +343,7 @@ exec "nnoremap K ".s:fivep."<C-y>"
 "==============================================================================
 " {{{
 
-if has_key(plugs, 'gruvbox')
+if has_key(plugs, 'gruvbox.nvim')
     let g:gruvbox_sign_column = 'bg0'
     set termguicolors
     colorscheme gruvbox
@@ -399,8 +363,10 @@ highlight CursorLineNr guifg=#fabd2f guibg=#1d2021
 "==============================================================================
 " {{{
 
-function! SmallWordMotion(count, vmode, forward)
+function! SmallWordMotion(count, vmode, forward, start)
     let l:flag = a:forward ? '' : 'b'
+    echo l:flag
+    let l:flag = a:start ? l:flag : l:flag . 'e'
     let l:regex = '\C\v(\u?\l+|\u+|[^A-Za-z ]{2,}|(^|\s)\zs[^A-Za-z ]+(\s|$))'
     if a:vmode
         normal gv
@@ -409,13 +375,16 @@ function! SmallWordMotion(count, vmode, forward)
         call search(l:regex, l:flag, line('.'))
     endfor
 endfunction
-nnoremap <silent> w :<C-u>call SmallWordMotion(v:count1,0,1)<CR>
-xnoremap <silent> w :<c-u>call SmallWordMotion(v:count1,1,1)<CR>
-onoremap <silent> w :<c-u>call SmallWordMotion(v:count1,0,1)<CR>
-nnoremap <silent> b :<C-u>call SmallWordMotion(v:count1,0,0)<CR>
-xnoremap <silent> b :<c-u>call SmallWordMotion(v:count1,1,0)<CR>
-onoremap <silent> b :<c-u>call SmallWordMotion(v:count1,0,0)<CR>
-nnoremap  cw cw
+nnoremap <silent> w :<C-u>call SmallWordMotion(v:count1,0,1,1)<CR>
+onoremap <silent> w :<c-u>call SmallWordMotion(v:count1,0,1,1)<CR>
+xnoremap <silent> w :<c-u>call SmallWordMotion(v:count1,1,1,1)<CR>
+nnoremap <silent> b :<C-u>call SmallWordMotion(v:count1,0,0,1)<CR>
+onoremap <silent> b v:<c-u>call SmallWordMotion(v:count1,0,0,1)<CR>
+xnoremap <silent> b :<c-u>call SmallWordMotion(v:count1,1,0,1)<CR>
+nnoremap <silent> e :<C-u>call SmallWordMotion(v:count1,0,1,0)<CR>
+onoremap <silent> e v:<c-u>call SmallWordMotion(v:count1,0,1,0)<CR>
+xnoremap <silent> e :<c-u>call SmallWordMotion(v:count1,1,1,0)<CR>
+" nnoremap  cw cw
 
 function! InsideSmallWord(count)
     let l:line = line('.')
@@ -468,7 +437,6 @@ xnoremap <silent> in :<c-u>call InsideNumbers(v:count1)<cr>
 onoremap <silent> in :<c-u>call InsideNumbers(v:count1)<cr>
 
 " }}}
-" fewfwafEfsdfaGfsf_fasf.fasf
 "==============================================================================
 " AUTOCOMMANDS
 "==============================================================================
