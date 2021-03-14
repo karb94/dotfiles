@@ -1,7 +1,7 @@
 local on_attach = function(client, bufnr)
     require('completion').on_attach()
 
-    vim.api.nvim_buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     local lsp_set_map = function(mode, key, lsp_func)
         func = "<cmd>lua vim.lsp." .. lsp_func .. "<CR>"
         opts = {noremap = true, silent = true}

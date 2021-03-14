@@ -34,6 +34,10 @@ set hidden
 set backspace=indent,eol,start
 " Show relative line numbers and current line number
 set relativenumber number
+" Better popup menu
+set completeopt=menuone,noinsert,noselect
+" Popup menu height
+set pumheight=7
 " Allow mouse interaction in normal mode
 set mouse=n
 " Show cursorline, colorcolumn and signcolumn
