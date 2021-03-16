@@ -369,7 +369,6 @@ highlight CursorLineNr guifg=#fabd2f guibg=#1d2021
 
 function! SmallWordMotion(count, vmode, forward, start)
     let l:flag = a:forward ? '' : 'b'
-    echo l:flag
     let l:flag = a:start ? l:flag : l:flag . 'e'
     let l:regex = '\C\v(\u?\l+|\u+|[^A-Za-z ]{2,}|(^|\s)\zs[^A-Za-z ]+(\s|$))'
     if a:vmode

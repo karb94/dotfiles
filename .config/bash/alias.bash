@@ -45,10 +45,12 @@ alias p='$PAGER'
 alias h='cd $HOME' 
 alias cfg='$HOME/.config'
 
-# Conda environments
+# Environments
 alias ds='conda activate data_science'
 alias ac='conda activate'
 alias da='conda deactivate'
+alias ae='. env/bin/activate'
+alias de='deactivate'
 
 # Network connections
 alias q='qstat -u cr216'

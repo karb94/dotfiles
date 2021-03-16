@@ -1,0 +1,31 @@
+#! /bin/sh
+
+VM_NAME='scraper'
+
+IMAGE_PROJECT='debian-cloud'
+IMAGE_FAMILY='debian-10'
+BOOT_DISK_TYPE='pd-standard' # local-ssd | pd-balanced | pd-ssd | pd-standard 
+BOOT_DISK_SIZE='40GB'
+CUSTOM_CPU=8
+CUSTOM_MEMORY='32GB'
+STARTUP_SCRIPT='
+#! /bin/sh
+
+sudo apt -y update
+sudo apt -y upgrade
+sudo apt -y install git python3 python3-pip python3-venv psutils psmisc unzip htop chromium
+curl -sSO https://dl.google.com/cloudagents/add-monitoring-agent-repo.sh &&
+    sudo bash add-monitoring-agent-repo.sh &&
+    sudo apt-get update
+sudo apt-get install -y stackdriver-agent
+rm add-monitoring-agent-repo.sh
+'
+
+gcloud compute instances create "$VM_NAME" \
+    --image-project="$IMAGE_PROJECT" \
+    --image-family="$IMAGE_FAMILY" \
+    --boot-disk-type="$BOOT_DISK_TYPE" \
+    --boot-disk-size="$BOOT_DISK_SIZE" \
+    --custom-cpu="$CUSTOM_CPU" \
+    --custom-memory="$CUSTOM_MEMORY" \
+    --metadata=startup-script="$STARTUP_SCRIPT"
