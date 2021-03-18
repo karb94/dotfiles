@@ -291,11 +291,11 @@ nnoremap <silent> <leader>B :b#<CR>
 " nnoremap <leader>b :b 
 nnoremap <leader>e :cc<CR>
 " nnoremap <leader>v :vsplit<CR><C-w>w
-" nnoremap <C-w> <C-w>w
+nnoremap <leader>w <C-w>
 " nnoremap <silent> <tab> <C-w><C-w>:if &buftype==#'quickfix'\|wincmd w\|endif<CR>
 nnoremap <silent> <leader>q :q!<CR>
 nnoremap <silent> <leader>Q :qa!<CR>
-nnoremap <silent> <leader>w :w<CR>
+nnoremap <silent> <C-w> :w<CR>
 nnoremap <silent> <leader>x :x<CR>
 nnoremap <silent> <leader>X :xa<CR>
 nnoremap <silent> <leader>v <C-v>

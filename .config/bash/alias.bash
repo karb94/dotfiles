@@ -24,6 +24,7 @@ alias sd='shutdown 0'
 # Editing
 alias e='$EDITOR'
 alias se='sudo -E $EDITOR'
+alias es='$EDITOR -S Session.vim'
 alias eb='$EDITOR ~/.config/bash/config.bash'
 alias eal='$EDITOR ~/.config/bash/alias.bash'
 alias efu='$EDITOR ~/.config/bash/functions.bash'
