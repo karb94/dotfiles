@@ -295,7 +295,7 @@ nnoremap <leader>w <C-w>
 " nnoremap <silent> <tab> <C-w><C-w>:if &buftype==#'quickfix'\|wincmd w\|endif<CR>
 nnoremap <silent> <leader>q :q!<CR>
 nnoremap <silent> <leader>Q :qa!<CR>
-nnoremap <silent> <C-w> :w<CR>
+nnoremap <silent> <leader>s :w<CR>
 nnoremap <silent> <leader>x :x<CR>
 nnoremap <silent> <leader>X :xa<CR>
 nnoremap <silent> <leader>v <C-v>
