@@ -22,14 +22,12 @@ vim.o.ignorecase      = true                        -- Ignore case in search pat
 vim.o.smartcase       = true                        -- Case-sensitive search if the search pattern contains uppercase letters
 vim.o.inccommand      = 'split'                     -- Live substitution command
 vim.o.clipboard       = 'unnamedplus'               -- To what register you yank to
-scrolloff             = vim.fn.float2nr(0.15 * vim.fn.winheight(0))
-vim.o.scrolloff       = scrolloff                   -- Top/bottom lines of margins
+vim.o.joinspaces      = false	
 vim.o.wildignorecase  = true                        -- Greedy command line completion
-vim.o.tabstop         = 4                           -- 4 whitespaces for <Tab>
-vim.o.shiftwidth      = 4                           -- 4 whitespaces for (auto)indent
-vim.o.expandtab       = true                        -- expands all tabs to tabstop whitespaces
-vim.o.smartindent     = true                        -- Better autoindent
-vim.o.laststatus      = 2                           -- Always show status bar
+vim.bo.tabstop         = 4                           -- 4 whitespaces for <Tab>
+vim.bo.shiftwidth     = 4                           -- 4 whitespaces for (auto)indent
+vim.bo.expandtab      = true                        -- expands all tabs to tabstop whitespaces
+vim.bo.smartindent    = true                        -- Better autoindent
 statusline            = [[\ %f\ %y\ %r\ %m%=Column:\ %c\ \ \|\ \ %P\ \ ]]
 vim.o.statusline      = statusline                  -- Define status line
 vim.o.ttimeoutlen     = 0                           -- Time waited for key codes
@@ -48,3 +46,6 @@ vim.g.python3_host_prog = '/usr/bin/python'
 vim.g.mapleader       = ' '                         -- Set leader key
 vim.b.maplocalleader  = ','                         -- Set local leader key
 vim.g.vimsyn_embed    = 'l'                         -- Lua syntax highlighting inside vimscript
+
+-- scrolloff             = vim.fn.float2nr(0.15 * vim.fn.winheight(0))
+-- vim.o.scrolloff       = scrolloff                   -- Top/bottom lines of margins
