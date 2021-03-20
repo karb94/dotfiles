@@ -6,28 +6,7 @@ let g:os = substitute(system('uname'), '\n', '', '')
 " SETTINGS
 "==============================================================================
 " {{{
-
 lua require('options')
-" Set vim path
-" Set a base &path
-
-set path=.,,
-" If inside git repo, add git directory to path
-function! Set_git_path()
-    call system("git rev-parse --is-inside-work-tree")
-    let g:inside_git_repo = v:shell_error == 0
-    if g:inside_git_repo
-        let g:git_root_dir=trim(system("git rev-parse --show-toplevel"))
-        let &path = g:git_root_dir
-        let l:git_dirs = systemlist("git ls-tree -dr --full-tree --name-only HEAD")
-        if empty(l:git_dirs)
-            return
-        endif
-        let l:git_abs_dirs = map(l:git_dirs, { idx, val -> g:git_root_dir . '/' . val })
-        let &path .= ',' . join(l:git_abs_dirs, ',')
-    endif
-endfunction
-call Set_git_path()
 " }}}
 
 "==============================================================================
