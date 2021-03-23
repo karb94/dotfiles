@@ -1,6 +1,6 @@
 " vim: set foldmethod=marker foldlevel=0:
 " Check what os is vim running under
-let g:os = substitute(system('uname'), '\n', '', '')
+" let g:os = substitute(system('uname'), '\n', '', '')
 
 "==============================================================================
 " SETTINGS
@@ -12,48 +12,13 @@ lua require('options')
 "==============================================================================
 " CALL PLUGINS
 "==============================================================================
-" {{{
+"" {{{
 
-packadd termdebug
+"packadd termdebug
+"" QUICK PLUGIN OPTIONS
+"" vim-highlightedyank
+
 call plug#begin()
-
-Plug 'karb94/neo-smooth-scroll.nvim'
-Plug 'machakann/vim-highlightedyank'
-let g:highlightedyank_highlight_duration = 150
-Plug 'machakann/vim-sandwich'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'wellle/targets.vim'
-Plug 'romainl/vim-cool'
-Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'py' }
-
-" Lua port of gruvbox
-Plug 'rktjmp/lush.nvim'
-Plug 'karb94/gruvbox.nvim'
-
-" Google auto-formating
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
-
-Plug 'junegunn/goyo.vim'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-" {{{
-let g:fzf_layout = { 'window': {
-            \ 'width': 1.0,
-            \ 'height': 0.3,
-            \ 'yoffset': 1.0
-            \ } }
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>R :History:<CR>
-nnoremap <leader>f :GFiles<CR>
-nnoremap <leader>F :Files<CR>
-nnoremap <leader>l :BLines<CR>
-nnoremap <leader>g :Rg<CR>
-" }}}
-
 Plug 'neomake/neomake'
 " {{{
 let g:neomake_virtualtext_current_error=0
@@ -86,6 +51,7 @@ let g:neomake_open_list = 2
 nnoremap <silent> <leader>m :w<CR>:Neomake!<CR>
 " }}}
 
+" Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
 Plug 'junegunn/vim-easy-align'
 " {{{
 let g:easy_align_ignore_groups = []
@@ -94,27 +60,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 " }}}
-
-" Plug 'karb94/TermDebug'
-Plug 'karb94/jupytext.vim'
-" {{{
-let g:jupytext_fmt = 'py:light'
-autocmd BufRead,BufNewFile *.ipynb set foldmethod="marker"
-" }}}
-
-" Plug 'justinmk/vim-sneak'
-" " {{{
-" " let g:sneak#no_default_mappings = 1
-" let g:sneak#use_ic_scs = 1
-" let g:sneak#map_netrw = 0
-" let g:sneak#target_labels = ";ftuvnqz/SFGHLTUNRMQZ"
-" let g:sneak#label = 1
-" highlight Sneak ctermfg=Black ctermbg=226 cterm=bold
-" nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
-" nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
-" xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
-" xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
-" " }}}
 
 Plug 'SirVer/ultisnips'
 " {{{
@@ -159,21 +104,16 @@ let g:vimtex_grammar_textidote = {
             \}
 " }}}
 
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-lua/completion-nvim'
-
 call plug#end()
+
+lua require('plugins')
 " }}}
 
 "==============================================================================
 " POST-PLUG
 "==============================================================================
 " {{{
-" Google auto-formating
-call glaive#Install()
 
-lua require('plugins_config/lsp')
 " }}}
 
 "==============================================================================
@@ -246,19 +186,6 @@ exec "nnoremap K ".s:fivep."<C-y>"
 "==============================================================================
 " {{{
 
-if has_key(plugs, 'gruvbox.nvim')
-    let g:gruvbox_sign_column = 'bg0'
-    set termguicolors
-    colorscheme gruvbox
-    let g:gruvbox_contrast_dark = 'hard'
-    let g:gruvbox_contrast_light = 'soft'
-    let g:gruvbox_sign_column = 'bg0'
-    set background=dark
-endif
-" Highlight commands alwasy after setting the colorscheme
-highlight debugPC term=reverse ctermbg=darkblue guibg=darkblue
-highlight debugBreakpoint term=reverse ctermbg=red guibg=red
-highlight CursorLineNr guifg=#fabd2f guibg=#1d2021
 " }}}
 
 "==============================================================================
@@ -406,11 +333,18 @@ function! ToggleReadingMode()
   endif
 endfunction
 nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
+function! SetScrolloff()
+    l:lines = float2nr(0.15*winheight(0))
+    echo l:lines
+    let &l:scrolloff=l:lines
+endfunction
 if !&diff
     augroup initialization
         au!
         autocmd WinEnter * if (&l:buftype == '' && !exists('b:ReadingMode')) |
-                    \ setlocal relativenumber cursorline | endif
+                    \ setlocal relativenumber cursorline |
+                    \ let &l:scrolloff=float2nr(0.15*winheight(0)) |
+                    \ endif
         autocmd WinLeave * if (&l:buftype == '' && !exists('b:ReadingMode')) |
                     \ setlocal norelativenumber nocursorline | endif
         autocmd BufEnter * if &l:buftype == 'help' |
@@ -439,17 +373,17 @@ augroup spellChecking
 augroup END
 
 " Fix for CursorLine highlighting (see neovim issue #9019)
-function! s:CustomizeColors()
-	if has('guirunning') || has('termguicolors')
-		let cursorline_gui=''
-		let cursorline_cterm='ctermfg=white'
-	else
-		let cursorline_gui='guifg=white'
-		let cursorline_cterm=''
-	endif
-	exec 'hi CursorLine ' . cursorline_gui . ' ' . cursorline_cterm 
-endfunction
-augroup OnColorScheme
-	autocmd!
-	autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
-augroup END
+" function! s:CustomizeColors()
+" 	if has('guirunning') || has('termguicolors')
+" 		let cursorline_gui=''
+" 		let cursorline_cterm='ctermfg=white'
+" 	else
+" 		let cursorline_gui='guifg=white'
+" 		let cursorline_cterm=''
+" 	endif
+" 	exec 'hi CursorLine ' . cursorline_gui . ' ' . cursorline_cterm 
+" endfunction
+" augroup OnColorScheme
+" 	autocmd!
+" 	autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
+" augroup END

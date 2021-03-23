@@ -34,8 +34,8 @@ alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 # Package manager
 alias sp='sudo pacman'
 alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
+alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rsn"
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
-alias c='chezmoi'
 
 # Open files
 alias j='echo jupyter && setsid -f jupyter lab > /dev/null 2>&1 &'

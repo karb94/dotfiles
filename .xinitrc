@@ -46,8 +46,8 @@ unclutter --timeout 1 --ignore-scrolling &
 dunst &
 command -v xob && mkfifo /tmp/xob_volume >/dev/null 2>&1 &&
     (tail -f /tmp/xob_volume | xob -s volume >/dev/null 2>&1 &)
-[ -f $HOME/.local/scripts/tmux_init ] &&
-    $HOME/.local/scripts/tmux_init &
+# [ -f $HOME/.local/scripts/tmux_init ] &&
+#     $HOME/.local/scripts/tmux_init &
 sxhkd -m -1 &
 test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
         xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &
