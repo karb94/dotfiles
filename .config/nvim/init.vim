@@ -1,5 +1,5 @@
 " vim: set foldmethod=marker foldlevel=0:
-" Check what os is vim running under
+" pluginst os is vim running under
 " let g:os = substitute(system('uname'), '\n', '', '')
 
 "==============================================================================
@@ -18,93 +18,93 @@ lua require('options')
 "" QUICK PLUGIN OPTIONS
 "" vim-highlightedyank
 
-call plug#begin()
-Plug 'neomake/neomake'
-" {{{
-let g:neomake_virtualtext_current_error=0
-function! MyStatusNeomake(buf)
-    return neomake#statusline#get(a:buf, {
-                \ 'format_running': '[Compiling...]',
-                \ 'format_loclist_unknown': '',
-                \ 'format_quickfix_issues': '',
-                \ })
-endfunction
+"call plug#begin()
+"Plug 'heomake/neomake'
+"" {{{
+"let g:neomake_virtualtext_current_error=0
+"function! MyStatusNeomake(buf)
+"    return neomake#statusline#get(a:buf, {
+"                \ 'format_running': '[Compiling...]',
+"                \ 'format_loclist_unknown': '',
+"                \ 'format_quickfix_issues': '',
+"                \ })
+"endfunction
 
-" This function, given a buffer number, returns the current statusline for it.
-" it will be called very often.
-function! StatusLine(buf)
-    return "\ %f\ %y\ %r\ %m"
-                \ . MyStatusNeomake(a:buf)
-                \ . "%=Column:\ %c\ \ \|\ \ %P\ \ "
-endfunction
+"" This function, given a buffer number, returns the current statusline for it.
+"" it will be called very often.
+"function! StatusLine(buf)
+"    return "\ %f\ %y\ %r\ %m"
+"                \ . MyStatusNeomake(a:buf)
+"                \ . "%=Column:\ %c\ \ \|\ \ %P\ \ "
+"endfunction
 
-" This function is set as the initial statusline, but quickly commits suicide
-" by setting a local statusline that will always be called with the correct
-" buffer number.
-function! SetStatusLine()
-    let &l:statusline = '%!StatusLine(' . bufnr('%') . ')'
-endfunction
+"" This function is set as the initial statusline, but quickly commits suicide
+"" by setting a local statusline that will always be called with the correct
+"" buffer number.
+"function! SetStatusLine()
+"    let &l:statusline = '%!StatusLine(' . bufnr('%') . ')'
+"endfunction
 
-" This installs the above setter.
-set statusline=%!SetStatusLine()
-let g:neomake_open_list = 2
-nnoremap <silent> <leader>m :w<CR>:Neomake!<CR>
-" }}}
+"" This installs the above setter.
+"set statusline=%!SetStatusLine()
+"let g:neomake_open_list = 2
+"nnoremap <silent> <leader>m :w<CR>:Neomake!<CR>
+"" }}}
 
-" Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
-Plug 'junegunn/vim-easy-align'
-" {{{
-let g:easy_align_ignore_groups = []
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" }}}
+"" Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
+"Plug 'junegunn/vim-easy-align'
+"" {{{
+"let g:easy_align_ignore_groups = []
+"" Start interactive EasyAlign in visual mode (e.g. vipga)
+"xmap ga <Plug>(EasyAlign)
+"" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+"nmap ga <Plug>(EasyAlign)
+"" }}}
 
-Plug 'SirVer/ultisnips'
-" {{{
-"Stupid workaround
-let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
-let g:UltiSnipsJumpBackwardTrigger="<C-p>"
-let g:UltiSnipsEditSplit="vertical"
-" }}}
+"Plug 'SirVer/ultisnips'
+"" {{{
+""Stupid workaround
+"let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<C-n>"
+"let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+"let g:UltiSnipsEditSplit="vertical"
+"" }}}
 
-Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
-" {{{
-" Prevents detecting 'latex' files as 'plain tex' files
-let g:vimtex_compiler_progname = 'nvr'
-let g:tex_flavor = 'latex'
-let g:tex_conceal=""
-let g:vimtex_compiler_latexmk = {
-            \ 'background' : 1,
-            \ 'build_dir' : 'build',
-            \ 'callback' : 1,
-            \ 'continuous' : 0,
-            \ 'executable' : 'latexmk',
-            \ 'hooks' : [],
-            \ 'options' : [
-            \   '-verbose',
-            \   '-file-line-error',
-            \   '-synctex=1',
-            \   '-interaction=nonstopmode',
-            \ ],
-            \}
-" Disable overfull/underfull \hbox and all package warnings
-" let g:vimtex_quickfix_latexlog = {
-"             \ 'packages' : {
-"             \   'default' : 0,
-"             \ },
-"             \}
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_grammar_textidote = {
-            \ 'jar': '/opt/textidote/textidote.jar',
-            \ 'args': '',
-            \}
-" }}}
+"Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
+"" {{{
+"" Prevents detecting 'latex' files as 'plain tex' files
+"let g:vimtex_compiler_progname = 'nvr'
+"let g:tex_flavor = 'latex'
+"let g:tex_conceal=""
+"let g:vimtex_compiler_latexmk = {
+"            \ 'background' : 1,
+"            \ 'build_dir' : 'build',
+"            \ 'callback' : 1,
+"            \ 'continuous' : 0,
+"            \ 'executable' : 'latexmk',
+"            \ 'hooks' : [],
+"            \ 'options' : [
+"            \   '-verbose',
+"            \   '-file-line-error',
+"            \   '-synctex=1',
+"            \   '-interaction=nonstopmode',
+"            \ ],
+"            \}
+"" Disable overfull/underfull \hbox and all package warnings
+"" let g:vimtex_quickfix_latexlog = {
+""             \ 'packages' : {
+""             \   'default' : 0,
+""             \ },
+""             \}
+"let g:vimtex_view_method = 'zathura'
+"let g:vimtex_grammar_textidote = {
+"            \ 'jar': '/opt/textidote/textidote.jar',
+"            \ 'args': '',
+"            \}
+"" }}}
 
-call plug#end()
+"call plug#end()
 
 lua require('plugins')
 " }}}
