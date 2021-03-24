@@ -99,20 +99,31 @@ cf() {
                 exit 1;;
         esac
     else
-        fzf_opts=--multi
+        fzf_opts='--multi --expect=ctrl-d'
     fi
     # Only files at least 2 directories deep
     # Only hidden files in $HOME
-    local filename
-    mapfile -t filenames < <( find $HOME -mindepth 1 -type d \
-            ! \( \( -path "$HOME/.config*" -a ! -path "$HOME/.config/*/*" \) \
-                -o -path "$HOME/.$EDITOR" \
+    local fzf_output
+    mapfile -t fzf_output < <( find $HOME -mindepth 1 -type d \
+            ! \( \
+                \( -path "$HOME/.config*" -a \( -path "$HOME/.config/nvim/*" -o ! -path "$HOME/.config/*/*" \) \) \
                 -o -path "$HOME/.local" \
-                -o -path "$HOME/.local/scripts" \) \
+                -o -path "$HOME/.local/scripts" \
+            \) \
             -prune \
-            -o -type f -path "$HOME/*/*" -printf '%P\n' \
+            -o -type f -path "$HOME/*/*/*" -printf '%P\n' \
             -o -type f -name ".*" -printf '%P\n' |
         fzf $fzf_opts )
+    local key_pressed="${fzf_output[0]}"
+    local filenames=("${fzf_output[@]:1}")
+    # echo "key pressed: $key_pressed"
+    # echo "Filenames: ${filenames[@]}"
+    if [ "${#filenames[@]}" == 1 ] && [ "$key_pressed" == 'ctrl-d' ]; then
+        path="$HOME/${filenames[0]}"
+        directory="${path%/*}"
+        cd "$directory"
+        return 0
+    fi
     if [ -n "$cmd" ]; then
         if [ "$cmd" = cd ]; then
             cd $HOME/${filenames%/*}
