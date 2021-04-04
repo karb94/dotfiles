@@ -35,6 +35,8 @@ alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 alias sp='sudo pacman'
 alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
 alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rsn"
+alias ai="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
+alias ar="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 
 # Open files

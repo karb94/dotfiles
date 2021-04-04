@@ -3,8 +3,12 @@
 bspc monitor -d I II III IV V
 
 bspc config border_width         3
-bspc config window_gap           6
-bspc config normal_border_color "#1d2021"
+bspc config window_gap           5
+bspc config top_padding         -5
+bspc config bottom_padding       0
+bspc config left_padding         0
+bspc config right_padding        0
+bspc config normal_border_color  "#1d2021"
 bspc config focused_border_color "#076678"
 
 bspc config split_ratio          0.5
@@ -16,6 +20,12 @@ bspc rule --add Chromium --one-shot desktop=^1 && chromium &
 # bspc rule --add Polybar layer=above
 bspc rule --add Zathura state=tiled
 bspc desktop -f '^1'
+
+# Adjusting typematic delay to 200 miliseconds
+xset r rate 250
+# Volume bar
+command -v xob && mkfifo /tmp/xob_volume >/dev/null 2>&1 &&
+    (tail -f /tmp/xob_volume | xob -s volume >/dev/null 2>&1 &)
 
 # Launch polybar
 # $HOME/.config/polybar/launch.sh

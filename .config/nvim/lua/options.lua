@@ -27,7 +27,8 @@ local window_opts = {
     foldmethod     = 'manual',                    -- Less laggy than syntax mode
     number         = true,                        -- Show line numbers
     relativenumber = true,                        -- Show relative line numbers
-    cursorline     = true                         -- Show cursorline
+    cursorline     = true,                        -- Show cursorline
+    colorcolumn    = '80'                         -- Temporary fix for 
 }
 
 local buffer_opts = {
@@ -77,3 +78,16 @@ vim.cmd('autocmd InsertLeave * set timeoutlen=600') -- Time waited for mappings
 -- vim.o.scrolloff       = scrolloff                   -- Top/bottom lines of margins
 -- Directory variables
 
+P = function(v)
+    print(vim.inspect(v))
+    return v
+end
+
+if pcall(require, 'plenary') then
+    RELOAD = require('plenary.reload').reload_module
+
+    R = function(name)
+        RELOAD(name)
+        return require(name)
+    end
+end

@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/env bash
 
 # Script to download videos form youtube with notification popup
 
@@ -76,13 +76,13 @@ then
     export -f download_notify
 
     # Download the video and pipe the progress to notify-send
-    timeout --preserve-status 30s sh -c download_notify
+    timeout --preserve-status 30s bash -c download_notify
     exit_code=$?
     if [ $exit_code != 0 ]
     then
         for run in {1..10}
         do
-            timeout --preserve-status 15s sh -c download_notify
+            timeout --preserve-status 15s bash -c download_notify
             exit_code=$?
             [ $exit_code = 0 ] && break
         done

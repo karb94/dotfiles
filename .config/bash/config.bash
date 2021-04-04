@@ -6,7 +6,7 @@ set -o vi
 # Not really useful if you append to history after each command (as we do below)
 # shopt -s histappend
 # include ** globbing pattern
-shopt -s globstar
+# shopt -s globstar
 # Add extended global patterns
 shopt -s extglob
 # Prevents messing up the screen after resizes

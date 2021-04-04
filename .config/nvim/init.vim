@@ -2,124 +2,12 @@
 " pluginst os is vim running under
 " let g:os = substitute(system('uname'), '\n', '', '')
 
-"==============================================================================
-" SETTINGS
-"==============================================================================
-" {{{
-lua require('options')
-" }}}
-
-"==============================================================================
-" CALL PLUGINS
-"==============================================================================
-"" {{{
-
-"packadd termdebug
-"" QUICK PLUGIN OPTIONS
-"" vim-highlightedyank
-
-"call plug#begin()
-"Plug 'heomake/neomake'
-"" {{{
-"let g:neomake_virtualtext_current_error=0
-"function! MyStatusNeomake(buf)
-"    return neomake#statusline#get(a:buf, {
-"                \ 'format_running': '[Compiling...]',
-"                \ 'format_loclist_unknown': '',
-"                \ 'format_quickfix_issues': '',
-"                \ })
-"endfunction
-
-"" This function, given a buffer number, returns the current statusline for it.
-"" it will be called very often.
-"function! StatusLine(buf)
-"    return "\ %f\ %y\ %r\ %m"
-"                \ . MyStatusNeomake(a:buf)
-"                \ . "%=Column:\ %c\ \ \|\ \ %P\ \ "
-"endfunction
-
-"" This function is set as the initial statusline, but quickly commits suicide
-"" by setting a local statusline that will always be called with the correct
-"" buffer number.
-"function! SetStatusLine()
-"    let &l:statusline = '%!StatusLine(' . bufnr('%') . ')'
-"endfunction
-
-"" This installs the above setter.
-"set statusline=%!SetStatusLine()
-"let g:neomake_open_list = 2
-"nnoremap <silent> <leader>m :w<CR>:Neomake!<CR>
-"" }}}
-
-"" Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
-"Plug 'junegunn/vim-easy-align'
-"" {{{
-"let g:easy_align_ignore_groups = []
-"" Start interactive EasyAlign in visual mode (e.g. vipga)
-"xmap ga <Plug>(EasyAlign)
-"" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-"nmap ga <Plug>(EasyAlign)
-"" }}}
-
-"Plug 'SirVer/ultisnips'
-"" {{{
-""Stupid workaround
-"let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<C-n>"
-"let g:UltiSnipsJumpBackwardTrigger="<C-p>"
-"let g:UltiSnipsEditSplit="vertical"
-"" }}}
-
-"Plug 'lervag/vimtex', { 'for': ['tex','bib'] }
-"" {{{
-"" Prevents detecting 'latex' files as 'plain tex' files
-"let g:vimtex_compiler_progname = 'nvr'
-"let g:tex_flavor = 'latex'
-"let g:tex_conceal=""
-"let g:vimtex_compiler_latexmk = {
-"            \ 'background' : 1,
-"            \ 'build_dir' : 'build',
-"            \ 'callback' : 1,
-"            \ 'continuous' : 0,
-"            \ 'executable' : 'latexmk',
-"            \ 'hooks' : [],
-"            \ 'options' : [
-"            \   '-verbose',
-"            \   '-file-line-error',
-"            \   '-synctex=1',
-"            \   '-interaction=nonstopmode',
-"            \ ],
-"            \}
-"" Disable overfull/underfull \hbox and all package warnings
-"" let g:vimtex_quickfix_latexlog = {
-""             \ 'packages' : {
-""             \   'default' : 0,
-""             \ },
-""             \}
-"let g:vimtex_view_method = 'zathura'
-"let g:vimtex_grammar_textidote = {
-"            \ 'jar': '/opt/textidote/textidote.jar',
-"            \ 'args': '',
-"            \}
-"" }}}
-
-"call plug#end()
-
 lua require('plugins')
-" }}}
-
-"==============================================================================
-" POST-PLUG
-"==============================================================================
-" {{{
-
-" }}}
-
+lua require('options')
 "==============================================================================
 " MAPPINGS
 "==============================================================================
-" {{{
+"{{{
 " inoremap lk <Esc>
 " vnoremap lk <Esc>
 inoremap <C-j> <C-n>
@@ -177,8 +65,8 @@ nmap <silent> ,d :call TermDebugSendCommand('delete')<CR>
 nmap <silent> ,q :Gdb<CR>:startinsert<CR>q<CR>:redraw!
 nmap <silent> ,r :Run<CR>
 let s:fivep = float2nr(0.10*winheight(0))
-exec "nnoremap J ".s:fivep."<C-e>"
-exec "nnoremap K ".s:fivep."<C-y>"
+" exec "nnoremap J ".s:fivep."<C-e>"
+" exec "nnoremap K ".s:fivep."<C-y>"
 " }}}
 
 "==============================================================================
@@ -192,6 +80,37 @@ exec "nnoremap K ".s:fivep."<C-y>"
 " FUNCTIONS
 "==============================================================================
 " {{{
+
+function! Redir(cmd, rng, start, end)
+    for win in range(1, winnr('$'))
+        if getwinvar(win, 'scratch')
+            execute win . 'windo close'
+        endif
+    endfor
+    if a:cmd =~ '^!'
+        let cmd = a:cmd =~' %'
+                    \ ? matchstr(substitute(a:cmd, ' %', ' ' . expand('%:p'), ''), '^!\zs.*')
+                    \ : matchstr(a:cmd, '^!\zs.*')
+        if a:rng == 0
+            let output = systemlist(cmd)
+        else
+            let joined_lines = join(getline(a:start, a:end), '\n')
+            let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
+            let output = systemlist(cmd . " <<< $" . cleaned_lines)
+        endif
+    else
+        redir => output
+        execute a:cmd
+        redir END
+        let output = split(output, "\n")
+    endif
+    vnew
+    let w:scratch = 1
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+    call setline(1, output)
+endfunction
+
+command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
 
 function! SmallWordMotion(count, vmode, forward, start)
     let l:flag = a:forward ? '' : 'b'
@@ -307,10 +226,11 @@ function! EnableReadingMode()
   setlocal nonumber norelativenumber nocursorline colorcolumn=
   exec "nnoremap <buffer> J ".s:fivep."<C-e>M"
   exec "nnoremap <buffer> K ".s:fivep."<C-y>M"
-  nnoremap <buffer> j <C-e>M
-  nnoremap <buffer> k <C-y>M
-  nnoremap <buffer> d <C-d>M
-  nnoremap <buffer> u <C-u>M
+  nnoremap <buffer> <nowait> <Esc> :q<CR>
+  nnoremap <buffer> <nowait> j <C-e>M
+  nnoremap <buffer> <nowait> k <C-y>M
+  nnoremap <buffer> <nowait> d <C-d>M
+  nnoremap <buffer> <nowait> u <C-u>M
   normal M
 endfunction
 function! DisableReadingMode()
@@ -333,22 +253,20 @@ function! ToggleReadingMode()
   endif
 endfunction
 nnoremap <silent> <leader>r :call ToggleReadingMode()<CR>
-function! SetScrolloff()
-    l:lines = float2nr(0.15*winheight(0))
-    echo l:lines
-    let &l:scrolloff=l:lines
-endfunction
+
 if !&diff
-    augroup initialization
-        au!
-        autocmd WinEnter * if (&l:buftype == '' && !exists('b:ReadingMode')) |
+
+    augroup help_buffers
+        autocmd!
+        autocmd FileType man,help
+                    \ if (!&modifiable) |
+                    \ call EnableReadingMode() | endif
+        autocmd WinEnter,BufWinEnter * if (&l:buftype == '' && !exists('b:ReadingMode')) |
                     \ setlocal relativenumber cursorline |
                     \ let &l:scrolloff=float2nr(0.15*winheight(0)) |
                     \ endif
         autocmd WinLeave * if (&l:buftype == '' && !exists('b:ReadingMode')) |
                     \ setlocal norelativenumber nocursorline | endif
-        autocmd BufEnter * if &l:buftype == 'help' |
-                    \ call EnableReadingMode() | endif
     augroup END
 endif
 
@@ -373,17 +291,20 @@ augroup spellChecking
 augroup END
 
 " Fix for CursorLine highlighting (see neovim issue #9019)
-" function! s:CustomizeColors()
-" 	if has('guirunning') || has('termguicolors')
-" 		let cursorline_gui=''
-" 		let cursorline_cterm='ctermfg=white'
-" 	else
-" 		let cursorline_gui='guifg=white'
-" 		let cursorline_cterm=''
-" 	endif
-" 	exec 'hi CursorLine ' . cursorline_gui . ' ' . cursorline_cterm 
-" endfunction
-" augroup OnColorScheme
-" 	autocmd!
-" 	autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
-" augroup END
+function! s:CustomizeColors()
+	if has('guirunning') || has('termguicolors')
+		let cursorline_gui=''
+		let cursorline_cterm='ctermfg=white'
+	else
+		let cursorline_gui='guifg=white'
+		let cursorline_cterm=''
+	endif
+	exec 'hi CursorLine ' . cursorline_gui . ' ' . cursorline_cterm 
+endfunction
+augroup OnColorScheme
+	autocmd!
+	autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
+augroup END
+" }}}
+
+autocmd BufWritePost plugins.lua PackerCompile

@@ -36,20 +36,15 @@ fi
 picom -CG &
 # Fix cross cursor issue
 xsetroot -cursor_name left_ptr &
-# set background
+# # set background
 hsetroot -solid "#000000" &
-# Adjusting typematic delay to 200 miliseconds
-xset r rate 250
-# Hide cursor after 1 second of inactivity
+# # Hide cursor after 1 second of inactivity
 unclutter --timeout 1 --ignore-scrolling &
-# Notifications daemon
+# # Notifications daemon
 dunst &
-command -v xob && mkfifo /tmp/xob_volume >/dev/null 2>&1 &&
-    (tail -f /tmp/xob_volume | xob -s volume >/dev/null 2>&1 &)
 # [ -f $HOME/.local/scripts/tmux_init ] &&
 #     $HOME/.local/scripts/tmux_init &
 sxhkd -m -1 &
 test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
         xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &
 exec bspwm
-# exec i3
