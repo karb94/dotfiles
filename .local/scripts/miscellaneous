@@ -1,3 +1,4 @@
 xrandr --output HDMI-A-0 --mode 2560x1440 --rate 144 # display resolution
 nmcli connection show # wifi
 bspc query -N -n .hidden | xargs -I '{}' bspc node {} --flag hidden=off # show hidden nodes
+xset r rate 250 # set repeat delay

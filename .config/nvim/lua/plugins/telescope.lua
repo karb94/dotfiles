@@ -57,30 +57,62 @@ local defaults = {
 
 require('telescope').setup({defaults=defaults})
 
+
+--Custom finder
+    -- local gen_new_finder = function(path)
+    --     local path = vim.fn.getenv('HOME') .. '/.config/nvim/lua'
+    --     local data = {}
+
+    --     scan.scan_dir(path, {
+    --         hidden = opts.hidden or false,
+    --         add_dirs = true,
+    --         depth = 1,
+    --         on_insert = function(entry, typ)
+    --             table.insert(data, typ == 'directory' and (entry .. os_sep) or entry)
+    --         end
+    --     })
+    --     table.insert(data, 1, '../')
+
+    --     return finders.new_table {
+    --         results = data,
+    --         entry_maker = (function()
+    --             local tele_path = require'telescope.path'
+    --             local gen = make_entry.gen_from_file(opts)
+    --             return function(entry)
+    --                 local tmp = gen(entry)
+    --                 tmp.ordinal = tele_path.make_relative(entry, opts.cwd)
+    --                 return tmp
+    --             end
+    --         end)()
+    --     }
+    -- end
+
+
 -- Themes
--- local center_list = require('telescope.themes').get_dropdown({
--- })
-
-
-
-local opts = {
+local center_list = require('telescope.themes').get_dropdown({
     winblend = 10,
     width = 0.5,
     prompt = " ",
     results_height = 15,
     previewer = false
-}
-telescope_config.find_files = function()
-    local center_list = require('telescope.themes').get_dropdown(opts)
-    require('telescope.builtin').find_files(center_list)
+})
+function telescope_config.find_nvim_files()
+    local opts = vim.deepcopy(center_list)
+    local path = vim.fn.getenv('HOME') .. '/.config/nvim/lua'
+    opts.search_dirs = {path}
+    require('telescope.builtin').find_files(opts)
 end
-telescope_config.find_git_files = function()
-    local center_list = require('telescope.themes').get_dropdown(opts)
-    require('telescope.builtin').git_files(center_list)
+function telescope_config.find_files()
+    local opts = vim.deepcopy(center_list)
+    require('telescope.builtin').find_files(opts)
 end
-telescope_config.find_buffers = function()
-    local center_list = require('telescope.themes').get_dropdown(opts)
-    require('telescope.builtin').buffers(center_list)
+function telescope_config.find_git_files()
+    local opts = vim.deepcopy(center_list)
+    require('telescope.builtin').git_files(opts)
+end
+function telescope_config.find_buffers()
+    local opts = vim.deepcopy(center_list)
+    require('telescope.builtin').buffers(opts)
 end
 
 -- Mappings
@@ -90,6 +122,7 @@ local map = function(mode, keymap, command, opts)
 end
 
 map('n', '<leader>ff', [[:lua require('plugins/telescope').find_files()<CR>]])
+map('n', '<leader>fv', [[:lua require('plugins/telescope').find_nvim_files()<CR>]])
 map('n', '<leader>fg', [[:lua require('plugins/telescope').find_git_files()<CR>]])
 map('n', '<leader>fG', [[:lua require('telescope.builtin').grep_string{}<CR>]])
 map('n', '<leader>b', [[:lua require('plugins/telescope').find_buffers()<CR>]])

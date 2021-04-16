@@ -227,10 +227,10 @@ function! EnableReadingMode()
   exec "nnoremap <buffer> J ".s:fivep."<C-e>M"
   exec "nnoremap <buffer> K ".s:fivep."<C-y>M"
   nnoremap <buffer> <nowait> <Esc> :q<CR>
-  nnoremap <buffer> <nowait> j <C-e>M
-  nnoremap <buffer> <nowait> k <C-y>M
-  nnoremap <buffer> <nowait> d <C-d>M
-  nnoremap <buffer> <nowait> u <C-u>M
+  nmap <buffer> <nowait> j <C-e>M
+  nmap <buffer> <nowait> k <C-y>M
+  nmap <buffer> <nowait> d <C-d>M
+  nmap <buffer> <nowait> u <C-u>M
   normal M
 endfunction
 function! DisableReadingMode()
@@ -305,6 +305,14 @@ augroup OnColorScheme
 	autocmd!
 	autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
 augroup END
-" }}}
 
-autocmd BufWritePost plugins.lua PackerCompile
+augroup packer
+    au!
+    autocmd BufWritePost plugins.lua PackerCompile
+augroup END
+
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
+" }}}
