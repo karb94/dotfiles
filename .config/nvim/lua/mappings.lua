@@ -58,5 +58,7 @@ nmap <silent> ,d :call TermDebugSendCommand('delete')<CR>
 nmap <silent> ,q :Gdb<CR>:startinsert<CR>q<CR>:redraw!
 nmap <silent> ,r :Run<CR>
 let s:fivep = float2nr(0.10*winheight(0))
-exec "nnoremap J ".s:fivep."<C-e>"
-exec "nnoremap K ".s:fivep."<C-y>"
+-- exec "nnoremap J ".s:fivep."<C-e>"
+-- exec "nnoremap K ".s:fivep."<C-y>"
+exec "nnoremap L " . &l:scrolloff . "L"
+exec "nnoremap H " . &l:scrolloff . "H"

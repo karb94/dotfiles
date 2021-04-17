@@ -67,6 +67,8 @@ nmap <silent> ,r :Run<CR>
 let s:fivep = float2nr(0.10*winheight(0))
 " exec "nnoremap J ".s:fivep."<C-e>"
 " exec "nnoremap K ".s:fivep."<C-y>"
+nnoremap <silent> L :execute "normal! " . &l:scrolloff . "L"<CR>
+nnoremap <silent> H :execute "normal! " . &l:scrolloff . "H"<CR>
 " }}}
 
 "==============================================================================
