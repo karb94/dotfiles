@@ -318,3 +318,7 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
 augroup END
 " }}}
+" augroup custom_highlight
+"     autocmd!
+"     autocmd ColorScheme * highlight NeoscrollHiddenCursor gui=reverse blend=100
+" augroup END

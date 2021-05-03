@@ -19,4 +19,4 @@
     lf = log --oneline --graph --all
     ls = ls-tree --name-only HEAD
     fls = ls-tree -r --name-only --full-tree HEAD
-    cf = !git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
+    df = !git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
