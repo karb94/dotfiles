@@ -28,6 +28,8 @@ nnoremap <silent> <leader>X :xa<CR>
 nnoremap <silent> <leader>v <C-v>
 nnoremap <silent> ]t :tabn<CR>
 nnoremap <silent> [t :tabp<CR>
+noremap <leader><leader>p "0p
+noremap <leader><leader>P "*p
 " nnoremap <leader>b :b 
 " nnoremap <leader>z :%foldclose<CR>
 " nnoremap <leader>Z :%foldopen<CR>
@@ -51,19 +53,8 @@ cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
 " Terminal mappings
 tnoremap <C-]> <C-\><C-n>
 " TermDebugger mappings
-nnoremap <silent> <leader>m :w<CR>:Neomake! make<CR>
-nnoremap <silent> <leader>d :w<CR>:Neomake! debug<CR>
-nmap <silent> ,n :Over<CR>
-nmap <silent> ,s :Step<CR>
-nmap <silent> ,c :call TermDebugSendCommand('continue')<CR>
-nmap <silent> ,B :Clear<CR>
-nmap <silent> ,e :Evaluate<CR>
-nmap <silent> ,b :Break<CR>
-nmap <silent> ,ib :call TermDebugSendCommand('info break')<CR>
-nmap <silent> ,iw :call TermDebugSendCommand('info watch')<CR>
-nmap <silent> ,d :call TermDebugSendCommand('delete')<CR>
-nmap <silent> ,q :Gdb<CR>:startinsert<CR>q<CR>:redraw!
-nmap <silent> ,r :Run<CR>
+nnoremap <silent> <localleader>m :w<CR>:Neomake! make<CR>
+nnoremap <silent> <localleader>d :w<CR>:Neomake! debug<CR>
 let s:fivep = float2nr(0.10*winheight(0))
 " exec "nnoremap J ".s:fivep."<C-e>"
 " exec "nnoremap K ".s:fivep."<C-y>"
@@ -277,9 +268,9 @@ function! LaunchDebugger() abort
   if context.jobinfo.exit_code == 0
     echom printf('The "%s" job has completed without errors',
           \ context.jobinfo.maker.name)
-    if context.jobinfo.maker.name == 'debug'
-      Termdebug
-    endif
+    " if context.jobinfo.maker.name == 'debug'
+    "   Termdebug
+    " endif
   endif
 endfunction
 augroup my_neomake_hooks

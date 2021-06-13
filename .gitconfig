@@ -2,7 +2,7 @@
     email = 41967813+karb94@users.noreply.github.com
     name = Carles Rafols
 [core]
-	pager = less
+    pager = delta
 [alias]
     s = status
     a = add
@@ -20,3 +20,12 @@
     ls = ls-tree --name-only HEAD
     fls = ls-tree -r --name-only --full-tree HEAD
     df = !git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+    line-numbers = true
+    side-by-side = false
+[interactive]
+    diffFilter = delta --color-only

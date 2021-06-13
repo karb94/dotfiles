@@ -2,7 +2,7 @@
 
 # Script to download videos form youtube with notification popup
 
-completed_notify () {
+live_notification () {
     dunstify                                            \
         --timeout=1000000                               \
         --icon="$thumbnail"                             \
@@ -14,7 +14,7 @@ floating_rule () {
     bspc rule                           \
         --add mpv                       \
         --one-shot                      \
-        desktop="$(bspc query -D -d)"   \
+        desktop="$(bspc query -D -d focused)"   \
         state=floating
     }
 
@@ -26,7 +26,7 @@ youtube-dl -J "$url" > "$metadata"
 if jq --exit-status '.is_live' "$metadata" >/dev/null
 then
     # Show notification
-    action=$(completed_notify)
+    action=$(live_notification)
     [ "$action" = "play" ] &&
         floating_rule &&
         youtube-dl -o - "$url" | mpv --no-terminal "$video_path" &&
@@ -35,7 +35,7 @@ fi
 
 export video_id="$(jq --raw-output '.id' "$metadata")"
 video_path=/tmp/"${video_id}".mkv
-length="$(jq --raw-output '.duration' "$metadata")"
+duration="$(jq --raw-output '.duration' "$metadata")"
 thumbnail_url="$(jq --raw-output '.thumbnail' "$metadata")"
 export title="$(jq --raw-output '.title' "$metadata" | fold -sw 30 -)"
 export creator="$(jq --raw-output '.uploader' "$metadata")"
@@ -44,45 +44,39 @@ export creator="$(jq --raw-output '.uploader' "$metadata")"
 export thumbnail=$(mktemp)
 curl -s "$thumbnail_url" > "$thumbnail"
 # Convert into png/jpg format if necessary
-if  [ 'png' != "${thumbnail_url##*.}" ] &&
-    [ 'jpg' != "${thumbnail_url##*.}" ] &&
-    [ -n "${thumbnail_url##*jpg*}" ]
+if file "$thumbnail" | grep -q 'Web/P image'
 then
     dwebp -quiet "$thumbnail" -o "$thumbnail".png
     rm "$thumbnail"
     thumbnail="$thumbnail".png
 fi
 
+
 exit_code=0
 # If file already exists print path and exit if not, download it
 if [ ! -f "$video_path" ]
 then
     export format='/tmp/%(id)s.%(ext)s'
-    yt_notify () {
-        dunstify \
-            --timeout=60000                                 \
-            --icon="$thumbnail"                             \
-            --hints=int:value:"$1"                          \
-            --hints=string:x-dunst-stack-tag:"$video_id"    \
-            "$creator" "$title"
-    }
-    export -f yt_notify
     download_notify () {
         youtube-dl --no-post-overwrites --output "$format" "$url" |
             stdbuf -oL tr '\r' '\n' |
-            stdbuf -oL grep -Po '\d+(?=\.\d+%)' |
-            parallel yt_notify
+            grep --line-buffered -Po '\d+(?=\.\d+%)' |
+            xargs -I'{}' dunstify                            \
+                --timeout=60000                              \
+                --icon="$thumbnail"                          \
+                --hints=int:value:{}                         \
+                --hints=string:x-dunst-stack-tag:"$video_id" \
+                "$creator" "$title"
     }
     export -f download_notify
-
     # Download the video and pipe the progress to notify-send
-    timeout --preserve-status 30s bash -c download_notify
+    timeout --preserve-status $((duration/30))s bash -c download_notify
     exit_code=$?
     if [ $exit_code != 0 ]
     then
         for run in {1..10}
         do
-            timeout --preserve-status 15s bash -c download_notify
+            timeout --preserve-status $((duration/50))s bash -c download_notify
             exit_code=$?
             [ $exit_code = 0 ] && break
         done
@@ -106,7 +100,7 @@ then
         bspc rule                           \
             --add mpv                       \
             --one-shot                      \
-            desktop="$(bspc query -D -d)"   \
+            desktop="$(bspc query -D -d focused)"   \
             state=floating
     }
     # Show notification

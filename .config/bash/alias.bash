@@ -30,6 +30,7 @@ alias eal='$EDITOR ~/.config/bash/alias.bash'
 alias efu='$EDITOR ~/.config/bash/functions.bash'
 alias vrc='$EDITOR ~/.vim/vimrc'
 alias nvrc='$EDITOR ~/.config/nvim/init.vim'
+alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 
 # Package manager
 alias sp='sudo pacman'
