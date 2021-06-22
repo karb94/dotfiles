@@ -1,6 +1,6 @@
 require('neoscroll').setup({
-    mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-                '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+    -- mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+    --             '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
     -- mappings = {},
     -- Set any other options as needed
     -- stop_eof = false,
@@ -11,6 +11,8 @@ require('neoscroll').setup({
 
 
 -- local t = {}
+-- t['gg'] = {'scroll', {'-vim.api.nvim_buf_line_count(0)+20', 'true', '1500', [["cubic"]]}}
+-- t['G']  = {'scroll', {'vim.api.nvim_buf_line_count(0)-20', 'true', '1500', [["cubic"]]}}
 -- -- Syntax: t[keys] = {function, {function arguments}}
 -- -- Use the "sine" easing function
 -- t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', 'sine'}}

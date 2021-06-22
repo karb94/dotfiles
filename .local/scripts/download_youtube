@@ -61,12 +61,17 @@ then
         youtube-dl --no-post-overwrites --output "$format" "$url" |
             stdbuf -oL tr '\r' '\n' |
             grep --line-buffered -Po '\d+(?=\.\d+%)' |
-            xargs -I'{}' dunstify                            \
-                --timeout=60000                              \
-                --icon="$thumbnail"                          \
-                --hints=int:value:{}                         \
-                --hints=string:x-dunst-stack-tag:"$video_id" \
-                "$creator" "$title"
+            while read -r line
+            do
+                action=$(dunstify                                \
+                    --timeout=60000                              \
+                    --icon="$thumbnail"                          \
+                    --hints=int:value:"$line"                    \
+                    --action=play,label                          \
+                    --hints=string:x-dunst-stack-tag:"$video_id" \
+                    "$creator" "$title")
+                # [ "$action" = "play" ] && exit 1
+            done
     }
     export -f download_notify
     # Download the video and pipe the progress to notify-send
