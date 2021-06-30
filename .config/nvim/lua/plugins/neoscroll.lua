@@ -1,12 +1,13 @@
 require('neoscroll').setup({
-    -- mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-    --             '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+    mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+                '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
     -- mappings = {},
     -- Set any other options as needed
     -- stop_eof = false,
-    -- respect_scrolloff = true,
-    -- cursor_scrolls_alone = false,
+    respect_scrolloff = true,
+    cursor_scrolls_alone = false,
     -- easing_function = "quadratic"
+    use_local_scrolloff = true
 })
 
 

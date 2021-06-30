@@ -40,17 +40,37 @@ return require('packer').startup(function()
         {'hrsh7th/nvim-compe'},
         {'nvim-telescope/telescope.nvim',
             requires={'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
+        },
+        {'nvim-telescope/telescope-project.nvim',
+            requires={'nvim-telescope/telescope.nvim'},
+        },
+        {'nvim-telescope/telescope-fzf-native.nvim',
+            requires={'nvim-telescope/telescope.nvim'}, run = 'make'
         }
     }
+
+    local function check_for_config_file(repo)
+        if file_exists(config_abs_path) then
+            return config_rel_path
+        else
+            return nil
+        end
+    end
 
     local lua_dir = home_dir .. '/.config/nvim/lua/'
     for _, plugin in ipairs(plugins) do
         local plugin_repo = plugin[1]
-        local plugin_name = plugin_repo:gmatch('[/^]([^/%.]+)[^/]*$')()
-        local plugin_config_name = 'plugins/' .. plugin_name
-        local plugin_config_path = lua_dir .. plugin_config_name .. '.lua'
-        if file_exists(plugin_config_path) then
-            plugin.config = [[require(']] .. plugin_config_name .. [[')]]
+        if plugin.config == nil then
+            local filename = plugin_repo:gmatch('[/^]([^/%.]+)[^/]*$')()
+            local plugins_folder = 'plugins/'
+            local config_abs_path = table.concat({
+                lua_dir, plugins_folder, filename, '.lua'
+            })
+            if file_exists(config_abs_path) then
+                plugin.config = table.concat({
+                    "require('", plugins_folder, filename, "')"
+                })
+            end
         end
         use(plugin)
     end
