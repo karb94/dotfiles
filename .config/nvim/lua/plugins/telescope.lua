@@ -30,7 +30,7 @@ local defaults = {
     initial_mode = "insert",
     selection_strategy = "reset",
     sorting_strategy = "descending",
-    layout_strategy = "vertical",
+    layout_strategy = "horizontal",
     layout_defaults = {
         horizontal = {
             mirror = false,
@@ -87,7 +87,7 @@ function telescope_config.find_files()
 end
 
 function telescope_config.find_nvim_files()
-    local nvim_path = vim.fn.getenv('HOME') .. '/.config/nvim/lua'
+    local nvim_path = vim.env.HOME .. '/.config/nvim/lua'
     dropdown_theme.cwd = nvim_path
     builtin_pickers.find_files(dropdown_theme)
     dropdown_theme.cwd = nil

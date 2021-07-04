@@ -3,8 +3,7 @@ local function file_exists(path)
     return vim.fn.empty(vim.fn.glob(path)) == 0
 end
 local install_path = '.local/share/nvim/site/pack/packer/start/packer.nvim'
-local home_dir = os.getenv('HOME')
-local abs_install_path = home_dir ..  '/' .. install_path
+local abs_install_path = vim.env.HOME ..  '/' .. install_path
 local repo = 'https://github.com/wbthomason/packer.nvim'
 local git_clone_cmd = '!git clone ' .. repo .. ' ' .. abs_install_path
 -- If Packer directory does not exist clone repo and initialize Packer
@@ -21,7 +20,7 @@ return require('packer').startup(function()
         {'wbthomason/packer.nvim'},
         {'lukas-reineke/indent-blankline.nvim', branch='lua'},
         {'~/projects/neoscroll.nvim'},
-        -- {'karb94/neoscroll.nvim'},
+        {'karb94/neoscroll.nvim'},
         {'machakann/vim-sandwich'},
         {'b3nj5m1n/kommentary'},
         {'TimUntersberger/neogit', requires='nvim-lua/plenary.nvim'},
@@ -36,18 +35,32 @@ return require('packer').startup(function()
         {'mfussenegger/nvim-dap'},
         {'neovim/nvim-lspconfig', ft={'py', 'cpp', 'sh', 'tex', 'lua'}},
         {'nvim-treesitter/nvim-treesitter', run=':TSUpdate'},
-        -- {'nvim-treesitter/playground'},
+        {'nvim-treesitter/playground',
+            requires='nvim-treesitter/nvim-treesitter'
+        },
+        {'nvim-treesitter/nvim-treesitter-textobjects',
+            requires='nvim-treesitter/nvim-treesitter'
+        },
         {'hrsh7th/nvim-compe'},
-        {'nvim-telescope/telescope.nvim',
+        {'~/projects/telescope.nvim',
             requires={'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
         },
         {'nvim-telescope/telescope-project.nvim',
-            requires={'nvim-telescope/telescope.nvim'},
+            requires={'~/projects/telescope.nvim'},
         },
         {'nvim-telescope/telescope-fzf-native.nvim',
-            requires={'nvim-telescope/telescope.nvim'}, run = 'make'
+            requires={'~/projects/telescope.nvim'}, run = 'make'
         }
     }
+    --[[ {'nvim-telescope/telescope.nvim',
+        requires={'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
+    },
+    {'nvim-telescope/telescope-project.nvim',
+        requires={'nvim-telescope/telescope.nvim'},
+    },
+    {'nvim-telescope/telescope-fzf-native.nvim',
+        requires={'nvim-telescope/telescope.nvim'}, run = 'make'
+    } ]]
 
     local function check_for_config_file(repo)
         if file_exists(config_abs_path) then
@@ -57,7 +70,7 @@ return require('packer').startup(function()
         end
     end
 
-    local lua_dir = home_dir .. '/.config/nvim/lua/'
+    local lua_dir = vim.env.HOME .. '/.config/nvim/lua/'
     for _, plugin in ipairs(plugins) do
         local plugin_repo = plugin[1]
         if plugin.config == nil then
