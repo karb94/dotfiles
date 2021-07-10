@@ -100,7 +100,7 @@ env:
 
 # Font configuration
 font:
-  size: 15
+  size: 10
   normal:
     family: Fira Code
     style: Retina
