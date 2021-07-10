@@ -80,9 +80,8 @@ then
         youtube-dl --no-post-overwrites --output "$format" "$url" |
         stdbuf -oL tr '\r' '\n' |
         grep --line-buffered -Po '\d+(?=\.\d+%)' |
-        xargs -P 0 -I'{}' bash -c 'progress_bar {} | \
-        grep -q cancel && \
-        pkill -P '"$$"' youtube-dl && exit 255'
+        xargs -P 0 -I'{}' bash -c '[ "$(progress_bar {})" = "cancel" ] && \
+        pkill -P '"$$"' youtube-dl && exit 255' > /dev/null 2>&1
     }
     export -f download_notify
     # Download the video and pipe the progress to notify-send
