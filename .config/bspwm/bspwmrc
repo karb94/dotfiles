@@ -23,9 +23,5 @@ bspc desktop -f '^1'
 
 # Adjusting typematic delay to 200 miliseconds
 xset r rate 250
-# Volume bar
-command -v xob && mkfifo /tmp/xob_volume >/dev/null 2>&1 &&
-    (tail -f /tmp/xob_volume | xob -s volume >/dev/null 2>&1 &)
-
 # Launch polybar
 # $HOME/.config/polybar/launch.sh

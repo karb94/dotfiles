@@ -18,13 +18,14 @@ return require('packer').startup(function()
 
     local plugins = {
         {'wbthomason/packer.nvim'},
-        {'lukas-reineke/indent-blankline.nvim', branch='lua'},
+        {'lukas-reineke/indent-blankline.nvim'},
         {'~/projects/neoscroll.nvim'},
-        {'karb94/neoscroll.nvim'},
+        -- {'karb94/neoscroll.nvim'},
         {'machakann/vim-sandwich'},
         {'b3nj5m1n/kommentary'},
         {'TimUntersberger/neogit', requires='nvim-lua/plenary.nvim'},
         {'norcalli/nvim-colorizer.lua'},
+        {'sbdchd/neoformat'},
         {'wellle/targets.vim'},
         {'romainl/vim-cool'},
         {'Vimjas/vim-python-pep8-indent', ft={'py'}},
@@ -42,25 +43,16 @@ return require('packer').startup(function()
             requires='nvim-treesitter/nvim-treesitter'
         },
         {'hrsh7th/nvim-compe'},
-        {'~/projects/telescope.nvim',
+        {'nvim-telescope/telescope.nvim',
             requires={'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
         },
         {'nvim-telescope/telescope-project.nvim',
-            requires={'~/projects/telescope.nvim'},
+            requires={'nvim-telescope/telescope.nvim'},
         },
         {'nvim-telescope/telescope-fzf-native.nvim',
-            requires={'~/projects/telescope.nvim'}, run = 'make'
+            requires={'nvim-telescope/telescope.nvim'}, run = 'make'
         }
     }
-    --[[ {'nvim-telescope/telescope.nvim',
-        requires={'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
-    },
-    {'nvim-telescope/telescope-project.nvim',
-        requires={'nvim-telescope/telescope.nvim'},
-    },
-    {'nvim-telescope/telescope-fzf-native.nvim',
-        requires={'nvim-telescope/telescope.nvim'}, run = 'make'
-    } ]]
 
     local function check_for_config_file(repo)
         if file_exists(config_abs_path) then

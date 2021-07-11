@@ -8,29 +8,28 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
-xrdb -merge $sysresources
+  xrdb -merge $sysresources
 fi
 
 if [ -f $sysmodmap ]; then
-xmodmap $sysmodmap
+  xmodmap $sysmodmap
 fi
 
 if [ -f "$userresources" ]; then
-xrdb -merge "$userresources"
+  xrdb -merge "$userresources"
 
 fi
 
 if [ -f "$usermodmap" ]; then
-xmodmap "$usermodmap"
+  xmodmap "$usermodmap"
 fi
 
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-[ -x "$f" ] && . "$f"
-done
-unset f
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
 fi
-
 
 # xsetroot -cursor_name left_ptr solves problem with "cross" cursor
 picom -CG &
@@ -44,7 +43,11 @@ unclutter --timeout 1 --ignore-scrolling &
 dunst &
 # [ -f $HOME/.local/scripts/tmux_init ] &&
 #     $HOME/.local/scripts/tmux_init &
+# Volume bar
+command -v xob >/dev/null 2>&1 && [ -p "$HOME"/.local/bin/xob_volume_fifo ] &&
+  (tail -f "$HOME"/.local/bin/xob_volume_fifo | xob -s volume >/dev/null 2>&1 &)
+
 sxhkd -m -1 &
 test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
-        xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &
+  xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &
 exec bspwm

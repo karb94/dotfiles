@@ -1,7 +1,7 @@
 require('telescope').setup {
     extensions = {
         project = {
-            base_dir = vim.env.HOME .. '/projects/',
+            base_dirs = {vim.env.HOME .. '/projects/'},
             max_depth = 2
         }
     }

@@ -20,7 +20,8 @@ local global_opts = {
     ttimeout       = false,                       -- Don't wait for key code sequence
     termguicolors  = true
 }
--- Local options
+
+-- Window options
 local window_opts = {
     signcolumn     = 'yes',                       -- Show signcolums
     statusline     = statusline,                  -- Define status line
@@ -31,32 +32,27 @@ local window_opts = {
     colorcolumn    = '80'                         -- Temporary fix for 
 }
 
+-- Buffer options
 local buffer_opts = {
     spelllang      = 'en_gb',                     -- Language for spell checking
     formatoptions  = 'rqj',
     iskeyword      = 'a-z,A-Z,48-57,_,-',         -- Definition of what a 'word' is
     undofile       = true,                        -- Persistent central location for undo files
-    tabstop        = 4,                           -- 4 whitespaces for <Tab>
-    shiftwidth     = 4,                           -- 4 whitespaces for (auto)indent
+    tabstop        = 2,                           -- 4 whitespaces for <Tab>
+    shiftwidth     = 2,                           -- 4 whitespaces for (auto)indent
     expandtab      = true,                        -- expands all tabs to tabstop whitespaces
     smartindent    = true                         -- Better autoindent
 }
 
-local set_options = function(opts, scope)
+local set_options = function(opts)
     for option, value in pairs(opts) do
-        vim.api.nvim_set_option(option, value)
-        if scope == 'window' then
-            -- vim[scope][option] = value
-            vim.api.nvim_win_set_option(0, option, value)
-        elseif scope == 'buffer' then
-            vim.api.nvim_buf_set_option(0, option, value)
-        end
+        vim.opt[option] = value
     end
 end
 
 set_options(global_opts)
-set_options(window_opts, 'window')
-set_options(buffer_opts, 'buffer')
+set_options(window_opts)
+set_options(buffer_opts)
 
 
 -- GLOBAL VARIABLES

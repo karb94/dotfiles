@@ -2,4 +2,4 @@
 
 awk_cmd='/\*/ {v=1} (v && /volume/) {split($5, n, "%"); print n[1]; exit}'
 volume=$(pacmd list-sinks | awk "$awk_cmd")
-echo "$volume" > /tmp/xob_volume
+echo "$volume" > "$HOME"/.local/bin/xob_volume_fifo
