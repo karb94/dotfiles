@@ -13,8 +13,6 @@ require'nvim-treesitter.configs'.setup {
                 ["ac"] = "@class.outer",
                 ["ic"] = "@class.inner",
                 ["aF"] = "(field) @fieldwin",
-                ['a"'] = "@string",
-
                 -- Or you can define your own textobjects like this
                 --[[ ["iI"] = {
                     python = "(string) @string",

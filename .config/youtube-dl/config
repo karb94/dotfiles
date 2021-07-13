@@ -1,4 +1,4 @@
 # Download best video and audio quality available but without vp9 codec
---format 'bestvideo[vcodec!=vp9]+bestaudio/best'
+--format 'bestvideo[vcodec!=vp9][height<=1440]+bestaudio/best'
 --no-cache-dir
 --merge-output-format mkv

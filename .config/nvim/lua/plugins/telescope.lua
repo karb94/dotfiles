@@ -66,8 +66,8 @@ map("n", "<leader>ff", [[:lua require('plugins/telescope').find_files()<CR>]])
 map("n", "<leader>fl", [[:lua require('plugins/telescope').find_nvim_files()<CR>]])
 map("n", "<leader>fg", [[:lua require('plugins/telescope').find_git_files()<CR>]])
 map("n", "<leader>b", [[:Telescope buffers<CR>]])
-map("n", "<leader>fh", [[:Telescope help_tags<CR>]])
-map("n", "<leader>h", [[:Telescope command_history<CR>]])
+map("n", "<leader>fH", [[:Telescope help_tags<CR>]])
+map("n", "<leader>fh", [[:Telescope command_history<CR>]])
 map("n", "<leader>G", [[:Telescope live_grep<CR>]])
 
 return telescope_config
