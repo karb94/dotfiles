@@ -36,7 +36,7 @@ return require("packer").startup(function()
 		{ "hrsh7th/nvim-compe" },
 		-- LSP
 		{ "neovim/nvim-lspconfig", ft = { "py", "cpp", "sh", "tex", "lua" } },
-		{ "folke/lua-dev.nvim", requires = "neovim/nvim-lspconfig", ft = "lua" },
+		{ "folke/lua-dev.nvim", requires = "neovim/nvim-lspconfig", ft = "lua"},
 		{ "glepnir/lspsaga.nvim", requires = "neovim/nvim-lspconfig" },
 		-- { "ray-x/lsp_signature.nvim", requires =
 		-- Treesitter

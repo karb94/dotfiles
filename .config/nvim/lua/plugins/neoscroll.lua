@@ -4,12 +4,13 @@ require('neoscroll').setup({
     -- mappings = {},
     -- Set any other options as needed
     -- stop_eof = false,
-    respect_scrolloff = true,
-    cursor_scrolls_alone = false,
+    -- respect_scrolloff = true,
+    -- cursor_scrolls_alone = false,
     -- easing_function = "quadratic"
     use_local_scrolloff = true
 })
 
+-- require('neoscroll').setup()
 
 -- local t = {}
 -- t['gg'] = {'scroll', {'-vim.api.nvim_buf_line_count(0)+20', 'true', '1500', [["cubic"]]}}
