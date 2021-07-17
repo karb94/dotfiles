@@ -102,16 +102,16 @@ env:
 font:
   size: 10
   normal:
-    family: Fira Code
+    family: FiraCode Nerd Font
     style: Retina
   bold:
-    family: Fira Code
+    family: FiraCode Nerd Font
     style: Medium
   italic:
-    family: Fira Code
+    family: FiraCode Nerd Font
     style: Light
   bold_italic:
-    family: Fira Code
+    family: FiraCode Nerd Font
     style: Medium
 
   # Offset is the extra space around each character. `offset.y` can be thought of

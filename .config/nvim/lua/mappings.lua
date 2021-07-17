@@ -7,7 +7,7 @@ local nmap = function(keymap, command)
     vim.api.nvim_set_keymap( 'n', keymap, command, opts)
 end
 
-normal_mode_maps = {
+local normal_mode_maps = {
     ['Y']              = 'yg_',
     ['p']              = 'pm`=`]``',
     ['P']              = 'Pm`=`]``',
@@ -16,6 +16,8 @@ normal_mode_maps = {
     [']t']             = ':tabn<CR>',
     ['[c']             = ':cnext<CR>',
     [']c']             = ':cprevious<CR>',
+    ['<C-h>']          = '^',
+    ['<C-l>']          = 'g_',
     ['<leader>j']      = 'J',
     ['<leader>B']      = ':b#<CR>',
     ['<leader>e']      = ':cc<CR>',

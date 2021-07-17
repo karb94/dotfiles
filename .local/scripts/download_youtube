@@ -131,7 +131,7 @@ if [ -f "$video_path" ]; then
   action=$(completed_notify)
   [ "$action" = "play" ] &&
     floating_rule &&
-    mpv --no-terminal "$video_path"
+    mpv --geometry=70% --no-terminal "$video_path"
     rm "$thumbnail" "${video_path%.*}"*
 else
   dunstify \

@@ -30,15 +30,17 @@ return require("packer").startup(function()
 		{ "Vimjas/vim-python-pep8-indent", ft = { "py" } },
 		{ "neomake/neomake", ft = { "cpp" } },
 		{ "junegunn/vim-easy-align" },
-		{ "lervag/vimtex", ft = { "tex", "bib" } },
+		-- { "~/projects/vimtex"},--, ft = { "tex", "bib" } },
+    { "lervag/vimtex"},--, ft = { "tex", "bib" } },
 		{ "karb94/gruvbox.nvim", requires = "rktjmp/lush.nvim" },
 		{ "mfussenegger/nvim-dap" },
 		{ "hrsh7th/nvim-compe" },
 		-- LSP
-		{ "neovim/nvim-lspconfig", ft = { "py", "cpp", "sh", "tex", "lua" } },
-		{ "folke/lua-dev.nvim", requires = "neovim/nvim-lspconfig", ft = "lua"},
+		{ "neovim/nvim-lspconfig" },
+    { "folke/lua-dev.nvim"},
 		{ "glepnir/lspsaga.nvim", requires = "neovim/nvim-lspconfig" },
 		-- { "ray-x/lsp_signature.nvim", requires =
+		{ "L3MON4D3/LuaSnip", requires = "neovim/nvim-lspconfig" },
 		-- Treesitter
 		{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
 		{ "nvim-treesitter/playground", requires = "nvim-treesitter/nvim-treesitter" },
@@ -52,14 +54,6 @@ return require("packer").startup(function()
 			run = "make",
 		},
 	}
-
-	local function check_for_config_file(repo)
-		if file_exists(config_abs_path) then
-			return config_rel_path
-		else
-			return nil
-		end
-	end
 
 	local lua_dir = vim.env.HOME .. "/.config/nvim/lua/"
 	for _, plugin in ipairs(plugins) do
