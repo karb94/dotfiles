@@ -17,8 +17,8 @@ return require("packer").startup(function()
 	local plugins = {
 		{ "wbthomason/packer.nvim" },
 		{ "lukas-reineke/indent-blankline.nvim" },
-		{ "~/projects/neoscroll.nvim" },
-		-- {'karb94/neoscroll.nvim'},
+		-- { "~/projects/neoscroll.nvim" },
+		{'karb94/neoscroll.nvim'},
 		{ "machakann/vim-sandwich" },
 		{ "b3nj5m1n/kommentary" },
 		{ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
@@ -30,10 +30,10 @@ return require("packer").startup(function()
 		{ "Vimjas/vim-python-pep8-indent", ft = { "py" } },
 		{ "neomake/neomake", ft = { "cpp" } },
 		{ "junegunn/vim-easy-align" },
-		-- { "~/projects/vimtex"},--, ft = { "tex", "bib" } },
     { "lervag/vimtex"},--, ft = { "tex", "bib" } },
 		{ "karb94/gruvbox.nvim", requires = "rktjmp/lush.nvim" },
 		{ "mfussenegger/nvim-dap" },
+    { "ggandor/lightspeed.nvim" },
 		{ "hrsh7th/nvim-compe" },
 		-- LSP
 		{ "neovim/nvim-lspconfig" },

@@ -1,14 +1,12 @@
-require('neoscroll').setup()
-    -- mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-    --             '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-    -- mappings = {},
-    -- Set any other options as needed
-    -- stop_eof = false,
-    -- respect_scrolloff = true,
-    -- cursor_scrolls_alone = false,
-    -- easing_function = "quadratic"
-    -- use_local_scrolloff = true
--- })
+require("neoscroll").setup({
+  mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt",
+               "zz", "zb"},
+	stop_eof = false,
+	respect_scrolloff = true,
+	cursor_scrolls_alone = false,
+	-- easing_function = "quadratic",
+	use_local_scrolloff = true,
+})
 
 -- require('neoscroll').setup()
 
@@ -17,8 +15,8 @@ require('neoscroll').setup()
 -- t['G']  = {'scroll', {'vim.api.nvim_buf_line_count(0)-20', 'true', '1500', [["cubic"]]}}
 -- -- Syntax: t[keys] = {function, {function arguments}}
 -- -- Use the "sine" easing function
--- t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', 'sine'}}
--- t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', 'sine'}}
+-- t["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "350", "sine", [['cursorline']] } }
+-- t["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "350", "sine", [['cursorline']] } }
 -- -- Use the "circular" easing function
 -- t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '500', 'circular'}}
 -- t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '500', 'circular'}}
@@ -30,7 +28,7 @@ require('neoscroll').setup()
 -- t['zz']    = {'zz', {'300'}}
 -- t['zb']    = {'zb', {'300'}}
 
--- require('neoscroll.config').set_mappings(t)
+-- require("neoscroll.config").set_mappings(t)
 
 -- local config = require('neoscroll.config')
 -- -- easing1: f(x) = x^2
@@ -59,7 +57,6 @@ require('neoscroll').setup()
 
 -- config.set_mappings(t)
 
-
 -- require('neoscroll').setup({
 --     mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
 --     -- mappings = {},
@@ -87,8 +84,7 @@ require('neoscroll').setup()
 
 -- config.set_mappings()
 
-
-vim.api.nvim_set_keymap('n', 'K', '<C-y>', {silent=true})
-vim.api.nvim_set_keymap('n', 'J', '<C-e>', {silent=true})
-vim.api.nvim_set_keymap('x', 'K', '<C-y>', {silent=true})
-vim.api.nvim_set_keymap('x', 'J', '<C-e>', {silent=true})
+vim.api.nvim_set_keymap("n", "K", "<C-y>", { silent = true })
+vim.api.nvim_set_keymap("n", "J", "<C-e>", { silent = true })
+vim.api.nvim_set_keymap("x", "K", "<C-y>", { silent = true })
+vim.api.nvim_set_keymap("x", "J", "<C-e>", { silent = true })
