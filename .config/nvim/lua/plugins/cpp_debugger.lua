@@ -1,6 +1,7 @@
 local M = {}
 local config
 
+
 M.start_c_debugger = function(args, mi_mode, mi_debugger_path)
     local dap = require("dap")
     if args and #args > 0 then

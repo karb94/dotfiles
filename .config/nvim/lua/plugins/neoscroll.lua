@@ -1,16 +1,27 @@
-require("neoscroll").setup({
-  mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt",
-               "zz", "zb"},
-	stop_eof = false,
-	respect_scrolloff = true,
-	cursor_scrolls_alone = false,
-	-- easing_function = "quadratic",
-	use_local_scrolloff = true,
-})
+require('neoscroll').setup {
+  respect_scrolloff = true,
+  -- use_local_scrolloff = true,
+  hide_cursor = true,
+  cursor_scrolls_alone = true,
+  stop_eof = true,
+  mappings = {},
+  mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+}
+-- require("neoscroll").setup({})
+--   mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt",
+--                "zz", "zb"},
+-- 	stop_eof = false,
+-- 	respect_scrolloff = true,
+-- 	cursor_scrolls_alone = false,
+-- 	-- easing_function = "quadratic",
+-- 	use_local_scrolloff = true,
+-- })
 
 -- require('neoscroll').setup()
 
 -- local t = {}
+-- t["G"] = { "G", { "100", "scroll" } }
+-- t["gg"] = { "gg", { "100" } }
 -- t['gg'] = {'scroll', {'-vim.api.nvim_buf_line_count(0)+20', 'true', '1500', [["cubic"]]}}
 -- t['G']  = {'scroll', {'vim.api.nvim_buf_line_count(0)-20', 'true', '1500', [["cubic"]]}}
 -- -- Syntax: t[keys] = {function, {function arguments}}

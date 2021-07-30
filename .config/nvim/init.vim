@@ -162,8 +162,8 @@ function! InsideSpaces(count)
     call search('\v(^|\s)\zs.','b', l:line)
     normal! o
 endfunction
-xnoremap <silent> is :<c-u>call InsideSpaces(v:count1)<cr>
-onoremap <silent> is :<c-u>call InsideSpaces(v:count1)<cr>
+" xnoremap <silent> is :<c-u>call InsideSpaces(v:count1)<cr>
+" onoremap <silent> is :<c-u>call InsideSpaces(v:count1)<cr>
 
 function! InsideNumbers(count)
     let l:line = line('.')

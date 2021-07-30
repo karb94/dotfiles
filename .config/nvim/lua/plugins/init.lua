@@ -21,7 +21,7 @@ return require("packer").startup(function()
 		{'karb94/neoscroll.nvim'},
 		{ "machakann/vim-sandwich" },
 		{ "b3nj5m1n/kommentary" },
-		{ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
+		-- { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
 		{ "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" },
 		{ "norcalli/nvim-colorizer.lua" },
 		{ "sbdchd/neoformat" },
@@ -33,7 +33,6 @@ return require("packer").startup(function()
     { "lervag/vimtex"},--, ft = { "tex", "bib" } },
 		{ "karb94/gruvbox.nvim", requires = "rktjmp/lush.nvim" },
 		{ "mfussenegger/nvim-dap" },
-    { "ggandor/lightspeed.nvim" },
 		{ "hrsh7th/nvim-compe" },
 		-- LSP
 		{ "neovim/nvim-lspconfig" },

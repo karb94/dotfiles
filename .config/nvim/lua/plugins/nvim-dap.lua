@@ -1,17 +1,25 @@
 local dap = require('dap')
 local variables_ui = require('dap.ui.variables')
 
-dap.adapters.cpp = {
-    type = 'executable',
-    attach = {
-        pidProperty = "pid",
-        pidSelect = "ask"
-    },
-    command = 'lldb-vscode', -- my binary was called 'lldb-vscode-11'
-    env = {
-        LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"
-    },
-    name = "lldb"
+dap.adapters.lldb = {
+  type = 'executable',
+  command = '/usr/bin/lldb-vscode',
+  name = "lldb"
+}
+
+dap.configurations.cpp = {
+  {
+    name = "Launch",
+    type = "lldb",
+    request = "launch",
+    program = "/home/carles/phd/CSG_model/bin/csgm",
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = function()
+      return {vim.fn.input('Arguments: ', vim.fn.getcwd(), 'file')}
+    end,
+    runInTerminal = false,
+  },
 }
 
 -- in your init.lua (or copy the lines with command! in your init.vim)
@@ -23,7 +31,7 @@ local map = function(mode, keymap, command, opts)
     opts = opts or { noremap = true, silent = true }
     vim.api.nvim_set_keymap(mode, keymap, command, opts)
 end
-map('n', '<localleader>c', [[:lua require('dap').continue()<CR>]])
+map('n', '<localleader>c', [[:lua require('dap').continue() require('dap').repl.open()<CR>]])
 map('n', '<localleader>n', [[:lua require('dap').step_over()<CR>]])
 map('n', '<localleader>s', [[:lua require('dap').step_into()<CR>]])
 map('n', '<localleader>o', [[:lua require('dap').step_out()<CR>]])
