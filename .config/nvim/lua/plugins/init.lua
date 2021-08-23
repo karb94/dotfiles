@@ -17,8 +17,8 @@ return require("packer").startup(function()
 	local plugins = {
 		{ "wbthomason/packer.nvim" },
 		{ "lukas-reineke/indent-blankline.nvim" },
-		-- { "~/projects/neoscroll.nvim" },
-		{'karb94/neoscroll.nvim'},
+		{ "~/projects/neoscroll.nvim" },
+		-- {'karb94/neoscroll.nvim'},
 		{ "machakann/vim-sandwich" },
 		{ "b3nj5m1n/kommentary" },
 		-- { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
@@ -43,10 +43,11 @@ return require("packer").startup(function()
 		-- Treesitter
 		{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
 		{ "nvim-treesitter/playground", requires = "nvim-treesitter/nvim-treesitter" },
-		{ "nvim-treesitter/nvim-treesitter-textobjects", requires = "nvim-treesitter/nvim-treesitter" },
+		-- { "nvim-treesitter/nvim-treesitter-textobjects", requires = "nvim-treesitter/nvim-treesitter" },
 		-- Telescope
 		{ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" } },
-		{ "nvim-telescope/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
+		-- { "nvim-telescope/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
+    { "~/projects/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			requires = { "nvim-telescope/telescope.nvim" },

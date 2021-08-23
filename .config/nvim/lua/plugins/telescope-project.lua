@@ -1,13 +1,15 @@
+require('plenary')
 require("telescope").setup({
 	extensions = {
 		project = {
 			base_dirs = {
-				vim.env.HOME .. "/projects/",
-				vim.env.HOME .. "/phd/",
-			},
-			max_depth = 2,
-		},
-	},
+        {vim.env.HOME .. "/phd", max_depth=2},
+        {vim.env.HOME .. "/projects", max_depth=2},
+        -- {vim.env.HOME .. "/Downloads/", max_depth=2},
+        -- {"~/phd/model_paper"},
+			}
+		}
+	}
 })
 
 require("telescope").load_extension("project")
