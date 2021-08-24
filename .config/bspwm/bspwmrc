@@ -1,6 +1,6 @@
 #! /bin/sh
 
-bspc monitor HDMI-A-1 -d I II III IV V
+bspc monitor DisplayPort-2 -d I II III IV V
 
 bspc config border_width         3
 bspc config window_gap           5
