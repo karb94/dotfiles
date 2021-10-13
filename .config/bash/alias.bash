@@ -55,6 +55,29 @@ alias ac='conda activate'
 alias da='conda deactivate'
 alias ae='. env/bin/activate'
 alias de='deactivate'
+alias vml='qemu-system-x86_64 \
+  -enable-kvm \
+  -cpu host \
+  -m 2048 \
+  -usb -device usb-tablet \
+  -device virtio-vga-gl \
+  -boot order=cd \
+  -display gtk,gl=on \
+  -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd \
+  -drive if=pflash,format=raw,readonly=on,file=OVMF_VARS.fd \
+  -cdrom $HOME/projects/archiso/archlinux-2021.10.13-x86_64.iso \
+  -drive format=raw,cache=none,file=$HOME/projects/archiso/ssd.raw'
+alias vm='qemu-system-x86_64 \
+  -enable-kvm \
+  -cpu host \
+  -m 2048 \
+  -usb -device usb-tablet \
+  -boot order=cd \
+  -device virtio-vga-gl \
+  -display gtk,gl=on \
+  -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd \
+  -drive if=pflash,format=raw,readonly=on,file=OVMF_VARS.fd \
+  -drive format=raw,cache=none,file=$HOME/projects/archiso/ssd.raw'
 
 # Network connections
 alias q='qstat -u cr216'

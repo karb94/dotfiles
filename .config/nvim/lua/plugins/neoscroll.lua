@@ -1,11 +1,12 @@
 require('neoscroll').setup {
-  -- respect_scrolloff = true,
-  -- use_local_scrolloff = true,
-  -- hide_cursor = true,
-  -- cursor_scrolls_alone = true,
-  -- stop_eof = true,
+  respect_scrolloff = false,
+  use_local_scrolloff = true,
+  hide_cursor = true,
+  cursor_scrolls_alone = true,
+  stop_eof = false,
   -- mappings = {},
-  -- mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+  -- mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz',
+  --   'zb', 'gg', 'G'},
 }
 -- require("neoscroll").setup({})
 --   mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt",

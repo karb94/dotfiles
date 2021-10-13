@@ -48,8 +48,8 @@ cnoremap <C-k> <C-p>
 " nnoremap U :redo<CR>
 
 set wildcharm=<C-z>
-cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
-cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
+" cnoremap <expr> <Tab>   getcmdtype() =~ '[\/?]' ? "<C-g>" : "<C-z>"
+" cnoremap <expr> <S-Tab> getcmdtype() =~ '[\/?]' ? "<C-t>" : "<S-Tab>"
 " nnoremap <silent> <leader>m :silent make!\|redraw!\|cw<CR>
 " Terminal mappings
 tnoremap <C-]> <C-\><C-n>
@@ -63,13 +63,6 @@ nnoremap <silent> L :execute "normal! " . &l:scrolloff . "L"<CR>
 nnoremap <silent> H :execute "normal! " . &l:scrolloff . "H"<CR>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-" }}}
-
-"==============================================================================
-" COLORSCHEME
-"==============================================================================
-" {{{
-
 " }}}
 
 "==============================================================================

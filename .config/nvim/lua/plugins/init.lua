@@ -34,10 +34,12 @@ return require("packer").startup(function()
 		{ "karb94/gruvbox.nvim", requires = "rktjmp/lush.nvim" },
 		{ "mfussenegger/nvim-dap" },
 		{ "hrsh7th/nvim-compe" },
+    { "akinsho/toggleterm.nvim" },
+    { "nvim-lua/plenary.nvim" },
 		-- LSP
 		{ "neovim/nvim-lspconfig" },
     { "folke/lua-dev.nvim"},
-		{ "glepnir/lspsaga.nvim", requires = "neovim/nvim-lspconfig" },
+		-- { "glepnir/lspsaga.nvim", requires = "neovim/nvim-lspconfig" },
 		-- { "ray-x/lsp_signature.nvim", requires =
 		{ "L3MON4D3/LuaSnip", requires = "neovim/nvim-lspconfig" },
 		-- Treesitter
@@ -46,8 +48,7 @@ return require("packer").startup(function()
 		-- { "nvim-treesitter/nvim-treesitter-textobjects", requires = "nvim-treesitter/nvim-treesitter" },
 		-- Telescope
 		{ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" } },
-		-- { "nvim-telescope/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
-    { "~/projects/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
+    { "nvim-telescope/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			requires = { "nvim-telescope/telescope.nvim" },

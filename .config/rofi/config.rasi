@@ -1,23 +1,24 @@
 configuration {
-	theme: "custom";
-	font: "Fira Code 16";
-    scroll-method: 1;
-    fixed-num-lines: false;
-    width: 30;
-    lines: 10;
-    columns: 1;
-    location: 0;
-    padding: 0;
-    yoffset: -300;
-    kb-clear-line: "Control+l";
-    kb-remove-word-back: "Control+w";
-    kb-row-up: "Up,Control+p,Control+k,ISO_Left_Tab";
-    kb-row-down: "Down,Control+n,Control+j,Shift+ISO_Left_Tab";
-    kb-accept-entry: "Control+m,Return,KP_Enter";
-    kb-remove-to-eol: "";
-    /* border-radius: 10; */
+theme: "custom";
+font: "Fira Code 16";
+scroll-method: 1;
+fixed-num-lines: false;
+width: 30;
+lines: 10;
+columns: 1;
+location: 0;
+padding: 0;
+yoffset: -300;
+kb-clear-line: "Control+l";
+kb-mode-complete: "";
+kb-mode-commplete: "";
+kb-remove-word-back: "Control+w";
+kb-row-up: "Up,Control+p,Control+k,ISO_Left_Tab";
+kb-row-down: "Down,Control+n,Control+j,Shift+ISO_Left_Tab";
+kb-accept-entry: "Control+m,Return,KP_Enter";
+kb-remove-to-eol: "";
+/* border-radius: 10; */
 /*	modi: "window,run,ssh";*/
-/*	bw: 1;*/
 /*	xoffset: 0;*/
 /*	show-icons: false;*/
 /*	terminal: "rofi-sensible-terminal";*/
@@ -41,6 +42,7 @@ configuration {
 /*	case-sensitive: false;*/
 /*	cycle: true;*/
 /*	sidebar-mode: false;*/
+/*	hover-select: false;*/
 /*	eh: 1;*/
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
@@ -49,24 +51,13 @@ configuration {
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
-/*	line-margin: 2;*/
-/*	line-padding: 1;*/
 /*	filter: ;*/
-/*	separator-style: "dash";*/
-/*	hide-scrollbar: false;*/
-/*	fullscreen: false;*/
-/*	fake-transparency: false;*/
 /*	dpi: -1;*/
 /*	threads: 0;*/
-/*	scrollbar-width: 8;*/
-/*	fake-background: "screenshot";*/
+	scroll-method: 1;
 /*	window-format: "{w}    {c}   {t}";*/
 /*	click-to-exit: true;*/
-/*	show-match: true;*/
-/*	color-normal: ;*/
-/*	color-urgent: ;*/
-/*	color-active: ;*/
-/*	color-window: ;*/
+	theme: "custom";
 /*	max-history-size: 25;*/
 /*	combi-hide-mode-prefix: false;*/
 /*	matching-negate-char: '-' /* unsupported */;*/
@@ -75,6 +66,8 @@ configuration {
 /*	drun-use-desktop-cache: false;*/
 /*	drun-reload-desktop-cache: false;*/
 /*	normalize-match: false;*/
+/*	steal-focus: false;*/
+/*	application-fallback-icon: ;*/
 /*	pid: "/run/user/1000/rofi.pid";*/
 /*	display-window: ;*/
 /*	display-windowcd: ;*/
@@ -83,7 +76,7 @@ configuration {
 /*	display-drun: ;*/
 /*	display-combi: ;*/
 /*	display-keys: ;*/
-/*	display-file-browser: ;*/
+/*	display-filebrowser: ;*/
 /*	kb-primary-paste: "Control+V,Shift+Insert";*/
 /*	kb-secondary-paste: "Control+v,Insert";*/
 /*	kb-move-front: "Control+a";*/
@@ -95,8 +88,11 @@ configuration {
 /*	kb-remove-word-forward: "Control+Alt+d";*/
 /*	kb-remove-char-forward: "Delete,Control+d";*/
 /*	kb-remove-char-back: "BackSpace,Shift+BackSpace,Control+h";*/
+	kb-remove-to-eol: "";
 /*	kb-remove-to-sol: "Control+u";*/
+	kb-accept-entry: "Control+m,Return,KP_Enter";
 /*	kb-accept-custom: "Control+Return";*/
+/*	kb-accept-custom-alt: "Control+Shift+Return";*/
 /*	kb-accept-alt: "Shift+Return";*/
 /*	kb-delete-entry: "Shift+Delete";*/
 /*	kb-mode-next: "Shift+Right,Control+Tab";*/
@@ -150,4 +146,12 @@ configuration {
 /*	me-select-entry: "MousePrimary";*/
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
+  timeout {
+      action: "kb-cancel";
+      delay:  0;
+  }
+  filebrowser {
+      directories-first: true;
+      sorting-method:    "name";
+  }
 }

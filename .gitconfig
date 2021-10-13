@@ -7,16 +7,21 @@
     s = status
     a = add
     c = commit
+    m = merge
     p = push
     b = branch
     r = reset
+    d = diff
+    rb = rebase
+    rbc = rebase --continue
+    rba = rebase --abort
     f = fetch --all --prune
     rh = reset --hard
     ca = commit -a --amend --no-edit
     ch = checkout
     sw = switch
     l = !git --no-pager log -20 --oneline --graph --all
-    lf = log --oneline --graph --all
+    fl = log --oneline --graph --all
     ls = ls-tree --name-only HEAD
     fls = ls-tree -r --name-only --full-tree HEAD
     df = !git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME

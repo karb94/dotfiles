@@ -2,14 +2,6 @@
 
 # Script to download videos form youtube with notification popup
 
-live_notification() {
-  dunstify \
-    --timeout=1000000 \
-    --icon="$thumbnail" \
-    --action=play,label \
-    --hints=string:x-dunst-stack-tag:"${video_id}" \
-    "$creator [LIVE]" "$title"
-}
 floating_rule() {
   bspc rule \
     --add mpv \
@@ -18,26 +10,33 @@ floating_rule() {
     state=floating
 }
 
-export url="$1"
+# If no url was passed get it from the clipboard
+test -n "$1" && export url="$1" || export url=$(xsel -p)
 
 metadata=$(mktemp)
-youtube-dl -J "$url" >"$metadata"
-# If it's a live stream
-if jq --exit-status '.is_live' "$metadata" >/dev/null; then
-  # Show notification
-  action=$(live_notification)
-  [ "$action" = "play" ] &&
-    floating_rule &&
-    mpv --no-terminal --ytdl "$url" &&
-    exit 0
+if youtube-dl -J "$url" >"$metadata" 2>/dev/null; then
+  :
+else
+  rm "$metadata"
+  action=$(dunstify \
+    --timeout=1000000 \
+    --action=play,label \
+    "Unkown video [LIVE]")
+  if [ "$action" = "play" ]; then
+    floating_rule
+    mpv --no-terminal --ytdl "$url" || exit 1
+  fi
+  exit 0
 fi
 
 export video_id="$(jq --raw-output '.id' "$metadata")"
 video_path=/tmp/"${video_id}".mkv
 duration="$(jq --raw-output '.duration' "$metadata")"
 thumbnail_url="$(jq --raw-output '.thumbnail' "$metadata")"
+echo $thumbnail_url
 export title="$(jq --raw-output '.title' "$metadata" | fold -sw 30 -)"
 export creator="$(jq --raw-output '.uploader' "$metadata")"
+echo $thumbnail_url
 
 export thumbnail=$(mktemp)
 curl -s "$thumbnail_url" >"$thumbnail"
@@ -48,18 +47,34 @@ if file "$thumbnail" | grep -q 'Web/P image'; then
   thumbnail="$thumbnail".png
 fi
 
+# If it's a live stream
+if jq --exit-status '.is_live' "$metadata" >/dev/null; then
+  # Show notification
+  action=$(dunstify \
+    --timeout=1000000 \
+    --icon="$thumbnail" \
+    --action=play,label \
+    --hints=string:x-dunst-stack-tag:"$video_id" \
+    "$creator [LIVE]" "$title")
+  if [ "$action" = "play" ]; then
+    floating_rule
+    mpv --no-terminal --ytdl "$url" || exit 1
+  fi
+  exit 0
+fi
+
 exit_code=0
 # If file already exists print path and exit if not, download it
 if [ ! -f "$video_path" ]; then
   progress_bar() {
     if [ "$1" != 100 ]; then
-    dunstify \
-      --timeout=60000 \
-      --icon="$thumbnail" \
-      --action=cancel,label \
-      --hints=int:value:"$1" \
-      --hints=string:x-dunst-stack-tag:"$video_id" \
-      "$creator" "$title"
+      dunstify \
+        --timeout=60000 \
+        --icon="$thumbnail" \
+        --action=cancel,label \
+        --hints=int:value:"$1" \
+        --hints=string:x-dunst-stack-tag:"$video_id" \
+        "$creator" "$title"
     else
       dunstify \
         --timeout=1000 \
@@ -80,6 +95,7 @@ if [ ! -f "$video_path" ]; then
 
   export format='/tmp/%(id)s.%(ext)s'
   export -f progress_bar
+  declare -f progress_bar
   download_notify() {
     youtube-dl --no-post-overwrites --output "$format" "$url" |
       stdbuf -oL tr '\r' '\n' |
@@ -129,7 +145,7 @@ if [ -f "$video_path" ]; then
   action=$(completed_notify)
   [ "$action" = "play" ] &&
     floating_rule &&
-    mpv --geometry=70% --no-terminal "$video_path"
+    mpv --geometry=70% --no-terminal "$video_path" &&
     rm "$thumbnail" "${video_path%.*}"*
 else
   dunstify \

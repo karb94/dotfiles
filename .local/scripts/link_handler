@@ -7,7 +7,7 @@ url="$1"
  
 case "$url" in
 	*youtube.com/watch*)
-        download_youtube "$url" >/dev/null ;;
+        dy "$url" >/dev/null ;;
 	*png|*jpg|*jpe|*jpeg|*gif)
 		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///;s/%20/ /g")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 & ;;
 	*pdf|*cbz|*cbr)
