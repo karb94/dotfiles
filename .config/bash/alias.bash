@@ -33,7 +33,9 @@ alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 
 # Package manager
+alias pm='pacman'
 alias sp='sudo pacman'
+alias ud='sudo pacman -Syu'
 alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
 alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rsn"
 alias ai="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
@@ -65,7 +67,7 @@ alias vml='qemu-system-x86_64 \
   -display gtk,gl=on \
   -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd \
   -drive if=pflash,format=raw,readonly=on,file=OVMF_VARS.fd \
-  -cdrom $HOME/projects/archiso/archlinux-2021.10.13-x86_64.iso \
+  -cdrom $HOME/projects/archiso/archlinux-2021.10.27-x86_64.iso \
   -drive format=raw,cache=none,file=$HOME/projects/archiso/ssd.raw'
 alias vm='qemu-system-x86_64 \
   -enable-kvm \

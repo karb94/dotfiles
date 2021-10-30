@@ -33,9 +33,14 @@ return require("packer").startup(function()
     { "lervag/vimtex"},--, ft = { "tex", "bib" } },
 		{ "karb94/gruvbox.nvim", requires = "rktjmp/lush.nvim" },
 		{ "mfussenegger/nvim-dap" },
-		{ "hrsh7th/nvim-compe" },
     { "akinsho/toggleterm.nvim" },
     { "nvim-lua/plenary.nvim" },
+    -- Autocompletion
+    { "hrsh7th/nvim-cmp" },
+    { "hrsh7th/cmp-buffer", requires = "hrsh7th/cmp-buffer" },
+    { "hrsh7th/cmp-nvim-lsp", requires = "hrsh7th/cmp-buffer"  },
+    { "hrsh7th/cmp-nvim-lua", requires = "hrsh7th/cmp-buffer"  },
+    { "hrsh7th/cmp-path", requires = "hrsh7th/cmp-buffer"  },
 		-- LSP
 		{ "neovim/nvim-lspconfig" },
     { "folke/lua-dev.nvim"},

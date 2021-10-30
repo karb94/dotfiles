@@ -49,6 +49,6 @@ command -v xob >/dev/null 2>&1 && [ -p "$HOME"/.local/bin/xob_volume_fifo ] &&
     xob -s volume >/dev/null 2>&1 & )
 
 sxhkd -m -1 &
-test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
-  xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &
+# test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
+#   xkbcomp $HOME/.local/share/X11/xkb/qwerty.xkb $DISPLAY &
 exec bspwm
