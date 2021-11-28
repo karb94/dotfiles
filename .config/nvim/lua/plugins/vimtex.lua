@@ -1,3 +1,4 @@
+local mappings = require("mappings")
 
 vim.g.vimtex_compiler_progname = 'nvr'
 vim.g.tex_flavor = 'latex'
@@ -18,6 +19,16 @@ vim.g.vimtex_compiler_latexmk = {
   }
 }
 
+local normal_mode_maps = {
+  ['<leader>lc'] = ':w<CR>:VimtexCompile<CR>',
+  ['<leader>lt'] = ':VimtexToggleMain<CR>',
+  ['<leader>lr'] = ':VimtexReload<CR>',
+  ['<leader>lk'] = ':VimtexStop<CR>',
+}
+
+for keymap, value in pairs(normal_mode_maps) do
+  mappings.nmap(keymap, value)
+end
 
 -- " Prevents detecting 'latex' files as 'plain tex' files
 -- let g:vimtex_compiler_progname = 'nvr'

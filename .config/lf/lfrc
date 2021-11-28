@@ -111,6 +111,7 @@ cmd zip ${{
 map x delete
 map <tab> toggle
 map gl cd ~/phd/literature
+map gd cd ~/Downloads
 map gs cd ~/.local/scripts
 map gc cd ~/.config
 map <esc> quit

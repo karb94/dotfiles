@@ -12,8 +12,10 @@
 alias sb='source ~/.bashrc'
 
 # Built-ins
-alias ls='\ls -pGrt --color=auto --group-directories-first' 
-alias lsh='ls -d .*'
+alias ll='\ls -phlrt --color=auto --group-directories-first' 
+alias ls='\ls -prt --color=auto --group-directories-first' 
+# alias lsh='ls -d .*'
+alias lh='ls -A --color=auto | grep "^\."'
 alias mkdir='mkdir -v' 
 alias rv='rm -Iv' 
 alias mv='mv -iv' 
@@ -67,7 +69,7 @@ alias vml='qemu-system-x86_64 \
   -display gtk,gl=on \
   -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd \
   -drive if=pflash,format=raw,readonly=on,file=OVMF_VARS.fd \
-  -cdrom $HOME/projects/archiso/archlinux-2021.10.27-x86_64.iso \
+  -cdrom $HOME/projects/archiso/archlinux-2021.*-x86_64.iso \
   -drive format=raw,cache=none,file=$HOME/projects/archiso/ssd.raw'
 alias vm='qemu-system-x86_64 \
   -enable-kvm \

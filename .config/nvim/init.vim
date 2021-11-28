@@ -2,9 +2,9 @@
 " pluginst os is vim running under
 " let g:os = substitute(system('uname'), '\n', '', '')
 
-lua require('plugins')
 lua require('options')
 lua require('mappings')
+lua require('plugins')
 "==============================================================================
 " MAPPINGS
 "==============================================================================

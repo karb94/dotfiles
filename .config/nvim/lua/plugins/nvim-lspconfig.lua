@@ -14,7 +14,7 @@ M.on_attach = function(client, bufnr)
 	-- Mappings.
 	lsp_nmap("gD", "buf.declaration()")
 	lsp_nmap("gd", "buf.definition()")
-	lsp_nmap("<C-k>", "buf.signature_help()")
+	lsp_nmap("gs", "buf.signature_help()")
 	lsp_nmap("<leader>e", "diagnostic.show_line_diagnostics()")
 	lsp_nmap("[d", "diagnostic.goto_prev()")
 	lsp_nmap("]d", "diagnostic.goto_next()")

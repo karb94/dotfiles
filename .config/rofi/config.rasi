@@ -1,5 +1,4 @@
 configuration {
-theme: "custom";
 font: "Fira Code 16";
 scroll-method: 1;
 fixed-num-lines: false;
@@ -57,7 +56,6 @@ kb-remove-to-eol: "";
 	scroll-method: 1;
 /*	window-format: "{w}    {c}   {t}";*/
 /*	click-to-exit: true;*/
-	theme: "custom";
 /*	max-history-size: 25;*/
 /*	combi-hide-mode-prefix: false;*/
 /*	matching-negate-char: '-' /* unsupported */;*/
@@ -155,3 +153,4 @@ kb-remove-to-eol: "";
       sorting-method:    "name";
   }
 }
+@theme "custom"
