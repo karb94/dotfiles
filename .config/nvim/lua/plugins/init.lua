@@ -16,6 +16,10 @@ end
 return require("packer").startup(function()
 	local plugins = {
 		{ "wbthomason/packer.nvim" },
+    { "lewis6991/impatient.nvim" },
+    { "nvim-lua/plenary.nvim" },
+    { "luukvbaal/stabilize.nvim" },
+    { "tversteeg/registers.nvim" },
 		{ "lukas-reineke/indent-blankline.nvim" },
 		{ "~/projects/neoscroll.nvim" },
 		-- {'karb94/neoscroll.nvim'},
@@ -33,8 +37,9 @@ return require("packer").startup(function()
     { "lervag/vimtex"},--, ft = { "tex", "bib" } },
 		{ "karb94/gruvbox.nvim", requires = "rktjmp/lush.nvim" },
 		{ "mfussenegger/nvim-dap" },
+    { "theHamsta/nvim-dap-virtual-text", requires = "mfussenegger/nvim-dap" },
+    { "rcarriga/nvim-dap-ui", requires = "mfussenegger/nvim-dap" },
     { "akinsho/toggleterm.nvim" },
-    { "nvim-lua/plenary.nvim" },
     -- Autocompletion
     { "hrsh7th/nvim-cmp" },
     { "hrsh7th/cmp-buffer", requires = "hrsh7th/cmp-buffer" },
@@ -43,7 +48,7 @@ return require("packer").startup(function()
     { "hrsh7th/cmp-path", requires = "hrsh7th/cmp-buffer"  },
 		-- LSP
 		{ "neovim/nvim-lspconfig" },
-    { "folke/lua-dev.nvim"},
+    { "folke/lua-dev.nvim", requires = "neovim/nvim-lspconfig"},
 		-- { "glepnir/lspsaga.nvim", requires = "neovim/nvim-lspconfig" },
 		-- { "ray-x/lsp_signature.nvim", requires =
 		{ "L3MON4D3/LuaSnip", requires = "neovim/nvim-lspconfig" },
@@ -66,7 +71,7 @@ return require("packer").startup(function()
 		local plugin_repo = plugin[1]
 		if plugin.config == nil then
 			local filename = plugin_repo:gmatch("[/^]([^/%.]+)[^/]*$")()
-			local plugins_folder = "plugins/"
+			local plugins_folder = "plugins."
 			local config_abs_path = table.concat({
 				lua_dir,
 				plugins_folder,

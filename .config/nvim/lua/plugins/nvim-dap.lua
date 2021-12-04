@@ -1,5 +1,4 @@
 local dap = require('dap')
-local variables_ui = require('dap.ui.variables')
 
 dap.adapters.lldb = {
   type = 'executable',
@@ -12,7 +11,7 @@ dap.configurations.cpp = {
     name = "Launch",
     type = "lldb",
     request = "launch",
-    program = "/home/carles/phd/CSG_model/bin/csgm",
+    program = "/home/carles/data/CSG_model/bin/csgm",
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
     args = function()
@@ -38,5 +37,5 @@ map('n', '<localleader>o', [[:lua require('dap').step_out()<CR>]])
 map('n', '<localleader>b', [[:lua require('dap').toggle_breakpoint()<CR>]])
 map('n', '<localleader>B', [[:lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]])
 map('n', '<localleader>r', [[:lua require('dap').run_last()<CR>]])
-map('n', '<localleader>e', [[:lua require('dap.ui.variables').hover()<CR>]])
-map('n', '<localleader>E', [[:lua require('dap.ui.variables').scopes()<CR>]])
+map('n', '<localleader>e', [[:lua require('dap.ui.widgets').hover()<CR>]])
+map('n', '<localleader>E', [[:lua require('dap.ui.widgets').scopes()<CR>]])
