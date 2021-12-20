@@ -12,6 +12,7 @@ dap.configurations.cpp = {
     type = "lldb",
     request = "launch",
     program = "/home/carles/data/CSG_model/bin/csgm",
+    -- program = "/home/carles/data/CSG_model/bin/csgm",
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
     args = function()

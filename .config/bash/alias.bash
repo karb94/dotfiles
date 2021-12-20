@@ -95,6 +95,7 @@ alias tk='tmux kill-server'
 
 # Miscellaneous
 alias nb='newsboat --quiet'
+alias btm='btm -bg --mem_as_value'
 
 # DFT
 alias etot='grep ETOT'
