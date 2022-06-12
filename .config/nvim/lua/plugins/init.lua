@@ -42,10 +42,12 @@ return require("packer").startup(function()
     { "akinsho/toggleterm.nvim" },
     -- Autocompletion
     { "hrsh7th/nvim-cmp" },
-    { "hrsh7th/cmp-buffer", requires = "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-nvim-lsp", requires = "hrsh7th/cmp-buffer"  },
-    { "hrsh7th/cmp-nvim-lua", requires = "hrsh7th/cmp-buffer"  },
-    { "hrsh7th/cmp-path", requires = "hrsh7th/cmp-buffer"  },
+    { "hrsh7th/cmp-buffer"},
+    { "hrsh7th/cmp-nvim-lsp"},
+    { "hrsh7th/cmp-nvim-lua"},
+    { "hrsh7th/cmp-path"},
+    { "saadparwaiz1/cmp_luasnip"},
+    
 		-- LSP
 		{ "neovim/nvim-lspconfig" },
     { "folke/lua-dev.nvim", requires = "neovim/nvim-lspconfig"},
@@ -71,7 +73,7 @@ return require("packer").startup(function()
 		local plugin_repo = plugin[1]
 		if plugin.config == nil then
 			local filename = plugin_repo:gmatch("[/^]([^/%.]+)[^/]*$")()
-			local plugins_folder = "plugins."
+			local plugins_folder = "plugins/"
 			local config_abs_path = table.concat({
 				lua_dir,
 				plugins_folder,
@@ -87,6 +89,9 @@ return require("packer").startup(function()
 				})
 			end
 		end
-		use(plugin)
+    -- print(plugin.config)
+    -- P(plugin)
+    use(plugin)
 	end
 end)
+-- /home/carles/.local/share/nvim/site/pack/packer/start/vimtex

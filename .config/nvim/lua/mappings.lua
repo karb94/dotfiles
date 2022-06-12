@@ -14,9 +14,12 @@ local normal_mode_maps = {
     ['Y']                 = 'yg_',
     ['p']                 = 'pm`=`]``',
     ['P']                 = 'Pm`=`]``',
+    ['gqip']              = 'm`gqip``',
     ['U']                 = ':redo<CR>',
     ['[t']                = ':tabp<CR>',
     [']t']                = ':tabn<CR>',
+    ['[d']                = ':lua vim.diagnostic.goto_next()<CR>',
+    [']d']                = ':lua vim.diagnostic.goto_previous()<CR>',
     ['<C-j>']             = ':cnext<CR>',
     ['<C-k>']             = ':cprevious<CR>',
     ['<C-h>']             = '^',
@@ -41,7 +44,7 @@ local normal_mode_maps = {
 }
 
 for keymap, value in pairs(normal_mode_maps) do
-    mappings.nmap(keymap, value)
+  mappings.nmap(keymap, value)
 end
 
 return mappings

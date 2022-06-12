@@ -4,6 +4,8 @@ vim.g.vimtex_compiler_progname = 'nvr'
 vim.g.tex_flavor = 'latex'
 vim.g.tex_conceal=""
 vim.g.vimtex_view_method = 'zathura'
+vim.g.vimtex_syntax_enabled = 0
+vim.g.vimtex_syntax_conceal_disable = 1
 vim.g.vimtex_compiler_latexmk = {
   background = 1,
   build_dir = 'build',
@@ -17,6 +19,9 @@ vim.g.vimtex_compiler_latexmk = {
     '-synctex=1',
     '-interaction=nonstopmode'
   }
+}
+vim.g.vimtex_quickfix_ignore_filters = {
+  'LaTeX hooks'
 }
 
 local normal_mode_maps = {

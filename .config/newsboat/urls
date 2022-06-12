@@ -1,13 +1,15 @@
 # Query feeds always first
 "query:Youtube:tags =~ \"youtube\""
 "query:Github:tags =~ \"github\""
-"query:League of Legends:(tags =~ \"TSM\" and title =~ \"League of Legends\") or (tags =~ \"LoL Esports\" and title =~ \"TSM\" or title =~ \"G2\")"
+"query:League of Legends:tags =~ \"LoL Esports\" and (title =~ \"TL\" or title =~ \"Team Liquid\" or title =~ \"G2\" or title =~ \"T1\")"
 
 # TECH
 # Linus Tech Tips
 https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw ! youtube tech
 # Techquickie
 https://www.youtube.com/feeds/videos.xml?channel_id=UC0vBXGSyV14uvJ4hECDOl0Q ! youtube tech
+# ShortCircuit
+https://www.youtube.com/feeds/videos.xml?channel_id=UCdBK94H6oZT2Q7l0-b0xmMg ! youtube tech
 # Marques Brownlee
 https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ ! youtube tech
 # Gamer Meld
@@ -59,7 +61,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCs6KfncB4OV6Vug4o_bzijg ! y
 https://www.youtube.com/feeds/videos.xml?channel_id=UCNIuvl7V8zACPpTmmNIqP2A ! youtube
 # League of Legends
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzAypSoOFKCZUts3ULtVT_g ! "LoL Esports"
-https://www.youtube.com/feeds/videos.xml?channel_id=UC4Ndz98NI_-9VQM3E7fctnQ ! TSM
+# https://www.youtube.com/feeds/videos.xml?channel_id=UC4Ndz98NI_-9VQM3E7fctnQ ! TSM
 # Casually Explained
 https://www.youtube.com/feeds/videos.xml?channel_id=UCr3cBLTYmIK9kY0F_OdFWFQ ! youtube
 

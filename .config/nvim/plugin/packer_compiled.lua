@@ -44,8 +44,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/carles/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?.lua;/home/carles/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?/init.lua;/home/carles/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?.lua;/home/carles/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/carles/.cache/nvim/packer_hererocks/2.0.5/lib/lua/5.1/?.so"
+local package_path_str = "/home/carles/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/carles/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/carles/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/carles/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/carles/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -93,6 +93,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/carles/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
+  },
+  cmp_luasnip = {
+    loaded = true,
+    path = "/home/carles/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   ["gitsigns.nvim"] = {
     config = { "require('plugins/gitsigns')" },
@@ -222,6 +227,12 @@ _G.packer_plugins = {
     path = "/home/carles/.local/share/nvim/site/pack/packer/start/registers.nvim",
     url = "https://github.com/tversteeg/registers.nvim"
   },
+  ["stabilize.nvim"] = {
+    config = { "require('plugins/stabilize')" },
+    loaded = true,
+    path = "/home/carles/.local/share/nvim/site/pack/packer/start/stabilize.nvim",
+    url = "https://github.com/luukvbaal/stabilize.nvim"
+  },
   ["targets.vim"] = {
     loaded = true,
     path = "/home/carles/.local/share/nvim/site/pack/packer/start/targets.vim",
@@ -283,34 +294,62 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-require('plugins/nvim-treesitter')
-time([[Config for nvim-treesitter]], false)
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-require('plugins/nvim-cmp')
-time([[Config for nvim-cmp]], false)
--- Config for: gruvbox.nvim
-time([[Config for gruvbox.nvim]], true)
-require('plugins/gruvbox')
-time([[Config for gruvbox.nvim]], false)
--- Config for: indent-blankline.nvim
-time([[Config for indent-blankline.nvim]], true)
-require('plugins/indent-blankline')
-time([[Config for indent-blankline.nvim]], false)
--- Config for: vim-easy-align
-time([[Config for vim-easy-align]], true)
-require('plugins/vim-easy-align')
-time([[Config for vim-easy-align]], false)
 -- Config for: telescope-project.nvim
 time([[Config for telescope-project.nvim]], true)
 require('plugins/telescope-project')
 time([[Config for telescope-project.nvim]], false)
--- Config for: nvim-dap-virtual-text
-time([[Config for nvim-dap-virtual-text]], true)
-require('plugins/nvim-dap-virtual-text')
-time([[Config for nvim-dap-virtual-text]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+require('plugins/nvim-colorizer')
+time([[Config for nvim-colorizer.lua]], false)
+-- Config for: nvim-dap
+time([[Config for nvim-dap]], true)
+require('plugins/nvim-dap')
+time([[Config for nvim-dap]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+require('plugins/nvim-treesitter')
+time([[Config for nvim-treesitter]], false)
+-- Config for: kommentary
+time([[Config for kommentary]], true)
+require('plugins/kommentary')
+time([[Config for kommentary]], false)
+-- Config for: gruvbox.nvim
+time([[Config for gruvbox.nvim]], true)
+require('plugins/gruvbox')
+time([[Config for gruvbox.nvim]], false)
+-- Config for: playground
+time([[Config for playground]], true)
+require('plugins/playground')
+time([[Config for playground]], false)
+-- Config for: nvim-dap-ui
+time([[Config for nvim-dap-ui]], true)
+require('plugins/nvim-dap-ui')
+time([[Config for nvim-dap-ui]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+require('plugins/indent-blankline')
+time([[Config for indent-blankline.nvim]], false)
+-- Config for: neoformat
+time([[Config for neoformat]], true)
+require('plugins/neoformat')
+time([[Config for neoformat]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+require('plugins/nvim-cmp')
+time([[Config for nvim-cmp]], false)
+-- Config for: lua-dev.nvim
+time([[Config for lua-dev.nvim]], true)
+require('plugins/lua-dev')
+time([[Config for lua-dev.nvim]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+require('plugins/gitsigns')
+time([[Config for gitsigns.nvim]], false)
+-- Config for: stabilize.nvim
+time([[Config for stabilize.nvim]], true)
+require('plugins/stabilize')
+time([[Config for stabilize.nvim]], false)
 -- Config for: telescope-fzf-native.nvim
 time([[Config for telescope-fzf-native.nvim]], true)
 require('plugins/telescope-fzf-native')
@@ -319,54 +358,30 @@ time([[Config for telescope-fzf-native.nvim]], false)
 time([[Config for telescope.nvim]], true)
 require('plugins/telescope')
 time([[Config for telescope.nvim]], false)
--- Config for: lua-dev.nvim
-time([[Config for lua-dev.nvim]], true)
-require('plugins/lua-dev')
-time([[Config for lua-dev.nvim]], false)
+-- Config for: vim-easy-align
+time([[Config for vim-easy-align]], true)
+require('plugins/vim-easy-align')
+time([[Config for vim-easy-align]], false)
 -- Config for: neoscroll.nvim
 time([[Config for neoscroll.nvim]], true)
 require('plugins/neoscroll')
 time([[Config for neoscroll.nvim]], false)
--- Config for: playground
-time([[Config for playground]], true)
-require('plugins/playground')
-time([[Config for playground]], false)
--- Config for: toggleterm.nvim
-time([[Config for toggleterm.nvim]], true)
-require('plugins/toggleterm')
-time([[Config for toggleterm.nvim]], false)
--- Config for: nvim-dap-ui
-time([[Config for nvim-dap-ui]], true)
-require('plugins/nvim-dap-ui')
-time([[Config for nvim-dap-ui]], false)
--- Config for: neoformat
-time([[Config for neoformat]], true)
-require('plugins/neoformat')
-time([[Config for neoformat]], false)
--- Config for: vimtex
-time([[Config for vimtex]], true)
-require('plugins/vimtex')
-time([[Config for vimtex]], false)
--- Config for: kommentary
-time([[Config for kommentary]], true)
-require('plugins/kommentary')
-time([[Config for kommentary]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-require('plugins/gitsigns')
-time([[Config for gitsigns.nvim]], false)
--- Config for: nvim-dap
-time([[Config for nvim-dap]], true)
-require('plugins/nvim-dap')
-time([[Config for nvim-dap]], false)
 -- Config for: nvim-lspconfig
 time([[Config for nvim-lspconfig]], true)
 require('plugins/nvim-lspconfig')
 time([[Config for nvim-lspconfig]], false)
--- Config for: nvim-colorizer.lua
-time([[Config for nvim-colorizer.lua]], true)
-require('plugins/nvim-colorizer')
-time([[Config for nvim-colorizer.lua]], false)
+-- Config for: vimtex
+time([[Config for vimtex]], true)
+require('plugins/vimtex')
+time([[Config for vimtex]], false)
+-- Config for: nvim-dap-virtual-text
+time([[Config for nvim-dap-virtual-text]], true)
+require('plugins/nvim-dap-virtual-text')
+time([[Config for nvim-dap-virtual-text]], false)
+-- Config for: toggleterm.nvim
+time([[Config for toggleterm.nvim]], true)
+require('plugins/toggleterm')
+time([[Config for toggleterm.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
@@ -380,5 +395,6 @@ if should_profile then save_profiles() end
 end)
 
 if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

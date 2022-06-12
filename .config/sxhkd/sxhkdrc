@@ -6,16 +6,14 @@
 #  ckbl
 
 # quit/restart bspwm
-super + shift + {q,r}
+super + control + {q,r}
  bspc {quit,wm -r}
+
 # Suspend computer
-super + shift + s
- systemctl suspend
+# super + shift + s
+#  systemctl suspend
 
 ## terminal emulator
-super + s
- alacritty
-
 super + s
  alacritty
 
@@ -27,9 +25,10 @@ super + {f,F}
 super + t
  bspc node --to-node biggest.local; bspc node --state tiled
 
-## Web Browser
-super + w
- chromium
+## Freetube
+super + r; {f,s,b}
+ {freetube,spotify,brave}
+
 ## program launcher
 super + slash
  rofi -show run
@@ -55,12 +54,12 @@ super + {_,shift + } Tab
  bspc node -f {next,prev}.local.floating
 
 ## Swap the node in the given direction
-super + m; {h,j,k,l}
+super + {H,J,K,L}
  bspc node --swap {west,south,north,east}
 
 ## Swap the node in the given direction
-super + m; {H,J,K,L,b}
- bspc node --to-node {west,south,north,east,biggest.local; bspc node --state tiled}
+super + m; {h,j,k,l}
+ bspc node --to-node {west,south,north,east}
 
 # Flip vertically
 super + shift + {backslash,minus}
@@ -79,16 +78,12 @@ super + {1-9,0}
  bspc desktop --focus '^{1-9,10}'
 
 # expand a window by moving one of its side outward
-super + shift + r: {h,H,j,J,k,K,l,L}
+super + shift + w: {h,H,j,J,k,K,l,L}
  bspc node -z {left -20 0,left 20 0,bottom 0 20,bottom 0 -20,top 0 -20,top 0 20,right 20 0,right -20 0}
 
 # Rotate workspace
-super + r
+super + shift + r
  bspc node @/ -R 90
-
-# Hide polybar
-super + b
- polybar-msg cmd toggle
 
 super + {equal,minus}
  pactl set-sink-volume @DEFAULT_SINK@ {+,-}5% && xob_volume
@@ -98,3 +93,11 @@ super + @p
 
 super + n
  dunstctl action
+
+# Mark node
+super + g
+ bspc node --flag 'marked=on'
+
+# Bring marked nodes to focused desktop and unmark them
+super + b
+ bspc node 'any.marked' -d 'focused' && bspc node 'any.marked' --flag 'marked=off'
