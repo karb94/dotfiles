@@ -69,8 +69,8 @@ alias vml='qemu-system-x86_64 \
   -display gtk,gl=on \
   -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd \
   -drive if=pflash,format=raw,readonly=on,file=OVMF_VARS.fd \
-  -cdrom $HOME/projects/archiso/archlinux-2021.*-x86_64.iso \
-  -drive format=raw,cache=none,file=$HOME/projects/archiso/ssd.raw'
+  -cdrom $HOME/data/archiso/archlinux-2022.*-x86_64.iso \
+  -drive format=raw,cache=none,file=$HOME/data/archiso/ssd.raw'
 alias vm='qemu-system-x86_64 \
   -enable-kvm \
   -cpu host \
@@ -81,7 +81,7 @@ alias vm='qemu-system-x86_64 \
   -display gtk,gl=on \
   -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd \
   -drive if=pflash,format=raw,readonly=on,file=OVMF_VARS.fd \
-  -drive format=raw,cache=none,file=$HOME/projects/archiso/ssd.raw'
+  -drive format=raw,cache=none,file=$HOME/data/archiso/ssd.raw'
 
 # Network connections
 alias q='qstat -u cr216'
