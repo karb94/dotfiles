@@ -43,6 +43,14 @@ local normal_mode_maps = {
     ['<leader><leader>P'] = '"*p',
 }
 
+local function run_test()
+  local test_directory = require('plenary.test_harness').test_directory
+  local current_file_path = vim.fn.expand("%:p")
+  local minimal_init_path = vim.fn.expand("%:h") .. '/minimal_init.vim'
+  test_directory(current_file_path, {minimal_init = minimal_init_path})
+end
+vim.keymap.set('n', '<leader>t', run_test)
+
 for keymap, value in pairs(normal_mode_maps) do
   mappings.nmap(keymap, value)
 end

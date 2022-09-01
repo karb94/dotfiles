@@ -12,7 +12,9 @@ kb-clear-line: "Control+l";
 kb-mode-complete: "";
 kb-mode-commplete: "";
 kb-remove-word-back: "Control+w";
-kb-row-up: "Up,Control+p,Control+k,ISO_Left_Tab";
+kb-element-next: "";
+kb-element-prev: "";
+/* kb-row-up: "Up,Control+p,Control+k,ISO_Left_Tab"; */
 kb-row-down: "Down,Control+n,Control+j,Shift+ISO_Left_Tab";
 kb-accept-entry: "Control+m,Return,KP_Enter";
 kb-remove-to-eol: "";

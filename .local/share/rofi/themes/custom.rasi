@@ -84,6 +84,10 @@ element-icon {
     text-color:       inherit;
 }
 window {
+    anchor:           center;
+    location:         center;
+    x-offset:         0;
+    y-offset:         0;
     padding:          20;
     background-color: var(background);
     border:           3;

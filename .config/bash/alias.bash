@@ -14,7 +14,7 @@ alias sb='source ~/.bashrc'
 # Built-ins
 alias ll='\ls -phlrt --color=auto --group-directories-first' 
 alias ls='\ls -prt --color=auto --group-directories-first' 
-# alias lsh='ls -d .*'
+alias lsh='ls -d .*'
 alias lh='ls -A --color=auto | grep "^\."'
 alias mkdir='mkdir -v' 
 alias rv='rm -Iv' 
@@ -37,11 +37,11 @@ alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 # Package manager
 alias pm='pacman'
 alias sp='sudo pacman'
-alias ud='sudo pacman -Syu'
-alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
-alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rsn"
+alias ud='doas pacman -Syu && aur sync -cu && doas pacman -Syu --noconfirm'
+alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro doas pacman -S"
+alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro doas pacman -Rsn"
 alias ai="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
-alias ar="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
+alias ar="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur-remove"
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 
 # Open files
@@ -76,7 +76,6 @@ alias vm='qemu-system-x86_64 \
   -cpu host \
   -m 2048 \
   -usb -device usb-tablet \
-  -boot order=cd \
   -device virtio-vga-gl \
   -display gtk,gl=on \
   -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd \

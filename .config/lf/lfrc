@@ -113,6 +113,7 @@ map <tab> toggle
 map gl cd ~/phd/literature
 map gt cd ~/phd/Thesis
 map gr cd ~/data/CSG_model/results
+map gp cd ~/projects
 map gd cd ~/Downloads
 map gs cd ~/.local/scripts
 map gc cd ~/.config

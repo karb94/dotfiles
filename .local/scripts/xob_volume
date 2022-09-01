@@ -1,5 +1,7 @@
-#! /bin/sh
+#! /usr/bin/env bash
 
-awk_cmd='/\*/ {v=1} (v && /volume/) {split($5, n, "%"); print n[1]; exit}'
-volume=$(pacmd list-sinks | awk "$awk_cmd")
+raw_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+shopt -s extglob
+volume_with_dot=${raw_volume##Volume: ?(0)}
+volume=${volume_with_dot/./}
 echo "$volume" > "$HOME"/.local/bin/xob_volume_fifo

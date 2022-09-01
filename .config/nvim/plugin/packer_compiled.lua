@@ -157,7 +157,7 @@ _G.packer_plugins = {
     config = { "require('plugins/neoscroll')" },
     loaded = true,
     path = "/home/carles/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
-    url = "/home/carles/projects/neoscroll.nvim"
+    url = "https://github.com/karb94/neoscroll.nvim"
   },
   ["nvim-cmp"] = {
     config = { "require('plugins/nvim-cmp')" },
@@ -294,14 +294,34 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: telescope-project.nvim
-time([[Config for telescope-project.nvim]], true)
-require('plugins/telescope-project')
-time([[Config for telescope-project.nvim]], false)
--- Config for: nvim-colorizer.lua
-time([[Config for nvim-colorizer.lua]], true)
-require('plugins/nvim-colorizer')
-time([[Config for nvim-colorizer.lua]], false)
+-- Config for: telescope-fzf-native.nvim
+time([[Config for telescope-fzf-native.nvim]], true)
+require('plugins/telescope-fzf-native')
+time([[Config for telescope-fzf-native.nvim]], false)
+-- Config for: vim-easy-align
+time([[Config for vim-easy-align]], true)
+require('plugins/vim-easy-align')
+time([[Config for vim-easy-align]], false)
+-- Config for: lua-dev.nvim
+time([[Config for lua-dev.nvim]], true)
+require('plugins/lua-dev')
+time([[Config for lua-dev.nvim]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+require('plugins/nvim-lspconfig')
+time([[Config for nvim-lspconfig]], false)
+-- Config for: vimtex
+time([[Config for vimtex]], true)
+require('plugins/vimtex')
+time([[Config for vimtex]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require('plugins/telescope')
+time([[Config for telescope.nvim]], false)
+-- Config for: toggleterm.nvim
+time([[Config for toggleterm.nvim]], true)
+require('plugins/toggleterm')
+time([[Config for toggleterm.nvim]], false)
 -- Config for: nvim-dap
 time([[Config for nvim-dap]], true)
 require('plugins/nvim-dap')
@@ -314,22 +334,30 @@ time([[Config for nvim-treesitter]], false)
 time([[Config for kommentary]], true)
 require('plugins/kommentary')
 time([[Config for kommentary]], false)
--- Config for: gruvbox.nvim
-time([[Config for gruvbox.nvim]], true)
-require('plugins/gruvbox')
-time([[Config for gruvbox.nvim]], false)
--- Config for: playground
-time([[Config for playground]], true)
-require('plugins/playground')
-time([[Config for playground]], false)
+-- Config for: nvim-dap-virtual-text
+time([[Config for nvim-dap-virtual-text]], true)
+require('plugins/nvim-dap-virtual-text')
+time([[Config for nvim-dap-virtual-text]], false)
+-- Config for: neoscroll.nvim
+time([[Config for neoscroll.nvim]], true)
+require('plugins/neoscroll')
+time([[Config for neoscroll.nvim]], false)
 -- Config for: nvim-dap-ui
 time([[Config for nvim-dap-ui]], true)
 require('plugins/nvim-dap-ui')
 time([[Config for nvim-dap-ui]], false)
--- Config for: indent-blankline.nvim
-time([[Config for indent-blankline.nvim]], true)
-require('plugins/indent-blankline')
-time([[Config for indent-blankline.nvim]], false)
+-- Config for: playground
+time([[Config for playground]], true)
+require('plugins/playground')
+time([[Config for playground]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+require('plugins/nvim-colorizer')
+time([[Config for nvim-colorizer.lua]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+require('plugins/gitsigns')
+time([[Config for gitsigns.nvim]], false)
 -- Config for: neoformat
 time([[Config for neoformat]], true)
 require('plugins/neoformat')
@@ -338,56 +366,28 @@ time([[Config for neoformat]], false)
 time([[Config for nvim-cmp]], true)
 require('plugins/nvim-cmp')
 time([[Config for nvim-cmp]], false)
--- Config for: lua-dev.nvim
-time([[Config for lua-dev.nvim]], true)
-require('plugins/lua-dev')
-time([[Config for lua-dev.nvim]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-require('plugins/gitsigns')
-time([[Config for gitsigns.nvim]], false)
+-- Config for: gruvbox.nvim
+time([[Config for gruvbox.nvim]], true)
+require('plugins/gruvbox')
+time([[Config for gruvbox.nvim]], false)
 -- Config for: stabilize.nvim
 time([[Config for stabilize.nvim]], true)
 require('plugins/stabilize')
 time([[Config for stabilize.nvim]], false)
--- Config for: telescope-fzf-native.nvim
-time([[Config for telescope-fzf-native.nvim]], true)
-require('plugins/telescope-fzf-native')
-time([[Config for telescope-fzf-native.nvim]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-require('plugins/telescope')
-time([[Config for telescope.nvim]], false)
--- Config for: vim-easy-align
-time([[Config for vim-easy-align]], true)
-require('plugins/vim-easy-align')
-time([[Config for vim-easy-align]], false)
--- Config for: neoscroll.nvim
-time([[Config for neoscroll.nvim]], true)
-require('plugins/neoscroll')
-time([[Config for neoscroll.nvim]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
-require('plugins/nvim-lspconfig')
-time([[Config for nvim-lspconfig]], false)
--- Config for: vimtex
-time([[Config for vimtex]], true)
-require('plugins/vimtex')
-time([[Config for vimtex]], false)
--- Config for: nvim-dap-virtual-text
-time([[Config for nvim-dap-virtual-text]], true)
-require('plugins/nvim-dap-virtual-text')
-time([[Config for nvim-dap-virtual-text]], false)
--- Config for: toggleterm.nvim
-time([[Config for toggleterm.nvim]], true)
-require('plugins/toggleterm')
-time([[Config for toggleterm.nvim]], false)
+-- Config for: indent-blankline.nvim
+time([[Config for indent-blankline.nvim]], true)
+require('plugins/indent-blankline')
+time([[Config for indent-blankline.nvim]], false)
+-- Config for: telescope-project.nvim
+time([[Config for telescope-project.nvim]], true)
+require('plugins/telescope-project')
+time([[Config for telescope-project.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType cpp ++once lua require("packer.load")({'neomake'}, { ft = "cpp" }, _G.packer_plugins)]]
 vim.cmd [[au FileType py ++once lua require("packer.load")({'vim-python-pep8-indent'}, { ft = "py" }, _G.packer_plugins)]]
+vim.cmd [[au FileType cpp ++once lua require("packer.load")({'neomake'}, { ft = "cpp" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
