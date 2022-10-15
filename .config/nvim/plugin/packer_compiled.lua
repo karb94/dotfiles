@@ -9,23 +9,26 @@ vim.api.nvim_command('packadd packer.nvim')
 
 local no_errors, error_msg = pcall(function()
 
-  local time
-  local profile_info
-  local should_profile = false
-  if should_profile then
-    local hrtime = vim.loop.hrtime
-    profile_info = {}
-    time = function(chunk, start)
-      if start then
-        profile_info[chunk] = hrtime()
-      else
-        profile_info[chunk] = (hrtime() - profile_info[chunk]) / 1e6
-      end
+_G._packer = _G._packer or {}
+_G._packer.inside_compile = true
+
+local time
+local profile_info
+local should_profile = false
+if should_profile then
+  local hrtime = vim.loop.hrtime
+  profile_info = {}
+  time = function(chunk, start)
+    if start then
+      profile_info[chunk] = hrtime()
+    else
+      profile_info[chunk] = (hrtime() - profile_info[chunk]) / 1e6
     end
-  else
-    time = function(chunk, start) end
   end
-  
+else
+  time = function(chunk, start) end
+end
+
 local function save_profiles(threshold)
   local sorted_times = {}
   for chunk_name, time_taken in pairs(profile_info) do
@@ -38,8 +41,10 @@ local function save_profiles(threshold)
       results[i] = elem[1] .. ' took ' .. elem[2] .. 'ms'
     end
   end
+  if threshold then
+    table.insert(results, '(Only showing plugins that took longer than ' .. threshold .. ' ms ' .. 'to load)')
+  end
 
-  _G._packer = _G._packer or {}
   _G._packer.profile_output = results
 end
 
@@ -128,22 +133,32 @@ _G.packer_plugins = {
     path = "/home/carles/.local/share/nvim/site/pack/packer/start/kommentary",
     url = "https://github.com/b3nj5m1n/kommentary"
   },
-  ["lua-dev.nvim"] = {
-    config = { "require('plugins/lua-dev')" },
+  ["lspsaga.nvim"] = {
     loaded = true,
-    path = "/home/carles/.local/share/nvim/site/pack/packer/start/lua-dev.nvim",
-    url = "https://github.com/folke/lua-dev.nvim"
+    path = "/home/carles/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
+    url = "https://github.com/glepnir/lspsaga.nvim"
   },
   ["lush.nvim"] = {
     loaded = true,
     path = "/home/carles/.local/share/nvim/site/pack/packer/start/lush.nvim",
     url = "https://github.com/rktjmp/lush.nvim"
   },
+  ["neodev.nvim"] = {
+    loaded = true,
+    path = "/home/carles/.local/share/nvim/site/pack/packer/start/neodev.nvim",
+    url = "https://github.com/folke/neodev.nvim"
+  },
   neoformat = {
     config = { "require('plugins/neoformat')" },
     loaded = true,
     path = "/home/carles/.local/share/nvim/site/pack/packer/start/neoformat",
     url = "https://github.com/sbdchd/neoformat"
+  },
+  neogit = {
+    config = { "require('plugins/neogit')" },
+    loaded = true,
+    path = "/home/carles/.local/share/nvim/site/pack/packer/start/neogit",
+    url = "https://github.com/TimUntersberger/neogit"
   },
   neomake = {
     config = { "require('plugins/neomake')" },
@@ -294,18 +309,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: telescope-fzf-native.nvim
-time([[Config for telescope-fzf-native.nvim]], true)
-require('plugins/telescope-fzf-native')
-time([[Config for telescope-fzf-native.nvim]], false)
 -- Config for: vim-easy-align
 time([[Config for vim-easy-align]], true)
 require('plugins/vim-easy-align')
 time([[Config for vim-easy-align]], false)
--- Config for: lua-dev.nvim
-time([[Config for lua-dev.nvim]], true)
-require('plugins/lua-dev')
-time([[Config for lua-dev.nvim]], false)
 -- Config for: nvim-lspconfig
 time([[Config for nvim-lspconfig]], true)
 require('plugins/nvim-lspconfig')
@@ -314,26 +321,14 @@ time([[Config for nvim-lspconfig]], false)
 time([[Config for vimtex]], true)
 require('plugins/vimtex')
 time([[Config for vimtex]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-require('plugins/telescope')
-time([[Config for telescope.nvim]], false)
--- Config for: toggleterm.nvim
-time([[Config for toggleterm.nvim]], true)
-require('plugins/toggleterm')
-time([[Config for toggleterm.nvim]], false)
--- Config for: nvim-dap
-time([[Config for nvim-dap]], true)
-require('plugins/nvim-dap')
-time([[Config for nvim-dap]], false)
--- Config for: nvim-treesitter
-time([[Config for nvim-treesitter]], true)
-require('plugins/nvim-treesitter')
-time([[Config for nvim-treesitter]], false)
 -- Config for: kommentary
 time([[Config for kommentary]], true)
 require('plugins/kommentary')
 time([[Config for kommentary]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+require('plugins/nvim-treesitter')
+time([[Config for nvim-treesitter]], false)
 -- Config for: nvim-dap-virtual-text
 time([[Config for nvim-dap-virtual-text]], true)
 require('plugins/nvim-dap-virtual-text')
@@ -342,38 +337,30 @@ time([[Config for nvim-dap-virtual-text]], false)
 time([[Config for neoscroll.nvim]], true)
 require('plugins/neoscroll')
 time([[Config for neoscroll.nvim]], false)
--- Config for: nvim-dap-ui
-time([[Config for nvim-dap-ui]], true)
-require('plugins/nvim-dap-ui')
-time([[Config for nvim-dap-ui]], false)
 -- Config for: playground
 time([[Config for playground]], true)
 require('plugins/playground')
 time([[Config for playground]], false)
--- Config for: nvim-colorizer.lua
-time([[Config for nvim-colorizer.lua]], true)
-require('plugins/nvim-colorizer')
-time([[Config for nvim-colorizer.lua]], false)
--- Config for: gitsigns.nvim
-time([[Config for gitsigns.nvim]], true)
-require('plugins/gitsigns')
-time([[Config for gitsigns.nvim]], false)
--- Config for: neoformat
-time([[Config for neoformat]], true)
-require('plugins/neoformat')
-time([[Config for neoformat]], false)
--- Config for: nvim-cmp
-time([[Config for nvim-cmp]], true)
-require('plugins/nvim-cmp')
-time([[Config for nvim-cmp]], false)
+-- Config for: nvim-dap-ui
+time([[Config for nvim-dap-ui]], true)
+require('plugins/nvim-dap-ui')
+time([[Config for nvim-dap-ui]], false)
 -- Config for: gruvbox.nvim
 time([[Config for gruvbox.nvim]], true)
 require('plugins/gruvbox')
 time([[Config for gruvbox.nvim]], false)
--- Config for: stabilize.nvim
-time([[Config for stabilize.nvim]], true)
-require('plugins/stabilize')
-time([[Config for stabilize.nvim]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+require('plugins/nvim-colorizer')
+time([[Config for nvim-colorizer.lua]], false)
+-- Config for: telescope-fzf-native.nvim
+time([[Config for telescope-fzf-native.nvim]], true)
+require('plugins/telescope-fzf-native')
+time([[Config for telescope-fzf-native.nvim]], false)
+-- Config for: neoformat
+time([[Config for neoformat]], true)
+require('plugins/neoformat')
+time([[Config for neoformat]], false)
 -- Config for: indent-blankline.nvim
 time([[Config for indent-blankline.nvim]], true)
 require('plugins/indent-blankline')
@@ -382,6 +369,34 @@ time([[Config for indent-blankline.nvim]], false)
 time([[Config for telescope-project.nvim]], true)
 require('plugins/telescope-project')
 time([[Config for telescope-project.nvim]], false)
+-- Config for: neogit
+time([[Config for neogit]], true)
+require('plugins/neogit')
+time([[Config for neogit]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require('plugins/telescope')
+time([[Config for telescope.nvim]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+require('plugins/nvim-cmp')
+time([[Config for nvim-cmp]], false)
+-- Config for: nvim-dap
+time([[Config for nvim-dap]], true)
+require('plugins/nvim-dap')
+time([[Config for nvim-dap]], false)
+-- Config for: toggleterm.nvim
+time([[Config for toggleterm.nvim]], true)
+require('plugins/toggleterm')
+time([[Config for toggleterm.nvim]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+require('plugins/gitsigns')
+time([[Config for gitsigns.nvim]], false)
+-- Config for: stabilize.nvim
+time([[Config for stabilize.nvim]], true)
+require('plugins/stabilize')
+time([[Config for stabilize.nvim]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
@@ -390,6 +405,13 @@ vim.cmd [[au FileType py ++once lua require("packer.load")({'vim-python-pep8-ind
 vim.cmd [[au FileType cpp ++once lua require("packer.load")({'neomake'}, { ft = "cpp" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
+
+_G._packer.inside_compile = false
+if _G._packer.needs_bufread == true then
+  vim.cmd("doautocmd BufRead")
+end
+_G._packer.needs_bufread = false
+
 if should_profile then save_profiles() end
 
 end)

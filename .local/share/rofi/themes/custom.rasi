@@ -77,13 +77,15 @@ element alternate.active {
 element-text {
     background-color: rgba ( 0, 0, 0, 0 % );
     text-color:       inherit;
+    vertical-align:   0.5;
 }
 element-icon {
     background-color: rgba ( 0, 0, 0, 0 % );
-    size:             1.2000ch ;
+    size:             2em ;
     text-color:       inherit;
 }
 window {
+    width:            30%;
     anchor:           center;
     location:         center;
     x-offset:         0;

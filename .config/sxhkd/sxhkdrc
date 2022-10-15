@@ -27,11 +27,11 @@ super + t
 
 ## Freetube
 super + r; {f,s,b}
- {freetube,spotify,brave}
+ {freetube,spotify,flatpak run com.brave.Browser}
 
 ## program launcher
 super + slash
- rofi -show run
+ rofi -show drun
 
 ## make sxhkd reload its configuration files:
 super + Escape
@@ -87,6 +87,11 @@ super + shift + r
 
 super + {equal,minus}
  pactl set-sink-volume @DEFAULT_SINK@ {+,-}5% && xob_volume
+
+XF86Audio{Prev,Next}
+ echo '\{ "command": ["{seek,seek}", {-10,10}] \}' | socat - /tmp/mpvsocket
+XF86Audio{Play,Pause}
+ echo '\{ "command": ["set_property", "pause", {false,true}] \}' | socat - /tmp/mpvsocket
 
 super + @p
  xdotool keyup Super_L+p && play &

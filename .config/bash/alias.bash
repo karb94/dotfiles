@@ -37,7 +37,7 @@ alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 # Package manager
 alias pm='pacman'
 alias sp='sudo pacman'
-alias ud='doas pacman -Syu && aur sync -cu && doas pacman -Syu --noconfirm'
+alias ud='doas pacman -Syu && aur sync -cu && doas pacman -Syu --noconfirm && flatpak update'
 alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro doas pacman -S"
 alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro doas pacman -Rsn"
 alias ai="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
@@ -75,7 +75,6 @@ alias vm='qemu-system-x86_64 \
   -enable-kvm \
   -cpu host \
   -m 2048 \
-  -usb -device usb-tablet \
   -device virtio-vga-gl \
   -display gtk,gl=on \
   -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF.fd \

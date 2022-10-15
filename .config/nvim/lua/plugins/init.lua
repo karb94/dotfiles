@@ -2,20 +2,30 @@
 local function file_exists(path)
 	return vim.fn.empty(vim.fn.glob(path)) == 0
 end
-local install_path = ".local/share/nvim/site/pack/packer/start/packer.nvim"
-local abs_install_path = vim.env.HOME .. "/" .. install_path
-local repo = "https://github.com/wbthomason/packer.nvim"
-local git_clone_cmd = "!git clone " .. repo .. " " .. abs_install_path
+
+local packer_bootstrap = false
+local packer_install_dir = "/site/pack/packer/start/packer.nvim"
+local abs_install_path = vim.fn.stdpath('data') .. packer_install_dir
 -- If Packer directory does not exist clone repo and initialize Packer
 if not file_exists(abs_install_path) then
-	vim.api.nvim_command(git_clone_cmd)
+  local repo = "https://github.com/wbthomason/packer.nvim"
+  local git_clone_cmd = {
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    repo,
+    abs_install_path
+  }
+	vim.cmd(git_clone_cmd)
 	vim.api.nvim_command("packadd packer.nvim")
+  packer_bootstrap = true
 end
 
 -- PLUGINS
 return require("packer").startup(function()
 	local plugins = {
-		{ "wbthomason/packer.nvim" },
+    { "wbthomason/packer.nvim" },
     { "lewis6991/impatient.nvim" },
     { "nvim-lua/plenary.nvim" },
     { "luukvbaal/stabilize.nvim" },
@@ -25,7 +35,7 @@ return require("packer").startup(function()
 		{'karb94/neoscroll.nvim'},
 		{ "machakann/vim-sandwich" },
 		{ "b3nj5m1n/kommentary" },
-		-- { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
+		{ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" },
 		{ "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" },
 		{ "norcalli/nvim-colorizer.lua" },
 		{ "sbdchd/neoformat" },
@@ -50,9 +60,8 @@ return require("packer").startup(function()
     
 		-- LSP
 		{ "neovim/nvim-lspconfig" },
-    { "folke/lua-dev.nvim", requires = "neovim/nvim-lspconfig"},
-		-- { "glepnir/lspsaga.nvim", requires = "neovim/nvim-lspconfig" },
-		-- { "ray-x/lsp_signature.nvim", requires =
+    { "folke/neodev.nvim", requires = "neovim/nvim-lspconfig"},
+		{ "glepnir/lspsaga.nvim", requires = "neovim/nvim-lspconfig" },
 		{ "L3MON4D3/LuaSnip", requires = "neovim/nvim-lspconfig" },
 		-- Treesitter
 		{ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
@@ -89,9 +98,12 @@ return require("packer").startup(function()
 				})
 			end
 		end
-    -- print(plugin.config)
-    -- P(plugin)
     use(plugin)
 	end
+
+  -- Automatically set up config
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
 -- /home/carles/.local/share/nvim/site/pack/packer/start/vimtex
