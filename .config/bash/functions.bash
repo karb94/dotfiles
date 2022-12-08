@@ -6,6 +6,13 @@
 
 
 
+ud () {
+  doas pacman -Syu
+    aur sync -cu &&
+    doas pacman -Syu --noconfirm &&
+    flatpak update
+}
+
 # t () {
 #     pgrep -vx tmux > /dev/null
 # }
@@ -18,6 +25,10 @@ t () {
 
 s () {
     setsid -f "$@"; exit
+}
+
+o () {
+  xdg-open "$@"; exit
 }
 
 misc () {

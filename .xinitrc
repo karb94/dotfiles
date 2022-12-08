@@ -44,9 +44,8 @@ dunst &
 # [ -f $HOME/.local/scripts/tmux_init ] &&
 #     $HOME/.local/scripts/tmux_init &
 # Volume bar
-command -v xob >/dev/null 2>&1 && [ -p "$HOME"/.local/bin/xob_volume_fifo ] &&
-  ( tail -f "$HOME"/.local/bin/xob_volume_fifo |
-    xob -s volume >/dev/null 2>&1 & )
+command -v xob >/dev/null 2>&1 && [ -p "$HOME"/.local/fifo/xob_volume ] &&
+  ( tail -f "$HOME"/.local/fifo/xob_volume | xob -s volume >/dev/null 2>&1 & )
 
 sxhkd -m -1 &
 # test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&

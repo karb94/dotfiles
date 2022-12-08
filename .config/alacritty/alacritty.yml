@@ -600,7 +600,7 @@ key_bindings:
   #- { key: I,                           mode: Vi, action: ScrollToBottom          }
   #- { key: I,                           mode: Vi, action: ToggleViMode            }
   #- { key: C,      mods: Control,       mode: Vi, action: ToggleViMode            }
-  - { key: A,             mode: Vi, action: ToggleViMode            }
+  # - { key: A,             mode: Vi, action: ToggleViMode            }
   - { key: K,      mods: Shift,       mode: Vi, action: ScrollLineUp            }
   - { key: J,      mods: Shift,       mode: Vi, action: ScrollLineDown          }
   #- { key: G,                           mode: Vi, action: ScrollToTop             }
@@ -645,7 +645,7 @@ key_bindings:
   #- { key: N,      mods: Shift,         mode: Vi, action: SearchPrevious          }
 
   # (Windows, Linux, and BSD only)
-  - { key: V,              mods: Control|Shift,                 action: Paste            }
+  - { key: V,              mods: Control,                 action: Paste            }
   # - { key: V,              mods: Control, action: ClearSelection   }
   # - { key: C,              mods: Control|Shift,           action: Copy             }
   #- { key: F,              mods: Control|Shift,           action: SearchForward    }

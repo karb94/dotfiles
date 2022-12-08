@@ -32,6 +32,8 @@ super + r; {f,s,b}
 ## program launcher
 super + slash
  rofi -show drun
+super + shift + slash
+ rofi -show run
 
 ## make sxhkd reload its configuration files:
 super + Escape
@@ -89,9 +91,9 @@ super + {equal,minus}
  pactl set-sink-volume @DEFAULT_SINK@ {+,-}5% && xob_volume
 
 XF86Audio{Prev,Next}
- echo '\{ "command": ["{seek,seek}", {-10,10}] \}' | socat - /tmp/mpvsocket
+ echo '\{ "command": ["{seek,seek}", {-10,10}] \}' | socat - "$HOME/.local/fifo/mpv"
 XF86Audio{Play,Pause}
- echo '\{ "command": ["set_property", "pause", {false,true}] \}' | socat - /tmp/mpvsocket
+ echo '\{ "command": ["set_property", "pause", {false,true}] \}' | socat - "$HOME/.local/fifo/mpv"
 
 super + @p
  xdotool keyup Super_L+p && play &

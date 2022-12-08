@@ -4,4 +4,4 @@ raw_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 shopt -s extglob
 volume_with_dot=${raw_volume##Volume: ?(0)}
 volume=${volume_with_dot/./}
-echo "$volume" > "$HOME"/.local/bin/xob_volume_fifo
+echo "$volume" > "$HOME"/.local/fifo/xob_volume
