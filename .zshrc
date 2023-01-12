@@ -109,3 +109,5 @@ bindkey '^e' edit-command-line
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -e /home/carles/.nix-profile/etc/profile.d/nix.sh ]; then . /home/carles/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

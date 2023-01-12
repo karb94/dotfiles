@@ -18,7 +18,8 @@ local global_opts = {
     joinspaces     = false,
     wildignorecase = true,                        -- Greedy command line completion
     ttimeout       = false,                       -- Don't wait for key code sequence
-    termguicolors  = true
+    termguicolors  = true,
+    cinkeys        = '0{,0},0),0],:,!^F,o,O,e'
 }
 
 -- Window options
