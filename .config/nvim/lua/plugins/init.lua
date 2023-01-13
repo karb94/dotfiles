@@ -17,7 +17,7 @@ if not file_exists(abs_install_path) then
     repo,
     abs_install_path
   }
-	fn.system(git_clone_cmd)
+	vim.fn.system(git_clone_cmd)
   vim.cmd("packadd packer.nvim")
   packer_bootstrap = true
 end
