@@ -1,7 +1,12 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}~/.fzf/bin"
+# if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
+#   export PATH="${PATH:+${PATH}:}~/.fzf/bin"
+# fi
+
+if command -v fzf-share >/dev/null; then
+  source "$(fzf-share)/key-bindings.bash"
+  source "$(fzf-share)/completion.bash"
 fi
 
 # Auto-completion
