@@ -69,7 +69,7 @@ return require("packer").startup(function()
 		-- { "nvim-treesitter/nvim-treesitter-textobjects", requires = "nvim-treesitter/nvim-treesitter" },
 		-- Telescope
 		{ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" } },
-    { "nvim-telescope/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
+    -- { "nvim-telescope/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			requires = { "nvim-telescope/telescope.nvim" },
