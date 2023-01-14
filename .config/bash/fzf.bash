@@ -109,7 +109,7 @@ cf() {
     # Only files at least 2 directories deep
     # Only hidden files in $HOME
     local fzf_output
-    mapfile -t fzf_output < <( find $HOME -mindepth 1 -type d \
+    mapfile -t fzf_output < <( find -L $HOME -mindepth 1 -type d \
             ! \( \
                 \( -path "$HOME/.config*" -a \( -path "$HOME/.config/nvim/*" -o ! -path "$HOME/.config/*/*" \) \) \
                 -o -path "$HOME/.local" \
