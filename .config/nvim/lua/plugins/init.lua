@@ -70,11 +70,11 @@ return require("packer").startup(function()
 		-- Telescope
 		{ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" } },
     -- { "nvim-telescope/telescope-project.nvim", requires = { "nvim-telescope/telescope.nvim" } },
-		{
-			"nvim-telescope/telescope-fzf-native.nvim",
-			requires = { "nvim-telescope/telescope.nvim" },
-			run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-		},
+		-- {
+		-- 	"nvim-telescope/telescope-fzf-native.nvim",
+		-- 	requires = { "nvim-telescope/telescope.nvim" },
+		-- 	run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		-- },
 	}
 
 	local lua_dir = vim.env.HOME .. "/.config/nvim/lua/"
