@@ -27,7 +27,7 @@ elif command -v vi > /dev/null 2>&1; then
 fi
 export PAGER="less -iR"
 export TERMINAL="alacritty"
-export BROWSER="flatpak run com.brave.Browser"
+export BROWSER="brave"
 
 # Export less variables to have colored man pages
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -42,11 +42,5 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export AUR_REPO="aur"
 export AUR_DBROOT="/var/cache/pacman/aurpkg"
 export AUR_PAGER="nvim"
-
-# Shell variables
-export SHELL="/bin/bash"
-# History file path
-mkdir -p "$HOME/.config/bash"
-export HISTFILE="$HOME/.config/bash/history"
 
 newsboat -x reload

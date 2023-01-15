@@ -22,6 +22,9 @@ test -f ~/.config/bash/functions.bash && source $_
 # erasedups: only keep most recent copies of a command
 # This is helpful to prevent useless fzf functions from being added to history
 export HISTCONTROL=ignoreboth:erasedups
+
+export HISTFILE="$HOME/.config/bash/history"
+
 # Define your command prompt
 red1='\033[38;5;1m'
 green1='\033[38;5;2m'
@@ -64,7 +67,6 @@ bind -m vi-insert -r "\ec"
 bind -m vi-command -r "\ec"
 # bind -x vi-insert -r "\ec"
 bind -x $'"\C-k":ls;'
-
 
 # For future use
 # if [ "$(uname)" = "Linux" ]
