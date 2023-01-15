@@ -27,8 +27,7 @@ elif command -v vi > /dev/null 2>&1; then
 fi
 export PAGER="less -iR"
 export TERMINAL="alacritty"
-# export TERMINAL="kitty --single-instance"
-export BROWSER="chromium"
+export BROWSER="flatpak run com.brave.Browser"
 
 # Export less variables to have colored man pages
 export LESS_TERMCAP_mb=$'\e[1;32m'

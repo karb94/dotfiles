@@ -24,6 +24,7 @@ local servers = {
 	"bashls",
 	"texlab",
 	"vimls",
+  "nil_ls",
 }
 
 

@@ -16,8 +16,8 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config honor_size_hints     true
 
-bspc rule --add Alacritty --one-shot desktop=^2 && alacritty &
-bspc rule --add Brave --one-shot desktop=^1 && flatpak run com.brave.Browser &
+bspc rule --add Alacritty --one-shot desktop=^2 && $TERMINAL &
+bspc rule --add Brave --one-shot desktop=^1 && $BROWSER &
 # bspc rule --add Polybar layer=above
 bspc rule --add Zathura state=tiled
 bspc desktop -f '^1'
