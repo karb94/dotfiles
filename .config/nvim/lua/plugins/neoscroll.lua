@@ -3,7 +3,7 @@ require('neoscroll').setup {
   -- use_local_scrolloff = true,
   -- hide_cursor = true,
   -- cursor_scrolls_alone = true,
-  -- stop_eof = false,
+  stop_eof = false,
   -- mappings = {},
   -- mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-y>', '<C-e>', 'zt', 'zz',
   --   'zb', 'gg', 'G'},
