@@ -38,9 +38,4 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-# Aur Utils
-export AUR_REPO="aur"
-export AUR_DBROOT="/var/cache/pacman/aurpkg"
-export AUR_PAGER="nvim"
-
-newsboat -x reload
+command -v newsboat > /dev/null 2>&1 && newsboat -x reload

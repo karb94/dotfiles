@@ -23,7 +23,7 @@ test -f ~/.config/bash/functions.bash && source $_
 # This is helpful to prevent useless fzf functions from being added to history
 export HISTCONTROL=ignoreboth:erasedups
 
-export HISTFILE="$HOME/.config/bash/history"
+export HISTFILE="$HOME/.local/share/bash/history"
 
 # Define your command prompt
 red1='\033[38;5;1m'
