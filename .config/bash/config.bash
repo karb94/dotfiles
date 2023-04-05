@@ -24,6 +24,7 @@ test -f ~/.config/bash/functions.bash && source $_
 export HISTCONTROL=ignoreboth:erasedups
 
 export HISTFILE="$HOME/.local/share/bash/history"
+mkdir -pv $(dirname $HISTFILE)
 
 # Define your command prompt
 red1='\033[38;5;1m'
