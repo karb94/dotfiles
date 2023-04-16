@@ -1,0 +1,183 @@
+#! /bin/env bash
+
+# Script to download videos form youtube with notification popup
+
+# Redirect all standard error to log file
+exec 2>> $HOME/.local/state/dy/dy.log 
+
+config="$HOME/.config/youtube-dl/config"
+
+floating_rule() {
+  bspc rule \
+    --add mpv \
+    --one-shot \
+    desktop="$(bspc query -D -d focused)" \
+    state=floating
+}
+
+# If no url was passed get it from the clipboard
+test -n "$1" && export url="$1" || export url=$(xsel -p)
+
+metadata=$(mktemp)
+if yt-dlp --config-location "$config" -J "$url" >"$metadata" 2>/dev/null; then
+  :
+else
+  rm "$metadata"
+  action=$(dunstify \
+    --timeout=1000000 \
+    --action=play,label \
+    "Unkown video")
+  if [ "$action" = "play" ]; then
+    floating_rule
+    mpv \
+      --keepaspect-window \
+      --geometry=70% \
+      --no-terminal \
+      --ytdl
+      --input-ipc-server=$HOME/.local/fifo/mpv \
+        "$url" || exit 1
+  fi
+  exit 0
+fi
+
+export video_id="$(jq --raw-output '.id' "$metadata")"
+video_path=/tmp/"${video_id}".mkv
+duration="$(jq --raw-output '.duration' "$metadata")"
+thumbnail_url="$(jq --raw-output '.thumbnail' "$metadata")"
+export title="$(jq --raw-output '.title' "$metadata" | fold -sw 30 -)"
+export creator="$(jq --raw-output '.uploader' "$metadata")"
+
+export thumbnail=$(mktemp)
+curl -s "$thumbnail_url" >"$thumbnail"
+# Convert into png/jpg format if necessary
+if file "$thumbnail" | grep -q 'Web/P image'; then
+  dwebp -quiet "$thumbnail" -o "$thumbnail".png
+  rm "$thumbnail"
+  thumbnail="$thumbnail".png
+fi
+
+# If it's a live stream
+if jq --exit-status '.is_live' "$metadata" >/dev/null; then
+  # Show notification
+  action=$(dunstify \
+    --timeout=1000000 \
+    --icon="$thumbnail" \
+    --action=play,label \
+    --hints=string:x-dunst-stack-tag:"$video_id" \
+    "$creator [LIVE]" "$title")
+  if [ "$action" = "play" ]; then
+    floating_rule
+    mpv \
+      --no-terminal \
+      --ytdl \
+      "$url" || exit 1
+  fi
+  exit 0
+fi
+
+exit_code=0
+# If file already exists print path and exit if not, download it
+if [ ! -f "$video_path" ]; then
+  progress_bar() {
+    if [ "$1" != 100 ]; then
+      dunstify \
+        --timeout=60000 \
+        --icon="$thumbnail" \
+        --action=cancel,label \
+        --hints=int:value:"$1" \
+        --hints=string:x-dunst-stack-tag:"$video_id" \
+        "$creator" "$title"
+    else
+      dunstify \
+        --timeout=1000 \
+        --icon="$thumbnail" \
+        --action=cancel,label \
+        --hints=int:value:"$1" \
+        --hints=string:x-dunst-stack-tag:"$video_id" \
+        "$creator" "$title"
+    fi
+  }
+  cancelled_notification() {
+    dunstify \
+      --timeout=5000 \
+      --icon="$thumbnail" \
+      --hints=string:x-dunst-stack-tag:"${video_id}" \
+      "$creator [CANCELLED]" "$title" >/dev/null
+  }
+
+  cancelled=false
+  export format='/tmp/%(id)s.%(ext)s'
+  download_notify() {
+    yt-dlp --config-location "$config" --no-post-overwrites \
+        --output "$format" "$url" 2>/dev/null |
+      stdbuf -oL tr '\r' '\n' |
+      grep --line-buffered -Po '\d+(?=\.\d+%)' |
+      while read -r percentage
+      do
+        echo "$percentage"
+        # Avoid waiting for the last notification to timeout by not using action
+        if [ "${percentage%.*}" -ge 70 ]
+        then
+          dunstify \
+            --timeout=60000 \
+            --icon="$thumbnail" \
+            --hints=int:value:"$percentage" \
+            --hints=string:x-dunst-stack-tag:"$video_id" \
+            "$creator" "$title"
+        else
+          dunstify \
+            --timeout=60000 \
+            --icon="$thumbnail" \
+            --action=cancel,label \
+            --hints=int:value:"$percentage" \
+            --hints=string:x-dunst-stack-tag:"$video_id" \
+            "$creator" "$title" &
+        fi
+      done |
+      while read notify_out
+      do
+        :
+        if [ "$notify_out" = "cancel" ]
+        then
+          cancelled=true
+          ppid_dunstify=$(pgrep -P $$ bash | head -n1)
+          # echo "pbash: $pbash"
+          # ps --ppid $$
+          # ps --ppid $ppid_dunstify
+          pkill -P $$ youtube-dl
+          pkill -P $ppid_dunstify dunstify
+          # ps --ppid $$
+          # ps --ppid $ppid_dunstify
+          # rm "$thumbnail" "${video_path%.*}"*
+          exit 1
+        fi
+      done
+  }
+  download_notify
+fi
+
+if [ -f "$video_path" ]; then
+  action=$(dunstify \
+    --timeout=1000000 \
+    --icon="$thumbnail" \
+    --action=play,label \
+    --hints=string:x-dunst-stack-tag:"${video_id}" \
+    "$creator [READY]" "$title")
+
+  [ "$action" = "play" ] &&
+    floating_rule &&
+    mpv \
+      --keepaspect-window \
+      --geometry=70% \
+      --no-terminal \
+      --input-ipc-server=$HOME/.local/fifo/mpv \
+      "$video_path" &&
+    rm -f "$thumbnail" "${video_path%.*}"*
+else
+  dunstify \
+    --timeout=5000 \
+    --icon="$thumbnail" \
+    --hints=string:x-dunst-stack-tag:"${video_id}" \
+    "$creator [CANCELLED]" "$title" >/dev/null
+    rm -f "$thumbnail" "${video_path%.*}"*
+fi
