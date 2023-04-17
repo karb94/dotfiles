@@ -1,7 +1,16 @@
 #! /usr/bin/env bash
 
+fifo_path="$HOME"/.local/fifo/xob_volume
+
+# Create the FIFO pipe if it doesn't already exist
+if [ ! -p "$fifo_path" &> /dev/null ]
+then
+  mkdir -p $(dirname "$fifo_path")
+  mkfifo "$fifo_path"
+fi
+
 raw_volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
 shopt -s extglob
 volume_with_dot=${raw_volume##Volume: ?(0)}
 volume=${volume_with_dot/./}
-echo "$volume" > "$HOME"/.local/fifo/xob_volume
+echo "$volume" > "$fifo_path"

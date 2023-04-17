@@ -12,7 +12,6 @@ prepend_to_path() {
 
 # Add to path
 prepend_to_path "$HOME/.local/bin"
-prepend_to_path "$HOME/.local/scripts"
 
 # Locale
 export LANG="en_GB.utf8"
