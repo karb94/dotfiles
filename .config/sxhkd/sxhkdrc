@@ -88,7 +88,7 @@ super + shift + r
  bspc node @/ -R 90
 
 super + {equal,minus}
- pactl set-sink-volume @DEFAULT_SINK@ {+,-}2% && xob_volume
+ wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%{+,-} && xob_volume
 
 XF86Audio{Prev,Next}
  echo '\{ "command": ["{seek,seek}", {-10,10}] \}' | socat - "$HOME/.local/fifo/mpv"
