@@ -113,7 +113,7 @@ cf() {
             ! \( \
                 \( -path "$HOME/.config*" -a \( -path "$HOME/.config/nvim/*" -o ! -path "$HOME/.config/*/*" \) \) \
                 -o -path "$HOME/.local" \
-                -o -path "$HOME/.local/scripts" \
+                -o -path "$HOME/.local/bin" \
             \) \
             -prune \
             -o -type f -path "$HOME/*/*/*" -printf '%P\n' \

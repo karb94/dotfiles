@@ -38,7 +38,7 @@ xsetroot -cursor_name left_ptr &
 # # set background
 hsetroot -solid "#000000" &
 # # Hide cursor after 1 second of inactivity
-unclutter --timeout 1 --ignore-scrolling &
+unclutter -idle 1 &
 # # Notifications daemon
 dunst &
 # [ -f $HOME/.local/scripts/tmux_init ] &&

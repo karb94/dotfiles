@@ -42,7 +42,8 @@ alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro doas 
 alias ai="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
 alias ar="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur-remove"
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
-alias u='nix-collect-garbage; sudo nixos-rebuild switch --flake github:karb94/nixos-config#LDN_desktop'
+alias rb='doas nixos-rebuild'
+alias gc='nix store gc'
 
 # Open files
 alias j='echo jupyter && setsid -f jupyter lab > /dev/null 2>&1 &'
