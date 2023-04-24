@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 # Run input command in the background
 "$@" >/dev/null 2>&1 &
