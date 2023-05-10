@@ -2,6 +2,16 @@
 
 # Script to download videos form youtube with notification popup
 
+# Check dependencies
+array=( "yt-dlp" "mpv" "jq" "bspc" "dwebp" "curl" "file")
+for i in "${array[@]}"
+do
+  command -v $i >/dev/null 2>&1 || { 
+    echo >&2 "$i required"; 
+    exit 1; 
+    }
+done
+
 # Redirect all standard error to log file
 exec 2>> $HOME/.local/state/dy/dy.log 
 
