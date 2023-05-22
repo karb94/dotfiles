@@ -38,14 +38,20 @@ xsetroot -cursor_name left_ptr &
 # # set background
 hsetroot -solid "#000000" &
 # # Hide cursor after 1 second of inactivity
-unclutter -idle 1 &
+unclutter -idle 3 &
 # # Notifications daemon
 dunst &
 # [ -f $HOME/.local/scripts/tmux_init ] &&
 #     $HOME/.local/scripts/tmux_init &
 # Volume bar
-command -v xob >/dev/null 2>&1 && [ -p "$HOME"/.local/fifo/xob_volume ] &&
+if command -v xob >/dev/null 2>&1; then
+  if [ ! -p "$HOME"/.local/fifo/xob_volume ]; then
+    local fifo_path="$HOME"/.local/fifo/xob_volume
+    mkdir -p $(dirname "$fifo_path")
+    mkfifo "$fifo_path"
+  fi
   ( tail -f "$HOME"/.local/fifo/xob_volume | xob -s volume >/dev/null 2>&1 & )
+fi
 
 sxhkd -m -1 &
 # test -f $HOME/.local/share/X11/xkb/qwerty.xkb &&
