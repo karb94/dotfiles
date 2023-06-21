@@ -24,7 +24,7 @@ t () {
 }
 
 s () {
-    setsid -f "$@"; exit
+  setsid -f "$@"; exit
 }
 
 o () {
