@@ -14,6 +14,9 @@ shopt -s checkwinsize
 # Change directory without cd
 # shopt -s autocd
 
+# Completions
+complete -c doas
+
 test -f ~/.config/bash/fzf.bash && source $_
 test -f ~/.config/bash/alias.bash && source $_
 test -f ~/.config/bash/functions.bash && source $_
@@ -68,6 +71,3 @@ bind -m vi-insert -r "\ec"
 bind -m vi-command -r "\ec"
 # bind -x vi-insert -r "\ec"
 bind -x $'"\C-k":ls;'
-
-# For future use
-# if [ "$(uname)" = "Linux" ]

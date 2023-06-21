@@ -8,10 +8,15 @@
 #           $$ |  $$ |  $$$$$$$$\  $$$$$$\   $$ |  $$ |  \$$$$$$  |
 #           \__|  \__|  \________| \______|  \__|  \__|   \______/ 
 
+
+# Source complete_alias
+. complete_alias
+
 # Source bashrc
 alias sb='source ~/.bashrc'
 
 # Built-ins
+alias ds='doas '
 alias ll='\ls -phlrt --color=auto --group-directories-first' 
 alias ls='\ls -prt --color=auto --group-directories-first' 
 alias lsh='ls -d .*'
@@ -35,15 +40,16 @@ alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 
 # Package manager
-alias pm='pacman'
-alias sp='sudo pacman'
-alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro doas pacman -S"
-alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro doas pacman -Rsn"
-alias ai="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
-alias ar="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur-remove"
-alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+# alias pm='pacman'
+# alias sp='sudo pacman'
+# alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro doas pacman -S"
+# alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro doas pacman -Rsn"
+# alias ai="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
+# alias ar="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur-remove"
+# alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias rb='doas nixos-rebuild'
-alias gc='nix store gc'
+complete -W "test switch build boot" rb
+alias gc='nix-collect-garbage -d'
 
 # Open files
 alias j='echo jupyter && setsid -f jupyter lab > /dev/null 2>&1 &'
@@ -55,7 +61,6 @@ alias h='cd $HOME'
 alias cfg='$HOME/.config'
 
 # Environments
-alias ds='conda activate data_science'
 alias ac='conda activate'
 alias da='conda deactivate'
 alias ae='. env/bin/activate'
@@ -107,8 +112,9 @@ alias rgui='conda run -n ase read_gui.py'
 alias qp="qstat -f | sed -n '/Output/ {s/.*WORK//; N; s/\n\s*//; s/\.o[0-9]*\s*$/.out/; p}' | sort"
 
 # Git
-command -v git >/dev/null 2>&1 && alias g='git' &&
-    test -f ~/.config/git/git-completion.bash && source $_
+alias g='git'
+test -f ~/.config/git/git-completion.bash && source $_
+__git_complete g __git_main
 
 # CX1
 if [[ $HOSTNAME =~ login-[0-9]+ ]]
