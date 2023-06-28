@@ -28,7 +28,7 @@ s () {
 }
 
 o () {
-  xdg-open "$@"; exit
+  setsid xdg-open "$@"; exit
 }
 
 misc () {

@@ -26,7 +26,7 @@ alias rv='rm -Iv'
 alias mv='mv -iv' 
 alias cp='cp -iv' 
 alias grep='grep --color=auto'
-alias sd='shutdown 0'
+alias sd='pkill brave; pkill alacritty; setsid systemctl poweroff'
 
 # Editing
 alias e='$EDITOR'
