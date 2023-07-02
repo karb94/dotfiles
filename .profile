@@ -11,4 +11,4 @@ test ${SHELL##*/} = 'bash' && test -f $HOME/.bashrc && . $HOME/.bashrc
 #   ( tail -f "$fifo_path" | wob -s volume >/dev/null 2>&1 & )
 # fi
 
-exec Hyprland > /dev/null 2>&1
+# exec Hyprland > /dev/null 2>&1

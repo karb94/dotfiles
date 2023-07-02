@@ -1,26 +1,32 @@
 -- Status line
-statusline = [[ %f %y %r %m%=Column: %c  |  %P  ]]
+local statusline = [[ %f %y %r %m%=Column: %c  |  %P  ]]
 
 -- Global options
-local global_opts = {
-    shortmess      = 'mwoOcIF',                   -- Notification area text options
-    splitbelow     = true,                        -- Split window below the current one
-    splitright     = true,                        -- Split window on the right of the current one
-    hidden         = true,                        -- change unsaved buffers
-    completeopt    = 'longest,menuone,noinsert,noselect', -- Better popup menu
-    pumheight      = 7,                           -- Popup menu height
-    mouse          = 'n',                         -- Allow mouse interaction in normal mode
-    gdefault       = true,                        -- Sets g flag on all substitutions by default
-    ignorecase     = true,                        -- Ignore case in search patterns (needed for smartcase)
-    smartcase      = true,                        -- Case-sensitive search if the search pattern contains uppercase letters
-    inccommand     = 'split',                     -- Live substitution command
-    clipboard      = 'unnamedplus',               -- To what register you yank to
-    joinspaces     = false,
-    wildignorecase = true,                        -- Greedy command line completion
-    ttimeout       = false,                       -- Don't wait for key code sequence
-    termguicolors  = true,
-    cinkeys        = '0{,0},0),0],:,!^F,o,O,e'
+vim.opt.shortmess      = 'mwoOcIF'                   -- Notification area text options
+vim.opt.splitbelow     = true                        -- Split window below the current one
+vim.opt.splitright     = true                        -- Split window on the right of the current one
+vim.opt.hidden         = true                        -- change unsaved buffers
+vim.opt.pumheight      = 7                           -- Popup menu height
+vim.opt.mouse          = 'n'                         -- Allow mouse interaction in normal mode
+vim.opt.gdefault       = true                        -- Sets g flag on all substitutions by default
+vim.opt.ignorecase     = true                        -- Ignore case in search patterns (needed for smartcase)
+vim.opt.smartcase      = true                        -- Case-sensitive search if the search pattern contains uppercase letters
+vim.opt.inccommand     = 'split'                     -- Live substitution command
+vim.opt.clipboard      = 'unnamedplus'               -- To what register you yank to
+vim.opt.joinspaces     = false
+vim.opt.wildignorecase = true                        -- Greedy command line completion
+vim.opt.ttimeout       = false                       -- Don't wait for key code sequence
+vim.opt.termguicolors  = true
+vim.opt.cinkeys:remove('0#')
+vim.opt.completeopt    = {                           -- Better popup menu
+  'longest',
+  'menuone',
+  'noinsert',
+  'noselect',
 }
+-- vim.opt.python3_host_prog = "/run/current-system/sw/bin/python"
+-- vim.opt.cmdheight      = 0
+-- vim.opt.wildcharm      = '<C-z>' -- Only accepts number for now. See #18000
 
 -- Window options
 local window_opts = {
@@ -30,7 +36,7 @@ local window_opts = {
     number         = true,                        -- Show line numbers
     relativenumber = true,                        -- Show relative line numbers
     cursorline     = true,                        -- Show cursorline
-    colorcolumn    = '80'                         -- Temporary fix for 
+    colorcolumn    = '99'                         -- Temporary fix for 
 }
 
 -- Buffer options
@@ -42,7 +48,7 @@ local buffer_opts = {
     tabstop        = 2,                           -- 4 whitespaces for <Tab>
     shiftwidth     = 2,                           -- 4 whitespaces for (auto)indent
     expandtab      = true,                        -- expands all tabs to tabstop whitespaces
-    smartindent    = true                         -- Better autoindent
+    cindent        = true                         -- Better autoindent
 }
 
 local set_options = function(opts)
@@ -51,7 +57,7 @@ local set_options = function(opts)
     end
 end
 
-set_options(global_opts)
+-- set_options(global_opts)
 set_options(window_opts)
 set_options(buffer_opts)
 
@@ -71,8 +77,8 @@ vim.cmd('autocmd InsertLeave * set timeoutlen=600') -- Time waited for mappings
 
 -- compute_scrolloff = function()
 -- end
--- scrolloff             = vim.fn.float2nr(0.15 * vim.fn.winheight(0))
--- vim.o.scrolloff       = scrolloff                   -- Top/bottom lines of margins
+local scrolloff = vim.fn.float2nr(0.1 * vim.fn.winheight(0))
+vim.o.scrolloff       = scrolloff                   -- Top/bottom lines of margins
 -- Directory variables
 
 P = function(v)
