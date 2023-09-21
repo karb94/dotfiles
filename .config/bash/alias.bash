@@ -50,6 +50,7 @@ alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 alias rb='doas nixos-rebuild'
 complete -W "test switch build boot" rb
 alias gc='doas nix-collect-garbage -d'
+alias nfu='nix flake update'
 
 # Open files
 alias j='echo jupyter && setsid -f jupyter lab > /dev/null 2>&1 &'

@@ -18,7 +18,7 @@ bind-key : cmdline
 # Feed settings
 reload-threads 10
 show-read-articles no
-article-sort-order date-asc
+article-sort-order date-desc
 prepopulate-query-feeds yes
 refresh-on-startup yes
 browser "setsid -f link_handler %u"

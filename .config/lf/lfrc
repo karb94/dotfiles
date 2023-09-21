@@ -111,10 +111,10 @@ cmd zip ${{
 map x delete
 map <tab> toggle
 map gl cd ~/.local
-map gt cd ~/phd/Thesis
-map gr cd ~/data/CSG_model/results
 map gp cd ~/projects
 map gd cd ~/Downloads
-map gs cd ~/.local/scripts
+map gb cd ~/.local/bin
 map gc cd ~/.config
+map gd cd /data
+map gn cd /etc/nixos
 map <esc> quit
