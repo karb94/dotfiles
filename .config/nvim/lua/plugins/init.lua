@@ -14,6 +14,6 @@ return {
     }
   end},
   {"stevearc/oil.nvim", opts={}, dependencies={"nvim-tree/nvim-web-devicons"}},
-  {"ggandor/flit.nvim", opts={}},
+  {"ggandor/flit.nvim", opts={labeled_modes = "nv"}, dependencies={"ggandor/leap.nvim"}},
   {"nvim-lua/plenary.nvim"},
 }
