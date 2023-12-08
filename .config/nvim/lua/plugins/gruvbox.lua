@@ -1,14 +1,9 @@
---vim.g.gruvbox_contrast_dark = 'hard'
---vim.g.gruvbox_contrast_light = 'soft'
---vim.g.gruvbox_sign_column = 'bg0'
---vim.cmd('colorscheme gruvbox')
-
 return {
   "ellisonleao/gruvbox.nvim",
   priority=1000,
   opts = function()
-    local colors = require("gruvbox.palette").colors
-    local dark0_hard_bg = {bg = colors.dark0_hard}
+    local palette = require("gruvbox").palette
+    local dark0_hard_bg = {bg = palette.dark0_hard}
     return {
       inverse = false,
       contrast = "hard",
@@ -20,8 +15,8 @@ return {
         GruvboxPurpleSign = dark0_hard_bg,
         GruvboxAquaSign = dark0_hard_bg,
         GruvboxOrangeSign = dark0_hard_bg,
-        CursorLine = {bg = colors.dark0},
-        CursorLineNr = {bg = colors.dark0_hard, bold = true}
+        CursorLine = {bg = palette.dark0},
+        CursorLineNr = {bg = palette.dark0_hard, bold = true}
       },
     }
   end,
