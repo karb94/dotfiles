@@ -2,23 +2,24 @@
 local statusline = [[ %f %y %r %m%=Column: %c  |  %P  ]]
 
 -- Global options
-vim.opt.shortmess      = 'mwoOcIF'                   -- Notification area text options
-vim.opt.splitbelow     = true                        -- Split window below the current one
-vim.opt.splitright     = true                        -- Split window on the right of the current one
-vim.opt.hidden         = true                        -- change unsaved buffers
-vim.opt.pumheight      = 7                           -- Popup menu height
-vim.opt.mouse          = 'n'                         -- Allow mouse interaction in normal mode
-vim.opt.gdefault       = true                        -- Sets g flag on all substitutions by default
-vim.opt.ignorecase     = true                        -- Ignore case in search patterns (needed for smartcase)
-vim.opt.smartcase      = true                        -- Case-sensitive search if the search pattern contains uppercase letters
-vim.opt.inccommand     = 'split'                     -- Live substitution command
-vim.opt.clipboard      = 'unnamedplus'               -- To what register you yank to
+vim.opt.shortmess      = 'mwoOcIF'      -- Notification area text options
+vim.opt.splitbelow     = true           -- Split window below the current one
+vim.opt.splitright     = true           -- Split window on the right of the current one
+vim.opt.hidden         = true           -- change unsaved buffers
+vim.opt.pumheight      = 7              -- Popup menu height
+vim.opt.mouse          = 'n'            -- Allow mouse interaction in normal mode
+vim.opt.gdefault       = true           -- Sets g flag on all substitutions by default
+vim.opt.ignorecase     = true           -- Ignore case in search patterns (needed for smartcase)
+vim.opt.smartcase      = true           -- Case-sensitive search if the search pattern contains uppercase letters
+vim.opt.inccommand     = 'split'        -- Live substitution command
+vim.opt.clipboard      = 'unnamedplus'  -- To what register you yank to
+vim.opt.mousescroll    = 'ver:2'        -- Mouse scrollwheel scrolls 2 lines at a time instead of 3
 vim.opt.joinspaces     = false
-vim.opt.wildignorecase = true                        -- Greedy command line completion
-vim.opt.ttimeout       = false                       -- Don't wait for key code sequence
+vim.opt.wildignorecase = true           -- Greedy command line completion
+vim.opt.ttimeout       = false          -- Don't wait for key code sequence
 vim.opt.termguicolors  = true
 vim.opt.cinkeys:remove('0#')
-vim.opt.completeopt    = {                           -- Better popup menu
+vim.opt.completeopt    = {              -- Better popup menu
   'longest',
   'menuone',
   'noinsert',
