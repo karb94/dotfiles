@@ -10,7 +10,7 @@ return {
   {"chaoren/vim-wordmotion", init=function ()
     vim.g.wordmotion_uppercase_spaces = {
       '(', ')', '[', ']' , '{', '}',
-      '.', '-', ',', '/', '"', "'"
+      '.', '-', ',', ';', '/', '"', "'"
     }
   end},
   {"stevearc/oil.nvim", opts={}, dependencies={"nvim-tree/nvim-web-devicons"}},
