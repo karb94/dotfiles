@@ -46,8 +46,8 @@ map O $mimeopen --ask $f
 cmd open ${{
     case $(file --mime-type $fx -b) in
         text/*) $EDITOR $fx;;
-        image/*) swallow sxiv $fx;;
-        *pdf) swallow zathura $f;;
+        image/*) setsid nsxiv $fx;;
+        *pdf) setsid zathura $f;;
         *) for f in $fx; do setsid $OPENER $f > /dev/null 2> /dev/null & done;;
     esac
 }}

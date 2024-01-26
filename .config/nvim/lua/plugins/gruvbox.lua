@@ -5,7 +5,7 @@ return {
     local palette = require("gruvbox").palette
     local dark0_hard_bg = {bg = palette.dark0_hard}
     return {
-      inverse = false,
+      inverse = true,
       contrast = "hard",
       overrides = {
         SignColumn = dark0_hard_bg,

@@ -35,18 +35,9 @@ alias es='$EDITOR -S Session.vim'
 alias eb='$EDITOR ~/.config/bash/config.bash'
 alias eal='$EDITOR ~/.config/bash/alias.bash'
 alias efu='$EDITOR ~/.config/bash/functions.bash'
-alias vrc='$EDITOR ~/.vim/vimrc'
-alias nvrc='$EDITOR ~/.config/nvim/init.vim'
 alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 
-# Package manager
-# alias pm='pacman'
-# alias sp='sudo pacman'
-# alias pi="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro doas pacman -S"
-# alias pu="pacman -Qeq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro doas pacman -Rsn"
-# alias ai="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur sync -c"
-# alias ar="aur pkglist | fzf --multi --preview 'aur search -v {1}' | xargs -ro aur-remove"
-# alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+# NixOS
 alias rb='doas nixos-rebuild'
 complete -W "test switch build boot" rb
 alias gc='doas nix-collect-garbage -d'
@@ -94,39 +85,12 @@ alias cx1='ssh -t cx1 "~/usr/local/bin/bash -l"'
 alias nhpc='ssh carles@nhpc16.ch.ic.ac.uk'
 alias vpn='nmcli connection up --ask ic'
 
-# Tmux
-alias ta='tmux attach'
-alias tk='tmux kill-server'
-
 # Miscellaneous
 alias nb='newsboat --quiet'
 alias btm='btm -bg --mem_as_value'
-
-# DFT
-alias etot='grep ETOT'
-alias spin='grep SUMMED'
-alias cy='grep "MAX G" -A3'
-alias en='grep "TOTAL EN"'
-alias coor='grep "ALPHA" -A1'
-alias conv='grep "OPT END"'
-alias rgui='conda run -n ase read_gui.py'
-alias qp="qstat -f | sed -n '/Output/ {s/.*WORK//; N; s/\n\s*//; s/\.o[0-9]*\s*$/.out/; p}' | sort"
+alias al='setsid alacritty --working-directory $(pwd)'
 
 # Git
 alias g='git'
 test -f ~/.config/git/git-completion.bash && source $_
 __git_complete g __git_main
-
-# CX1
-if [[ $HOSTNAME =~ login-[0-9]+ ]]
-then
-    alias v='~/usr/local/bin/vim -Nu $HOME/.vim/minimal.vim'
-    alias a='availability'
-    alias eph="cd $EPHEMERAL"
-    alias q='qstat -a'
-    alias vsub='vi ~/bin/sub'
-    alias lsout='ls *.out'
-fi
-
-# if [ $(uname) == "Linux" ]
-# fi

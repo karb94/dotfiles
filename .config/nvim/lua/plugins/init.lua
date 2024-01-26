@@ -10,10 +10,12 @@ return {
   {"chaoren/vim-wordmotion", init=function ()
     vim.g.wordmotion_uppercase_spaces = {
       '(', ')', '[', ']' , '{', '}',
-      '.', '-', ',', ';', '/', '"', "'"
+      '.', ',', ';', '"', "'",
+      '+', '-', '*', '/', '=',
     }
   end},
   {"stevearc/oil.nvim", opts={}, dependencies={"nvim-tree/nvim-web-devicons"}},
   {"ggandor/flit.nvim", opts={labeled_modes = "nv"}, dependencies={"ggandor/leap.nvim"}},
   {"nvim-lua/plenary.nvim"},
+  {"romainl/vim-cool"},
 }

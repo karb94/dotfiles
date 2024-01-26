@@ -78,8 +78,8 @@ vim.cmd('autocmd InsertLeave * set timeoutlen=600') -- Time waited for mappings
 
 -- compute_scrolloff = function()
 -- end
-local scrolloff = vim.fn.float2nr(0.1 * vim.fn.winheight(0))
-vim.o.scrolloff       = scrolloff                   -- Top/bottom lines of margins
+-- local scrolloff = vim.fn.float2nr(0.1 * vim.fn.winheight(0))
+-- vim.o.scrolloff       = scrolloff                   -- Top/bottom lines of margins
 -- Directory variables
 
 P = function(v)
