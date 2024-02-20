@@ -21,6 +21,8 @@ test -f ~/.config/bash/fzf.bash && source $_
 test -f ~/.config/bash/alias.bash && source $_
 test -f ~/.config/bash/functions.bash && source $_
 
+eval "$(zoxide init bash)"
+
 # Commands preceeded by a space are not added to history
 # erasedups: only keep most recent copies of a command
 # This is helpful to prevent useless fzf functions from being added to history
