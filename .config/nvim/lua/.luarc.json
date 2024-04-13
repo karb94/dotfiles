@@ -1,0 +1,14 @@
+{
+    "workspace.library": [
+        "/home/carles/.local/share/nvim/site/pack/packer/start/neodev.nvim/types/stable",
+        "/nix/store/jhqmyj7vc2s0jglinywm0627vbdan82r-neovim-unwrapped-0.9.0/share/nvim/runtime/lua",
+        "/home/carles/.local/share/nvim/lazy/telescope.nvim/lua",
+        "/home/carles/.local/share/nvim/lazy/plenary.nvim/lua",
+        "/home/carles/.local/share/nvim/lazy/neodev.nvim/lua",
+        "/home/carles/.local/share/nvim/lazy/nvim-lspconfig/lua",
+        "/home/carles/.local/share/nvim/lazy/lazy.nvim/lua",
+        "/home/carles/.local/share/nvim/lazy/nvim-treesitter/lua",
+        "/home/carles/.config/nvim/lua",
+        "${3rd}/luv/library"
+    ]
+}

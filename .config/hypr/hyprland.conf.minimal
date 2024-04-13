@@ -1,0 +1,9 @@
+general {
+    cursor_inactive_timeout = 1
+}
+bind = SUPER, S, exec, alacritty
+bind = SUPER, Q, exit,
+bind = SUPER, H, movefocus, l
+bind = SUPER, L, movefocus, r
+bind = SUPER, K, movefocus, u
+bind = SUPER, J, movefocus, d

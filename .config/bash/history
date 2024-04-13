@@ -1,0 +1,16 @@
+g rebase --abort
+rm -rf dotfiles/
+doas rm -rf dotfiles/
+ls dotfiles/ -a
+ls dotfiles/
+rm -r dotfiles
+cd dotfiles/
+git reset --hard
+ls
+git clone git@github.com:karb94/dotfiles.git .
+g sw nixos
+g s
+rb
+push
+startx
+startx 2> log

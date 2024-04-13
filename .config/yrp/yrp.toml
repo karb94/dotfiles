@@ -1,0 +1,63 @@
+channels = [
+  # TECH
+  # Linus Tech Tips
+  "UCXuqSBlHAE6Xw-yeJA0Tunw",
+  # Techquickie
+  "UC0vBXGSyV14uvJ4hECDOl0Q",
+  # ShortCircuit
+  "UCdBK94H6oZT2Q7l0-b0xmMg",
+  # Marques Brownlee
+  "UCBJycsmduvYEL83R_U4JriQ",
+  # Arjan Codes
+  "UCVhQ2NnY5Rskt6UjCUkJ_DA",
+
+
+  # LINUX
+  # Brodie Robertson
+  "UCld68syR8Wi-GY_n4CaoJGA",
+  # Learn Linux TV
+  "UCxQKHvKbmSzGMvUrVtJYnUA",
+
+  # ECONOMICS
+  # Economics Explained
+  "UCZ4AMrDcNrfy3X6nsU8-rPg",
+  # PolyMatter
+  "UCgNg3vwj3xt7QOrcIDaHdFg",
+  # Wendover Productions
+  "UC9RM-iSvTu1uPJb8X5yp3EQ",
+
+  # SCIENCE
+  # Veritasium
+  "UCHnyfMqiRRG1u-2MsSQLbXA",
+  # Smarter every day
+  "UC6107grRI4m0o2-emgoDnAA",
+  # Vsauce
+  "UC6nSFpj9HTCZ5t-N3Rm3-HA",
+  # Mark Rober
+  "UCY1kMZp36IQSyNx_9h4mpCg",
+  # Kurzgesagt - in a nutshell
+  "UCsXVk37bltHxD1rDPwtNM8Q",
+  # Minute physics
+  "UCUHW94eEFW7hkUMVaZz4eDg",
+
+  # VIM
+  # TJ DeVries
+  "UCd3dNckv1Za2coSaHGHl5aA",
+  # Greg Hurrell
+  "UCXPHFM88IlFn68OmLwtPmZA",
+
+  # MISCELLANEOUS
+  # Techlore
+  "UCs6KfncB4OV6Vug4o_bzijg",
+  # Oversimplified
+  "UCNIuvl7V8zACPpTmmNIqP2A",
+  # League of Legends
+  "UCzAypSoOFKCZUts3ULtVT_g",
+  # Casually Explained
+  "UCr3cBLTYmIK9kY0F_OdFWFQ",
+  # Catalyst Climbing
+  "UC5CSgrlchwozIeFlacSztHw",
+  # Johnny Harris
+  "UCmGSJVG3mCRXVOP4yZrU1Dw",
+  "UC415bOPUcGSamy543abLmRA",
+]

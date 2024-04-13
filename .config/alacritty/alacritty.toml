@@ -1,0 +1,178 @@
+[[colors.indexed_colors]]
+color = "#d65d0e"
+index = 166
+
+[[colors.indexed_colors]]
+color = "#fe8819"
+index = 208
+
+[colors.bright]
+black = "#928374"
+blue = "#83a598"
+cyan = "#8ec07c"
+green = "#b8bb26"
+magenta = "#d3869b"
+red = "#fb4934"
+white = "#ebdbb2"
+yellow = "#fabc2e"
+
+[colors.cursor]
+cursor = "#d65d0e"
+text = "CellBackground"
+
+[colors.footer_bar]
+background = "#1d2021"
+foreground = "#8ec07c"
+
+[colors.normal]
+black = "#282828"
+blue = "#458588"
+cyan = "#689d6a"
+green = "#98971a"
+magenta = "#b16286"
+red = "#cc241d"
+white = "#a89984"
+yellow = "#d79921"
+
+[colors.primary]
+background = "#1d2021"
+foreground = "#ebdbb2"
+
+[colors.search.focused_match]
+background = "#8ec07c"
+foreground = "#000000"
+
+[colors.search.matches]
+background = "#427b58"
+foreground = "#000000"
+
+[colors.vi_mode_cursor]
+cursor = "#fabd2f"
+text = "CellBackground"
+
+[font]
+size = 12.0
+
+[font.bold]
+family = "FiraCode Nerd Font Mono"
+style = "Medium"
+
+[font.bold_italic]
+family = "FiraCode Nerd Font Mono"
+style = "Medium"
+
+[font.italic]
+family = "FiraCode Nerd Font Mono"
+style = "Light"
+
+[font.normal]
+family = "FiraCode Nerd Font Mono"
+style = "Retina"
+
+[font.offset]
+x = -1
+y = 3
+
+[[hints.enabled]]
+command = "xdg-open"
+hyperlinks = true
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key = "R"
+mods = "Control|Shift"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "None"
+
+[[hints.enabled]]
+action = "Copy"
+hyperlinks = false
+post_processing = false
+regex = '(~|\.|[A-Za-z0-9-_]+)?/([A-Za-z0-9-_]+/)*[A-Za-z-_\.]*'
+
+[hints.enabled.binding]
+key = "Y"
+mods = "Control|Shift"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "Control"
+
+[[hints.enabled]]
+action = "Paste"
+hyperlinks = false
+post_processing = false
+regex = '(~|\.|[A-Za-z0-9-_]+)?/([A-Za-z0-9-_]+/)*[A-Za-z0-9-_\.]*'
+
+[hints.enabled.binding]
+key = "P"
+mods = "Control|Shift"
+
+[hints.enabled.mouse]
+enabled = false
+
+[[keyboard.bindings]]
+action = "ScrollLineUp"
+key = "K"
+mode = "Vi|~Search"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "ScrollLineDown"
+key = "J"
+mode = "Vi|~Search"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "ScrollHalfPageUp"
+key = "U"
+mode = "Vi|~Search"
+
+[[keyboard.bindings]]
+action = "ScrollHalfPageDown"
+key = "D"
+mode = "Vi|~Search"
+
+[[keyboard.bindings]]
+action = "Last"
+key = 5
+mode = "Vi|~Search"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "FirstOccupied"
+key = 7
+mode = "Vi|~Search"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "PasteSelection"
+key = "I"
+mods = "Control|Shift"
+
+[mouse]
+hide_when_typing = false
+
+[[mouse.bindings]]
+action = "ExpandSelection"
+mods = "Shift"
+mouse = "Right"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Right"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mode = "~Vi"
+mouse = "Middle"
+
+[selection]
+save_to_clipboard = false
+semantic_escape_chars = "/-_.,│`|:\"' ()[]{}<>\t"
+
+[window]
+dynamic_padding = true

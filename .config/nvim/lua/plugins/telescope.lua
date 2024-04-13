@@ -78,5 +78,6 @@ return {
     {"<leader>fH", [[<cmd>Telescope help_tags<CR>]]},
     {"<leader>fh", [[<cmd>Telescope command_history<CR>]]},
     {"<leader>G", [[<cmd>Telescope live_grep<CR>]]},
+    {"<leader>fs", [[<cmd>Telescope lsp_document_symbols<CR>]]},
   }
 }
