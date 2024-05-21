@@ -14,6 +14,7 @@ return {
     ensure_installed = {
       "bash",
       "json",
+      "just",
       "lua",
       "luadoc",
       "luap",
@@ -22,6 +23,7 @@ return {
       "python",
       "query",
       "regex",
+      "toml",
       "vim",
       "vimdoc",
       "yaml",

@@ -56,6 +56,15 @@ return {
         },
       },
     },
+    -- pickers = {
+    --   buffers = {
+    --     mappings = {
+    --       i = {
+    --         ["<c-d>"] = actions.delete_buffer + actions.move_to_top
+    --       }
+    --     },
+    --   },
+    -- },
     extensions = {
       fzf = {
         fuzzy = true,                    -- false will only do exact matching

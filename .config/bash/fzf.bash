@@ -1,25 +1,6 @@
 # Setup fzf
 # ---------
-# if [[ ! "$PATH" == *$HOME/.fzf/bin* ]]; then
-#   export PATH="${PATH:+${PATH}:}~/.fzf/bin"
-# fi
-
-if command -v fzf-share >/dev/null; then
-  source "$(fzf-share)/key-bindings.bash"
-  source "$(fzf-share)/completion.bash"
-fi
-
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.bash" 2> /dev/null
-
-# Key bindings
-# ------------
-[ -f "$HOME/.fzf/shell/key-bindings.bash" ] &&
-    . "$HOME/.fzf/shell/key-bindings.bash" ||
-    [ -f "/usr/share/fzf/key-bindings.bash" ] &&
-    . "/usr/share/fzf/key-bindings.bash"
-
+eval "$(fzf --bash)"
 
 
 # Overwriting default commands and options
@@ -157,5 +138,5 @@ complete -F _fzf_path_completion -o default -o bashdefault v
 # Setting key bindings for the functions
 # bind -m vi-insert '"\C-o":"\C-[ccvf\C-m"'
 # bind -m vi-command '"\C-o":"ccvf\C-m"'
-bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'
-bind -m vi-command '"\C-g":"ccd\C-m"'
+# bind -m vi-insert '"\C-g":"\C-[ccd\C-m"'
+# bind -m vi-command '"\C-g":"ccd\C-m"'

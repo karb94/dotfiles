@@ -25,19 +25,26 @@ vim.opt.completeopt    = {              -- Better popup menu
   'noinsert',
   'noselect',
 }
+vim.opt.listchars      = {
+  tab = ">-",
+  trail = "~",
+  extends = ">",
+  precedes = "<",
+}
 -- vim.opt.python3_host_prog = "/run/current-system/sw/bin/python"
 -- vim.opt.cmdheight      = 0
 -- vim.opt.wildcharm      = '<C-z>' -- Only accepts number for now. See #18000
 
 -- Window options
 local window_opts = {
-    signcolumn     = 'yes',                       -- Show signcolums
-    statusline     = statusline,                  -- Define status line
-    foldmethod     = 'manual',                    -- Less laggy than syntax mode
-    number         = true,                        -- Show line numbers
-    relativenumber = true,                        -- Show relative line numbers
-    cursorline     = true,                        -- Show cursorline
-    colorcolumn    = '99'                         -- Temporary fix for 
+  signcolumn     = 'yes',                       -- Show signcolums
+  statusline     = statusline,                  -- Define status line
+  foldmethod     = 'manual',                    -- Less laggy than syntax mode
+  number         = true,                        -- Show line numbers
+  relativenumber = true,                        -- Show relative line numbers
+  cursorline     = true,                        -- Show cursorline
+  colorcolumn    = '99',                        -- Temporary fix for 
+  list           = true,                        -- Show special characters
 }
 
 -- Buffer options

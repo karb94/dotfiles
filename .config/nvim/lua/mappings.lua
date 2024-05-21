@@ -26,6 +26,7 @@ local normal_mode_maps = {
     ['<C-k>']             = ':cprevious<CR>',
     ['<C-h>']             = '^',
     ['<C-l>']             = 'g_',
+    ['<space>']           = '<NOP>',
     ['<leader>j']         = 'J',
     ['<leader>B']         = ':b#<CR>',
     ['<leader>e']         = ':cc<CR>',

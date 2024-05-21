@@ -2,7 +2,8 @@ return {
   {"numToStr/Comment.nvim", config = true},
   -- {"karb94/neoscroll.nvim", opts = {stop_eof = false}},
   -- {dir = "~/projects/neoscroll.nvim", opts = {}},
-  {dir = "~/projects/neoscroll.nvim", opts = {stop_eof = true}},
+  -- {dir = "~/projects/neoscroll.nvim", opts = {stop_eof = false, hide_cursor = false}},
+  -- {dir = "~/projects/neoscroll.nvim", opts = {}},
   -- {dir = "~/projects/neoscroll.nvim", config = function()
   --   require('neoscroll').setup {}
   --   local t = {}
@@ -23,6 +24,7 @@ return {
   {"ggandor/flit.nvim", opts={labeled_modes = "nv"}, dependencies={"ggandor/leap.nvim"}},
   {"nvim-lua/plenary.nvim"},
   {"romainl/vim-cool"},
-  {"https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
-  { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, opts = {}},
+  -- {"https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
+  { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = true},
+  { 'RaafatTurki/corn.nvim', config = true },
 }

@@ -22,6 +22,8 @@ test -f ~/.config/bash/alias.bash && source $_
 test -f ~/.config/bash/functions.bash && source $_
 
 eval "$(zoxide init bash)"
+bind -m vi-insert '"\C-g":"\C-[cczi\C-m"'
+bind -m vi-command '"\C-g":"cczi\C-m"'
 
 # Commands preceeded by a space are not added to history
 # erasedups: only keep most recent copies of a command
@@ -29,6 +31,8 @@ eval "$(zoxide init bash)"
 export HISTCONTROL=ignoreboth:erasedups
 
 export HISTFILE="$HOME/.local/share/bash/history"
+export HISTSIZE=10000
+export HISTFILESIZE=10000
 mkdir -pv $(dirname $HISTFILE)
 
 # Define your command prompt
@@ -63,9 +67,9 @@ export PS1="
 \[${bold}${aqua2}\]>\[${reset_font}\] "
 
 # Prompt command
-export PROMPT_COMMAND='
-history -a
-'
+# export PROMPT_COMMAND="
+# history -a;${PROMPT_COMMAND#;}
+# "
 
 # Setting key bindings for the functions
 stty -a | grep -q discard >/dev/null && stty discard undef

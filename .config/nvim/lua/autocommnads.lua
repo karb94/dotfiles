@@ -1,11 +1,19 @@
 -- Set scrolloff based on window height
 vim.api.nvim_create_autocmd(
-  {'VimResized', 'WinNew', 'WinEnter'},
+  {'VimEnter', 'WinResized'},
   {
     group = vim.api.nvim_create_augroup('UserScrolloff', {}),
     callback = function()
-      local scrolloff = vim.fn.float2nr(0.1 * vim.fn.winheight(0))
-      vim.wo.scrolloff = scrolloff
+      local windows = vim.api.nvim_get_vvar('event').windows
+      if not windows then
+        windows = vim.api.nvim_list_wins()
+      end
+      for _, winid in ipairs(windows) do
+        local height = vim.fn.winheight(winid)
+        local scrolloff = vim.fn.float2nr(0.1 * height)
+        local opts = { scope = 'local', win = winid }
+        vim.api.nvim_set_option_value('scrolloff', scrolloff, opts)
+      end
     end,
   }
 )

@@ -44,7 +44,7 @@ alias gc='doas nix-collect-garbage -d'
 alias nfu='nix flake update'
 
 # Open files
-alias j='echo jupyter && setsid -f jupyter lab > /dev/null 2>&1 &'
+# alias j='echo jupyter && setsid -f jupyter lab > /dev/null 2>&1 &'
 alias feh='feh --scale-down --auto-zoom'
 alias p='$PAGER'
 
@@ -89,8 +89,11 @@ alias vpn='nmcli connection up --ask ic'
 alias nb='newsboat --quiet'
 alias btm='btm -bg --mem_as_value'
 alias al='setsid alacritty --working-directory $(pwd)'
+alias j='just'
+eval "$(just --completions bash)"
+complete -F _just -o bashdefault -o default j
 
 # Git
 alias g='git'
-test -f ~/.config/git/git-completion.bash && source $_
+test -f ~/.config/git/git-completion.bash && source ~/.config/git/git-completion.bash
 __git_complete g __git_main
