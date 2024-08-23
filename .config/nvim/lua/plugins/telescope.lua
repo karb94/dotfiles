@@ -56,15 +56,17 @@ return {
         },
       },
     },
-    -- pickers = {
-    --   buffers = {
-    --     mappings = {
-    --       i = {
-    --         ["<c-d>"] = actions.delete_buffer + actions.move_to_top
-    --       }
-    --     },
-    --   },
-    -- },
+    pickers = {
+      buffers = {
+        mappings = {
+          i = {
+            ["<c-r>"] = function(...)
+              require("telescope.actions").delete_buffer(...)
+            end,
+          }
+        },
+      },
+    },
     extensions = {
       fzf = {
         fuzzy = true,                    -- false will only do exact matching

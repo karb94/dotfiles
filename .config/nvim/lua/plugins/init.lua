@@ -16,15 +16,14 @@ return {
   {"chaoren/vim-wordmotion", init=function ()
     vim.g.wordmotion_uppercase_spaces = {
       '(', ')', '[', ']' , '{', '}',
-      '.', ',', ';', '"', "'",
+      '.', ',', ';', ':', '"', "'",
       '+', '-', '*', '/', '=',
     }
   end},
-  {"stevearc/oil.nvim", opts={}, dependencies={"nvim-tree/nvim-web-devicons"}},
   {"ggandor/flit.nvim", opts={labeled_modes = "nv"}, dependencies={"ggandor/leap.nvim"}},
   {"nvim-lua/plenary.nvim"},
   {"romainl/vim-cool"},
   -- {"https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
   { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = true},
-  { 'RaafatTurki/corn.nvim', config = true },
+  { 'windwp/nvim-autopairs', event = "InsertEnter", config = true }
 }

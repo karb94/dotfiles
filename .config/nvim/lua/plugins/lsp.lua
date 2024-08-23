@@ -1,10 +1,11 @@
 local servers = {
   "bashls",
-  -- "lua_ls",
+  "lua_ls",
   "nixd",
   "vimls",
   --"clangd",
   "pyright",
+  -- "ruff",
   --"texlab",
 }
 
@@ -50,7 +51,8 @@ local lua_ls_setup = {
         --   -- "${3rd}/busted/library",
         -- }
         -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-        library = vim.api.nvim_get_runtime_file("", true)
+        -- library = vim.api.nvim_get_runtime_file("", true)
+        library = vim.env.VIMRUNTIME .. '/lua'
       }
     })
   end,
@@ -65,7 +67,7 @@ local config = function()
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({})
   end
-  lspconfig["lua_ls"].setup(lua_ls_setup)
+  -- lspconfig["lua_ls"].setup(lua_ls_setup)
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
@@ -77,12 +79,8 @@ local config = function()
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
       vim.keymap.set('n', 'gr', vim.lsp.buf.hover, opts)
+      vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
       -- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-      -- Disable virtual_text from diagnostics
-      vim.diagnostic.config({ virtual_text = true })
-      -- vim.keymap.set('n', '<leader>d', function() vim.diagnostic.open_float() end, opts)
-      -- vim.keymap.set('n', '<leader>d', function() vim.diagnostic.open_float({pos={10, 10}}) end, opts)
-      -- vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
 
     end,
   })
@@ -93,23 +91,23 @@ end
 -- Tried to apply fix but didn't work
 return {
   "neovim/nvim-lspconfig",
-  dependencies = {
-    {
-      "folke/neodev.nvim",
-      -- opts = {},
-      opts = {experimental = { pathStrict = true }},
-      -- opts = {
-      --   override = function(_, library)
-      --     -- library.enabled = true
-      --     -- library.runtime = true
-      --     -- library.types = true
-      --     -- library.plugins = true
-      --   end
-      -- },
-      -- config = true,
-      lazy = false,
-    },
-  },
+  -- dependencies = {
+  --   {
+  --     "folke/neodev.nvim",
+  --     -- opts = {},
+  --     opts = {experimental = { pathStrict = true }},
+  --     -- opts = {
+  --     --   override = function(_, library)
+  --     --     -- library.enabled = true
+  --     --     -- library.runtime = true
+  --     --     -- library.types = true
+  --     --     -- library.plugins = true
+  --     --   end
+  --     -- },
+  --     -- config = true,
+  --     lazy = false,
+  --   },
+  -- },
   event = { "BufReadPre", "BufNewFile" },
   opts = {},
   config = config,

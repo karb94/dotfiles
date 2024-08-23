@@ -20,8 +20,8 @@ local normal_mode_maps = {
     ['U']                 = ':redo<CR>',
     ['[t']                = ':tabp<CR>',
     [']t']                = ':tabn<CR>',
-    ['[d']                = ':lua vim.diagnostic.goto_next()<CR>',
-    [']d']                = ':lua vim.diagnostic.goto_previous()<CR>',
+    -- ['[d']                = ':lua vim.diagnostic.goto_next()<CR>',
+    -- [']d']                = ':lua vim.diagnostic.goto_previous()<CR>',
     ['<C-j>']             = ':cnext<CR>',
     ['<C-k>']             = ':cprevious<CR>',
     ['<C-h>']             = '^',
@@ -35,11 +35,12 @@ local normal_mode_maps = {
     ['<leader>Q']         = ':qa!<CR>',
     ['<leader>s']         = ':w<CR>',
     ['<leader>x']         = ':x<CR>',
-    ['<leader>X']         = ':xa<CR>',
+    ['<leader>X']         = ':xa!<CR>',
     ['<leader>p']         = ':put<CR>=`[',
     ['<leader>P']         = ':put!<CR>=`[',
     ['<leader>o']         = ':set paste<CR>m`o<Esc>``:set nopaste<CR>',
     ['<leader>O']         = ':set paste<CR>m`O<Esc>``:set nopaste<CR>',
+    ['<leader>d']         = ':lua vim.diagnostic.open_float()<CR>',
     ['<leader><leader>p'] = '"0p',
     ['<leader><leader>P'] = '"*p',
 }
@@ -49,11 +50,14 @@ for keymap, command in pairs(normal_mode_maps) do
     vim.api.nvim_set_keymap( 'n', keymap, command, opts)
 end
 
-vim.keymap.set('t', '<C-]>', [[<C-\><C-n>]])
+-- vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<C-]>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 vim.keymap.set({'i', 'c'}, '<C-j>', '<C-n>')
 vim.keymap.set({'i', 'c'}, '<C-k>', '<C-p>')
 vim.keymap.set({'n', 'x'}, 'K', '<C-y>', { silent = true, remap = true })
 vim.keymap.set({'n', 'x'}, 'J', '<C-e>', { silent = true, remap = true })
+vim.keymap.set({'v'}, 'p', 'P', { silent = true, remap = false })
+vim.keymap.set({'v'}, 'P', 'p', { silent = true, remap = false })
 
 -- local function run_test()
 --   local test_directory = require('plenary.test_harness').test_directory

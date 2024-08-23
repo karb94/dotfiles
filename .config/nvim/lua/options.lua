@@ -31,6 +31,8 @@ vim.opt.listchars      = {
   extends = ">",
   precedes = "<",
 }
+-- Disable virtual_text from diagnostics
+-- vim.diagnostic.config({ virtual_text = true })
 -- vim.opt.python3_host_prog = "/run/current-system/sw/bin/python"
 -- vim.opt.cmdheight      = 0
 -- vim.opt.wildcharm      = '<C-z>' -- Only accepts number for now. See #18000
@@ -43,7 +45,7 @@ local window_opts = {
   number         = true,                        -- Show line numbers
   relativenumber = true,                        -- Show relative line numbers
   cursorline     = true,                        -- Show cursorline
-  colorcolumn    = '99',                        -- Temporary fix for 
+  colorcolumn    = '80',                        -- Temporary fix for 
   list           = true,                        -- Show special characters
 }
 

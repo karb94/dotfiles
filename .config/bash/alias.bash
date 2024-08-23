@@ -40,8 +40,9 @@ alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 # NixOS
 alias rb='doas nixos-rebuild'
 complete -W "test switch build boot" rb
-alias gc='doas nix-collect-garbage -d'
+alias ncg='doas nix-collect-garbage -d'
 alias nfu='nix flake update'
+alias nr="nix repl -f '<nixpkgs>'"
 
 # Open files
 # alias j='echo jupyter && setsid -f jupyter lab > /dev/null 2>&1 &'
@@ -49,8 +50,9 @@ alias feh='feh --scale-down --auto-zoom'
 alias p='$PAGER'
 
 # Navigation
-alias h='cd $HOME' 
-alias cfg='$HOME/.config'
+alias gh='cd $HOME' 
+alias gc='cd $HOME/.config'
+alias gs='cd $HOME/.local/share'
 
 # Environments
 alias ac='conda activate'

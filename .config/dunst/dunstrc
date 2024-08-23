@@ -3,7 +3,7 @@
 [global]
     width = 300
     height = 80
-    origin = top-right
+    origin = bottom-right
     offset = 10x100
     transparency = 30
 
@@ -167,7 +167,7 @@
 
     # Uncomment this if you want to let notications appear under fullscreen
     # applications (default: overlay)
-    # layer = top
+    layer = top
 
     # Set this to true to use X11 output on Wayland.
     force_xwayland = false

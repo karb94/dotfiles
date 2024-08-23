@@ -91,7 +91,7 @@ mods = "None"
 action = "Copy"
 hyperlinks = false
 post_processing = false
-regex = '(~|\.|[A-Za-z0-9-_]+)?/([A-Za-z0-9-_]+/)*[A-Za-z-_\.]*'
+regex = '(~|\.|[A-Za-z0-9-_]+)?/([A-Za-z0-9-_\.]+/)*[A-Za-z-_\.]*'
 
 [hints.enabled.binding]
 key = "Y"
