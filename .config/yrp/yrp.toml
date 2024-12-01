@@ -11,7 +11,6 @@ channels = [
   # Arjan Codes
   "UCVhQ2NnY5Rskt6UjCUkJ_DA",
 
-
   # LINUX
   # Brodie Robertson
   "UCld68syR8Wi-GY_n4CaoJGA",
@@ -52,7 +51,8 @@ channels = [
   # Oversimplified
   "UCNIuvl7V8zACPpTmmNIqP2A",
   # League of Legends
-  "UCzAypSoOFKCZUts3ULtVT_g",
+  # "UCzAypSoOFKCZUts3ULtVT_g",
+  {id="UCzAypSoOFKCZUts3ULtVT_g", include=["Liquid"]},
   # Casually Explained
   "UCr3cBLTYmIK9kY0F_OdFWFQ",
   # Catalyst Climbing

@@ -17,7 +17,7 @@ alias sb='source ~/.bashrc'
 
 # Built-ins
 alias ds='doas '
-alias ll='eza --long --reverse --time=modified --color=auto --group-directories-first' 
+alias ll='eza --long --group --reverse --time=modified --color=auto --group-directories-first' 
 # alias ls='\ls -prt --color=auto --group-directories-first' 
 alias ls='eza --reverse --time=modified --color=auto --group-directories-first'
 alias lsh='eza -A --color=auto | grep "^\."'
@@ -89,7 +89,7 @@ alias vpn='nmcli connection up --ask ic'
 
 # Miscellaneous
 alias nb='newsboat --quiet'
-alias btm='btm -bg --mem_as_value'
+alias btm='btm --basic --group_processes --process_memory_as_value'
 alias al='setsid alacritty --working-directory $(pwd)'
 alias j='just'
 eval "$(just --completions bash)"

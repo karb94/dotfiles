@@ -30,10 +30,11 @@ end
 
 return {
   "nvim-telescope/telescope.nvim",
+  -- dir = "~/projects/telescope.nvim",
   cmd = "Telescope",
   dependencies = {
-  "nvim-lua/plenary.nvim",
-  {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'}
+    {"nvim-lua/plenary.nvim"},
+    {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'}
   },
   opts = {
     defaults = {

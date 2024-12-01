@@ -8,6 +8,10 @@ return {
     { "<c-space>", desc = "Increment selection" },
     { "<bs>", desc = "Decrement selection", mode = "x" },
   },
+  dependencies = {
+    -- NOTE: additional parser
+    { "nushell/tree-sitter-nu"},
+  },
   opts = {
     highlight = { enable = true },
     indent = { enable = true },
@@ -20,6 +24,7 @@ return {
       "luap",
       "markdown",
       "markdown_inline",
+      "nu",
       "python",
       "query",
       "regex",

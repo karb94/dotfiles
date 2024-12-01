@@ -21,7 +21,7 @@ return {
     }
   end},
   {"ggandor/flit.nvim", opts={labeled_modes = "nv"}, dependencies={"ggandor/leap.nvim"}},
-  {"nvim-lua/plenary.nvim"},
+  {"nvim-lua/plenary.nvim", lazy = false},
   {"romainl/vim-cool"},
   -- {"https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
   { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = true},

@@ -34,3 +34,5 @@
     side-by-side = false
 [interactive]
     diffFilter = delta --color-only
+[safe]
+    directory = /etc/nixos
