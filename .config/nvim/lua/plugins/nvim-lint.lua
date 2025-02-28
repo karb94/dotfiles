@@ -4,20 +4,22 @@ return {
     local lint = require('lint')
     require('lint').linters_by_ft = {
       python = {
-        'mypy',
+        -- 'mypy',
         -- 'ruff',
       }
     }
 
-    vim.api.nvim_create_autocmd(
-      { "BufWritePost" },
-      {
-        pattern = '*.py',
-        callback = function()
-          lint.try_lint('mypy')
-        end,
-      }
-    )
+    -- Run mypy on write
+    -- vim.api.nvim_create_autocmd(
+    --   { "BufWritePost" },
+    --   {
+    --     pattern = '*.py',
+    --     callback = function()
+    --       lint.try_lint('mypy')
+    --     end,
+    --   }
+    -- )
+
     -- vim.api.nvim_create_autocmd(
     --   { "InsertLeave" },
     --   {

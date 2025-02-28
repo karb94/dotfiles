@@ -5,6 +5,12 @@ return {
   config = function()
     local neoscroll = require('neoscroll')
     neoscroll.setup({
+      -- pre_scroll = function()
+      --   vim.o.lazyredraw = true
+      -- end,
+      -- post_scroll = function()
+      --   vim.o.lazyredraw = false
+      -- end,
       -- All these keys will be mapped to their corresponding default scrolling animation
       -- mappings = { "<-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt", "zz", "zb" },
       -- mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>"},

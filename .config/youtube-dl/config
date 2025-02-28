@@ -2,3 +2,4 @@
 --format 'bestvideo[width=2560][vcodec=vp9]+bestaudio/bestvideo[width=2560]+bestaudio/bestvideo[width<=2560]+bestaudio/best'
 --no-cache-dir
 --merge-output-format mkv
+--cookies-from-browser brave

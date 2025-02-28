@@ -17,7 +17,7 @@ return {
     vim.g.wordmotion_uppercase_spaces = {
       '(', ')', '[', ']' , '{', '}',
       '.', ',', ';', ':', '"', "'",
-      '+', '-', '*', '/', '=',
+      '+', '*', '/', '=',
     }
   end},
   {"ggandor/flit.nvim", opts={labeled_modes = "nv"}, dependencies={"ggandor/leap.nvim"}},
@@ -25,5 +25,6 @@ return {
   {"romainl/vim-cool"},
   -- {"https://git.sr.ht/~whynothugo/lsp_lines.nvim"},
   { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = true},
-  { 'windwp/nvim-autopairs', event = "InsertEnter", config = true }
+  { 'windwp/nvim-autopairs', event = "InsertEnter", config = true },
+  "gregorias/coop.nvim",
 }

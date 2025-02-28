@@ -52,13 +52,30 @@ ssh_prompt () {
 }
 
 git_prompt () {
-    local branch_name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+    local branch_name
+    branch_name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+    [ -z "$branch_name" ] && return
+
     if [ "$branch_name" == 'HEAD' ]; then
-        printf "${orange1}(detached ${branch_name})"
-    elif [ -n "$branch_name" ]; then
-        ( git diff --quiet HEAD && git diff --cached --quiet ) &&
-           printf "${aqua2}(${branch_name})${reset_font}" ||
-            printf "${red1}(${branch_name})${reset_font}"
+      printf '%b(detached %s)' "${orange1}" "${branch_name}"
+      return
+    fi
+
+    local large_repo_names repo_name uncolored_prompt
+    large_repo_names=( "nixpkgs" "qmk_firmware" )
+    repo_url=$(git config --get remote.origin.url)
+    repo_name=$(basename "$repo_url" .git)
+    uncolored_prompt=$(printf '(%s)%b' "${branch_name}" "${reset_font}")
+    # If it's a large repo don't run git diff
+    if [[ "${large_repo_names[*]}" =~ (^|[[:space:]])${repo_name}($|[[:space:]]) ]]; then
+      printf '%b%s' "${yellow2}" "$uncolored_prompt"
+      return
+    fi
+
+    if { git diff --quiet HEAD && git diff --cached --quiet; }; then
+      printf '%b%s' "${aqua2}" "$uncolored_prompt"
+    else
+      printf '%b%s' "${red1}" "$uncolored_prompt"
     fi
 }
 

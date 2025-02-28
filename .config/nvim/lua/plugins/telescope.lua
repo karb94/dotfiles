@@ -29,8 +29,8 @@ local find_git_files = function()
 end
 
 return {
-  "nvim-telescope/telescope.nvim",
-  -- dir = "~/projects/telescope.nvim",
+  -- "nvim-telescope/telescope.nvim",
+  dir = "~/projects/telescope.nvim",
   cmd = "Telescope",
   dependencies = {
     {"nvim-lua/plenary.nvim"},
@@ -76,20 +76,21 @@ return {
         case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
         -- the default case_mode is "smart_case"
       }
-    }
+    },
   },
   config = function(_, opts)
     require('telescope').setup(opts)
     require('telescope').load_extension('fzf')
+    -- require('telescope').load_extension('neoscroll')
   end,
   keys = {
     {"<leader>ff", find_files, desc = "Switch files"},
     {"<leader>fl", find_nvim_files, desc = "Switch files"},
     {"<leader>fg", find_git_files},
     {"<leader>b", [[<cmd>Telescope buffers<CR>]]},
-    {"<leader>fH", [[<cmd>Telescope help_tags<CR>]]},
-    {"<leader>fh", [[<cmd>Telescope command_history<CR>]]},
-    {"<leader>G", [[<cmd>Telescope live_grep<CR>]]},
+    {"<leader>fh", [[<cmd>Telescope help_tags<CR>]]},
+    {"<leader>fH", [[<cmd>Telescope command_history<CR>]]},
+    {"<leader>fG", [[<cmd>Telescope live_grep<CR>]]},
     {"<leader>fs", [[<cmd>Telescope lsp_document_symbols<CR>]]},
   }
 }
