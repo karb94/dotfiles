@@ -56,36 +56,38 @@ end
 
 local multi_next = function ()
   if loclist_exists() then
-    local success, _ = pcall(vim.cmd, 'lnext')
+    local success, _ = pcall(vim.api.nvim_command, 'lnext')
     if not success then
       vim.cmd('1ll')
     end
   elseif qflist_exists() then
-    local success, _ = pcall(vim.cmd, 'cnext')
+    local success, _ = pcall(vim.api.nvim_command, 'cnext')
     if not success then
       vim.cmd('1cc')
     end
   else
-    vim.diagnostic.goto_next({float=false})
+    vim.diagnostic.jump({ count = 1, float = false })
   end
 end
 
 local multi_previous = function ()
   if loclist_exists() then
-    local success, _ = pcall(vim.cmd, 'lprevious')
+    local success, _ = pcall(vim.api.nvim_command, 'lprevious')
     if not success then
       vim.cmd('$ll')
     end
   elseif qflist_exists() then
-    local success, _ = pcall(vim.cmd, 'cprevious')
+    local success, _ = pcall(vim.api.nvim_command, 'cprevious')
     if not success then
       vim.cmd('$cc')
     end
   else
-    vim.diagnostic.goto_prev({float=false})
+    vim.diagnostic.jump({ count = -1, float = false })
   end
 end
 
+vim.keymap.set('n', '<leader><leader>d', vim.diagnostic.setloclist, { desc = 'Send diagnostics to the location list' })
+vim.keymap.set('n', '<leader><leader>D', vim.diagnostic.setqflist, { desc = 'Send diagnostics to the quickfix list' })
 vim.keymap.set('n', '<C-j>', multi_next, { desc = 'Got to next loclist/qflist/diagnostic' })
 vim.keymap.set('n', '<C-k>', multi_previous, { desc = 'Got to previous loclist/qflist/diagnostic' })
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
