@@ -1,5 +1,5 @@
 # set vi mode in command line. It needs to be at the top according to fzf
-set -o vi
+# set -o vi
 
 # Bash options
 # After exiting append to history file instead of overwritting the file
@@ -22,8 +22,6 @@ test -f ~/.config/bash/alias.bash && source $_
 test -f ~/.config/bash/functions.bash && source $_
 
 eval "$(zoxide init bash)"
-bind -m vi-insert '"\C-g":"\C-[cczi\C-m"'
-bind -m vi-command '"\C-g":"cczi\C-m"'
 
 # Commands preceeded by a space are not added to history
 # erasedups: only keep most recent copies of a command
@@ -33,7 +31,7 @@ export HISTCONTROL=ignoreboth:erasedups
 export HISTFILE="$HOME/.local/share/bash/history"
 export HISTSIZE=10000
 export HISTFILESIZE=10000
-mkdir -pv $(dirname $HISTFILE)
+mkdir -pv $(dirname "$HISTFILE")
 
 # Define your command prompt
 red1='\033[38;5;1m'
@@ -90,7 +88,16 @@ export PS1="
 
 # Setting key bindings for the functions
 stty -a | grep -q discard >/dev/null && stty discard undef
-bind -m vi-insert -r "\ec"
-bind -m vi-command -r "\ec"
+# bind -m vi-insert -r "\ec"
+# bind -m vi-command -r "\ec"
 # bind -x vi-insert -r "\ec"
 bind -x $'"\C-k":ls;'
+# Ctrl-s is used to stop (pause) the output of a command
+# Unbind to bind it to something else
+stty stop undef
+# Delete first word
+bind -m emacs '"\C-s":"\C-a\033f\C-u"'
+bind -m emacs '"\C-g":"\C-e\C-uzi\C-m"'
+bind -m emacs '"\C-b":"\C-e\C-ucd ..\C-m"'
+# bind -m vi-insert '"\C-g":"\C-[cczi\C-m"'
+# bind -m vi-command '"\C-g":"cczi\C-m"'

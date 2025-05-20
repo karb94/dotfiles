@@ -40,6 +40,7 @@ alias ep="nvim -i NONE -u NONE -U NONE -n -c 'set nomodeline'"
 # NixOS
 alias rb='doas nixos-rebuild'
 complete -W "test switch build boot" rb
+alias rbs='doas nixos-rebuild switch |& nom'
 alias ncg='doas nix-collect-garbage -d'
 alias nfu='nix flake update'
 alias nr="nix repl -f '<nixpkgs>'"

@@ -34,7 +34,7 @@ vim.opt.listchars      = {
 -- Disable virtual_text from diagnostics
 -- vim.diagnostic.config({ virtual_text = true })
 -- vim.opt.python3_host_prog = "/run/current-system/sw/bin/python"
--- vim.opt.cmdheight      = 0
+vim.opt.cmdheight      = 0
 -- vim.opt.wildcharm      = '<C-z>' -- Only accepts number for now. See #18000
 
 -- Window options
@@ -42,8 +42,8 @@ local window_opts = {
   signcolumn     = 'yes',                       -- Show signcolums
   statusline     = statusline,                  -- Define status line
   foldmethod     = 'manual',                    -- Less laggy than syntax mode
-  number         = true,                        -- Show line numbers
-  relativenumber = true,                        -- Show relative line numbers
+  -- number         = true,                        -- Show line numbers
+  -- relativenumber = true,                        -- Show relative line numbers
   cursorline     = true,                        -- Show cursorline
   colorcolumn    = '80',                        -- Temporary fix for 
   list           = true,                        -- Show special characters
@@ -55,8 +55,8 @@ local buffer_opts = {
     formatoptions  = 'rqj',
     iskeyword      = 'a-z,A-Z,48-57,_,-',         -- Definition of what a 'word' is
     undofile       = true,                        -- Persistent central location for undo files
-    tabstop        = 2,                           -- 4 whitespaces for <Tab>
-    shiftwidth     = 2,                           -- 4 whitespaces for (auto)indent
+    tabstop        = 2,                           -- 2 whitespaces for <Tab>
+    shiftwidth     = 2,                           -- 2 whitespaces for (auto)indent
     expandtab      = true,                        -- expands all tabs to tabstop whitespaces
     cindent        = true                         -- Better autoindent
 }
@@ -71,9 +71,7 @@ end
 set_options(window_opts)
 set_options(buffer_opts)
 
-
 -- GLOBAL VARIABLES
--- To always have vertical splits in TermDebugger
 vim.g.python3_host_prog = '/usr/bin/python' -- Set python path to binary
 vim.g.mapleader         = ' '               -- Set leader key
 vim.g.maplocalleader    = ','               -- Set local leader key
@@ -82,19 +80,6 @@ vim.g.termdebug_wide    = 1                 -- Termdebug horizontal split
 
 vim.cmd('autocmd InsertEnter * set timeoutlen=200') -- Time waited for mappings in insert mode
 vim.cmd('autocmd InsertLeave * set timeoutlen=600') -- Time waited for mappings
-
--- To always have vertical splits in TermDebugger
-
--- compute_scrolloff = function()
--- end
--- local scrolloff = vim.fn.float2nr(0.1 * vim.fn.winheight(0))
--- vim.o.scrolloff       = scrolloff                   -- Top/bottom lines of margins
--- Directory variables
-
-P = function(v)
-    print(vim.inspect(v))
-    return v
-end
 
 if pcall(require, 'plenary') then
     RELOAD = require('plenary.reload').reload_module

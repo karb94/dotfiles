@@ -40,4 +40,5 @@ return {
     "dcampos/cmp-snippy",
   },
   opts = get_opts,
+  enabled = false,
 }
