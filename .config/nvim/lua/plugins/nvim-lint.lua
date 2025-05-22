@@ -35,4 +35,5 @@ return {
   --   {'<leader>l', function() require("lint").try_lint('mypy') end},
   -- };
   -- cmd = "Neomake";
+  enable = false,
 }

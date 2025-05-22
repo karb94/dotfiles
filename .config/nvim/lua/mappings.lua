@@ -18,8 +18,6 @@ local normal_mode_maps = {
   ['U']                 = ':redo<CR>',
   ['[t']                = ':tabp<CR>',
   [']t']                = ':tabn<CR>',
-  ['<C-j>']             = ':cnext<CR>',
-  ['<C-k>']             = ':cprevious<CR>',
   ['<C-h>']             = '^',
   ['<C-l>']             = 'g_',
   ['<space>']           = '<NOP>',
@@ -36,7 +34,6 @@ local normal_mode_maps = {
   ['<leader>P']         = ':put!<CR>=`[',
   ['<leader>o']         = ':set paste<CR>m`o<Esc>``:set nopaste<CR>',
   ['<leader>O']         = ':set paste<CR>m`O<Esc>``:set nopaste<CR>',
-  ['<leader>d']         = ':lua vim.diagnostic.open_float()<CR>',
   ['<leader><leader>p'] = '"0p',
   ['<leader><leader>P'] = '"*p',
 }
@@ -86,13 +83,14 @@ local multi_previous = function ()
   end
 end
 
+vim.keymap.set('n', 'gd', '<C-]>', {noremap=false})
 vim.keymap.set('n', '<leader><leader>d', vim.diagnostic.setloclist, { desc = 'Send diagnostics to the location list' })
 vim.keymap.set('n', '<leader><leader>D', vim.diagnostic.setqflist, { desc = 'Send diagnostics to the quickfix list' })
 vim.keymap.set('n', '<C-j>', multi_next, { desc = 'Got to next loclist/qflist/diagnostic' })
 vim.keymap.set('n', '<C-k>', multi_previous, { desc = 'Got to previous loclist/qflist/diagnostic' })
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
-vim.keymap.set({'i', 'c'}, '<C-j>', '<C-n>')
-vim.keymap.set({'i', 'c'}, '<C-k>', '<C-p>')
+vim.keymap.set({ 'i', 'c' }, '<C-j>', '<C-n>', { remap = true })
+vim.keymap.set({ 'i', 'c' }, '<C-k>', '<C-p>', { remap = true })
 vim.keymap.set({'n', 'x'}, 'K', '<C-y>', { silent = true, remap = true })
 vim.keymap.set({'n', 'x'}, 'J', '<C-e>', { silent = true, remap = true })
 vim.keymap.set({'v'}, 'p', 'P', { silent = true, remap = false })

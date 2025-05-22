@@ -34,7 +34,7 @@ vim.opt.listchars      = {
 -- Disable virtual_text from diagnostics
 -- vim.diagnostic.config({ virtual_text = true })
 -- vim.opt.python3_host_prog = "/run/current-system/sw/bin/python"
-vim.opt.cmdheight      = 0
+-- vim.opt.cmdheight      = 0
 -- vim.opt.wildcharm      = '<C-z>' -- Only accepts number for now. See #18000
 
 -- Window options

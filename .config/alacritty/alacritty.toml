@@ -16,9 +16,9 @@ red = "#fb4934"
 white = "#ebdbb2"
 yellow = "#fabc2e"
 
-[colors.cursor]
-cursor = "#d65d0e"
-text = "CellBackground"
+# [colors.cursor]
+# cursor = "#d65d0e"
+# text = "CellBackground"
 
 [colors.footer_bar]
 background = "#1d2021"
