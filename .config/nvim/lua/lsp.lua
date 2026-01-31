@@ -4,6 +4,7 @@ vim.lsp.enable({
   'nixd',
   'vimls',
   'basedpyright',
+  'rust_analyzer',
   --texlab,
 })
 

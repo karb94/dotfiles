@@ -27,6 +27,7 @@ lfcd () {
     fi
 }
 bind '"\C-f":"\033cc clear; lfcd\C-m"'
+bind -m emacs-standard '"\C-f": " \C-b\C-k \C-u`lfcd`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
 push () {
     # If number of arguments is one

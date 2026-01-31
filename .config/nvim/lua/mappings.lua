@@ -29,7 +29,7 @@ local normal_mode_maps = {
   ['<leader>Q']         = ':qa!<CR>',
   ['<leader>s']         = ':w<CR>',
   ['<leader>x']         = ':x<CR>',
-  ['<leader>X']         = ':xa!<CR>',
+  ['<leader>X']         = ':wa<CR>:qa<CR>',
   ['<leader>p']         = ':put<CR>=`[',
   ['<leader>P']         = ':put!<CR>=`[',
   ['<leader>o']         = ':set paste<CR>m`o<Esc>``:set nopaste<CR>',

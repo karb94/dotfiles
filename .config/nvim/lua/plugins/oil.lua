@@ -1,3 +1,5 @@
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 return {
   "stevearc/oil.nvim",
   opts={
@@ -14,4 +16,5 @@ return {
     {"-", "<CMD>Oil<CR>", { desc = "Open parent directory" }},
   },
   dependencies={"nvim-tree/nvim-web-devicons"},
+  lazy = false,
 }

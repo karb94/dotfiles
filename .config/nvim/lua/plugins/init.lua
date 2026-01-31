@@ -11,7 +11,11 @@ return {
       '+', '*', '/', '=',
     }
   end},
-  {"ggandor/flit.nvim", opts={labeled_modes = "nv"}, dependencies={"ggandor/leap.nvim"}},
+  {
+    "ggandor/flit.nvim",
+    opts={labeled_modes = "nv"},
+    dependencies={url="https://codeberg.org/andyg/leap.nvim"},
+  },
   {"nvim-lua/plenary.nvim", lazy = false},
   {"romainl/vim-cool"},
   { 'windwp/nvim-autopairs', event = "InsertEnter", config = true },

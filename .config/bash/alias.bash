@@ -1,12 +1,12 @@
 
-#            $$$$$$\    $$\        $$$$$$\    $$$$$$\     $$$$$$\  
-#           $$  __$$\   $$ |       \_$$  _|  $$  __$$\   $$  __$$\ 
+#            $$$$$$\    $$\        $$$$$$\    $$$$$$\     $$$$$$\ 
+#           $$  __$$\   $$ |       \_$$  _|  $$  __$$\   $$  __$$\
 #           $$ /  $$ |  $$ |         $$ |    $$ /  $$ |  $$ /  \__|
-#           $$$$$$$$ |  $$ |         $$ |    $$$$$$$$ |  \$$$$$$\  
-#           $$  __$$ |  $$ |         $$ |    $$  __$$ |   \____$$\ 
+#           $$$$$$$$ |  $$ |         $$ |    $$$$$$$$ |  \$$$$$$\ 
+#           $$  __$$ |  $$ |         $$ |    $$  __$$ |   \____$$\
 #           $$ |  $$ |  $$ |         $$ |    $$ |  $$ |  $$\   $$ |
 #           $$ |  $$ |  $$$$$$$$\  $$$$$$\   $$ |  $$ |  \$$$$$$  |
-#           \__|  \__|  \________| \______|  \__|  \__|   \______/ 
+#           \__|  \__|  \________| \______|  \__|  \__|   \______/
 
 
 # Source complete_alias
@@ -17,16 +17,17 @@ alias sb='source ~/.bashrc'
 
 # Built-ins
 alias ds='doas '
-alias ll='eza --long --group --reverse --time=modified --color=auto --group-directories-first' 
-# alias ls='\ls -prt --color=auto --group-directories-first' 
+alias ll='eza --long --group --reverse --time=modified --color=auto --group-directories-first'
+# alias ls='\ls -prt --color=auto --group-directories-first'
 alias ls='eza --reverse --time=modified --color=auto --group-directories-first'
 alias lsh='eza -A --color=auto | grep "^\."'
-alias mkdir='mkdir -v' 
-alias rv='rm -Iv' 
-alias mv='mv -iv' 
-alias cp='cp -iv' 
+alias mkdir='mkdir -v'
+alias rv='rm -Iv'
+alias mv='mv -iv'
+alias cp='cp -iv'
 alias grep='grep --color=auto'
 alias sd='pkill brave; pkill alacritty; setsid systemctl poweroff'
+alias ss='grim -g "$(slurp)" -o "$HOME"'
 
 # Editing
 alias e='$EDITOR'
@@ -51,7 +52,7 @@ alias feh='feh --scale-down --auto-zoom'
 alias p='$PAGER'
 
 # Navigation
-alias gh='cd $HOME' 
+alias gh='cd $HOME'
 alias gc='cd $HOME/.config'
 alias gs='cd $HOME/.local/share'
 
