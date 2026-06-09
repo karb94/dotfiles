@@ -11,6 +11,9 @@ return {
     },
     skip_confirm_for_simple_edits = true,
     constrain_cursor = "name",
+    view_options = {
+      show_hidden = true,
+    }
   },
   keys = {
     {"-", "<CMD>Oil<CR>", { desc = "Open parent directory" }},

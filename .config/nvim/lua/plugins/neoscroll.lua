@@ -1,6 +1,6 @@
 return {
   -- "karb94/neoscroll.nvim",
-  dir = "~/projects/neoscroll.nvim",
+  dir = "~/projects/dev/neoscroll.nvim",
   -- enabled = false,
   config = function()
     local neoscroll = require('neoscroll')

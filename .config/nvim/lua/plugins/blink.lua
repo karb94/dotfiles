@@ -11,7 +11,9 @@ return {
       ['<C-space>'] = { 'show_signature', 'hide_signature', 'fallback' },
       ["<CR>"] = { "accept", "fallback" },
     },
-    documentation = { auto_show = true, auto_show_delay_ms = 2000 },
+    completion = {
+      documentation = { auto_show = true, auto_show_delay_ms = 2000 },
+    },
     sources = {
       default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
       providers = {

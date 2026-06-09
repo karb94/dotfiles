@@ -10,24 +10,28 @@ s () {
 }
 
 o () {
-  setsid xdg-open "$@"; exit
+  setsid xdg-open "$@" && sleep 2 && exit
 }
 
+# lfcd () {
+#     tmp="$(mktemp)"
+#     lf -last-dir-path="$tmp" "$@"
+#     if [ -f "$tmp" ]; then
+#         dir="$(cat "$tmp")"
+#         rm -f "$tmp"
+#         if [ -d "$dir" ]; then
+#             if [ "$dir" != "$(pwd)" ]; then
+#                 cd "$dir"
+#             fi
+#         fi
+#     fi
+# }
 lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        if [ -d "$dir" ]; then
-            if [ "$dir" != "$(pwd)" ]; then
-                cd "$dir"
-            fi
-        fi
-    fi
+  # `command` is needed in case `lfcd` is aliased to `lf`
+  cd "$(command lf -print-last-dir "$@")"
 }
-bind '"\C-f":"\033cc clear; lfcd\C-m"'
-bind -m emacs-standard '"\C-f": " \C-b\C-k \C-u`lfcd`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+bind '"\C-f":" lfcd\C-m"'
+# bind -m emacs-standard '"\C-f": " \C-b\C-k \C-u`lfcd`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
 
 push () {
     # If number of arguments is one

@@ -36,3 +36,5 @@
     diffFilter = delta --color-only
 [safe]
     directory = /etc/nixos
+    directory = /home/carles/projects/dev/soc-rl
+    directory = /home/ai/dev/soc-rl

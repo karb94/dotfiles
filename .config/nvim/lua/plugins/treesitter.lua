@@ -2,6 +2,7 @@
 
 return {
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
   build = ":TSUpdate",
   event = { "BufReadPost", "BufNewFile" },
   keys = {
@@ -45,7 +46,7 @@ return {
     },
   },
   --config = "nvim-treesitter.configs"
-  config = function(_, opts)
-    require("nvim-treesitter.configs").setup(opts)
-  end
+  -- config = function(_, opts)
+  --   require("nvim-treesitter.configs").setup(opts)
+  -- end
 }
